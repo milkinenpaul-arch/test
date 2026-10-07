@@ -1,0 +1,156 @@
+<div id="dt-bf26" lang="ru">
+<!-- 01. Шапка -->
+<header class="dt-header" data-block="1">
+ <div class="dt-wrap dt-header-row">
+  <a class="dt-logo" href="#dt-home" aria-label="Datatour — в начало страницы">datatour<span class="dt-logo-dot" aria-hidden="true"></span></a>
+  <button class="dt-menu-button " type="button" aria-label="Открыть меню" aria-controls="dt-navigation" aria-expanded="false"><i data-dt-icon="menu" aria-hidden="true"></i></button>
+  <nav class="dt-nav" id="dt-navigation" aria-label="Навигация по странице"><a href="#dt-choose">Варианты отдыха</a><a href="#dt-hotels">Отели</a><a href="#dt-terms">Условия</a><a href="#dt-request">Подбор</a><a href="#dt-contacts">Контакты</a></nav>
+  <a class="dt-action dt-header-cta " href="#dt-request">Подобрать тур <span aria-hidden="true">↗</span></a>
+ </div>
+</header>
+<main>
+<!-- 02. Hero: текст и встроенная форма -->
+<section class="dt-hero" id="dt-home" data-block="2" aria-labelledby="dt-h1">
+ <div class="dt-wrap">
+  <div class="dt-hero-grid">
+   <div class="dt-hero-copy">
+    <span class="dt-eyebrow">Чёрная пятница · Datatour · Авиатуры</span>
+    <h1 id="dt-h1">Чёрная пятница 2026: выберите свой следующий отпуск</h1>
+    <p class="dt-hero-idea">Вы нам дату — мы вам варианты отдыха к Чёрной пятнице.</p>
+    <p>Лето 2027 или зима 2026/27. Расскажите, с кем и когда хотите поехать, — начнём с ваших пожеланий.</p>
+    <div class="dt-row"><a class="dt-action " href="#dt-quick-form">Подобрать варианты <span aria-hidden="true">↗</span></a><a class="dt-action dt-secondary " href="#dt-hotels">Посмотреть отели <span aria-hidden="true">↓</span></a></div>
+   </div>
+   <form class="dt-quick" id="dt-quick-form" novalidate aria-label="Короткая форма подбора">
+    <input type="hidden" name="scenario" value="all"><input type="hidden" name="hotelId" value=""><input type="hidden" name="budgetLevel" value="all">
+    <h2>С чего начнём ваш отпуск?</h2><p>Оставьте ориентиры для подбора.</p>
+    <label class="dt-field">Контакт <span class="dt-sr">Обязательное поле</span><input name="contact" type="text" autocomplete="email" placeholder="Телефон, email или @username" required aria-describedby="dt-quick-contact-error"><span class="dt-error" role="alert" id="dt-quick-contact-error"></span></label>
+    <label class="dt-field">Когда хотите отдыхать?<select name="season"><option value="summer">Лето 2027</option><option value="winter">Зима 2026/27</option></select></label>
+    <label class="dt-field">Что важно для вашего отдыха?<textarea name="wishes" rows="2" placeholder="Даты, направление, пожелания"></textarea></label>
+    <button type="submit" class="dt-action ">Подобрать варианты <span aria-hidden="true">↗</span></button>
+    <p class="dt-quick-note">Демонстрационная форма. Данные остаются в макете, отправка менеджеру не подключена.</p>
+    <div class="dt-message" id="dt-quick-message" role="status" aria-live="polite"></div>
+   </form>
+  </div>
+  <div class="dt-hero-caption"><span>Лето 2027 / Зима 2026/27</span><span>Демонстрационная обложка · фотография заменяется</span></div>
+ </div>
+</section>
+<!-- 03. Статус и сроки -->
+<section class="dt-status" id="dt-dates" data-block="3" aria-label="Статус и сроки акции">
+ <div class="dt-wrap">
+  <div class="dt-status-grid">
+   <div><div class="dt-status-title"><span class="dt-status-dot" aria-hidden="true"></span><span id="dt-campaign-status">Даты акции уточняются</span></div><p id="dt-campaign-note">Начало и окончание объявим после подтверждения условий Datatour.</p></div>
+   <div class="dt-timer" aria-label="До подтверждения дат отсчёт не запущен"><div class="dt-time"><strong data-time="days">—</strong><span>дни</span></div><div class="dt-time"><strong data-time="hours">—</strong><span>часы</span></div><div class="dt-time"><strong data-time="minutes">—</strong><span>минуты</span></div><div class="dt-time"><strong data-time="seconds">—</strong><span>секунды</span></div></div>
+  </div>
+  <details class="dt-demo"><summary>Проверить состояния таймера в макете</summary><div class="dt-row"><label>Демонстрационный режим <select id="dt-demo-status"><option value="none">Выключен — даты уточняются</option><option value="before">До старта</option><option value="active">Акция идёт</option><option value="ended">Акция завершена</option></select></label><span id="dt-demo-date">Тестовые сроки не являются сроками акции Datatour.</span></div></details>
+ </div>
+</section>
+<!-- 04. Выбор сценария -->
+<section class="dt-section" id="dt-choose" data-block="4" aria-labelledby="dt-choose-title">
+ <div class="dt-wrap">
+  <div class="dt-section-head"><div><span class="dt-eyebrow">01 / Ваш следующий отпуск</span><h2 id="dt-choose-title">Какой отдых вы сейчас выбираете?</h2><p class="dt-intro">Начните с сезона и того, что важно вам. Подборка отелей подстроится под выбор.</p></div><div class="dt-tabs" role="tablist" aria-label="Сезон отдыха"><button id="dt-tab-summer" role="tab" type="button" aria-selected="true" aria-controls="dt-panel-summer" data-season="summer">Лето 2027</button><button id="dt-tab-winter" role="tab" type="button" aria-selected="false" aria-controls="dt-panel-winter" data-season="winter">Зима 2026/27</button></div></div>
+  <div id="dt-panel-summer" role="tabpanel" aria-labelledby="dt-tab-summer"><div class="dt-scenarios" data-scenario-set="summer"></div></div>
+  <div id="dt-panel-winter" role="tabpanel" aria-labelledby="dt-tab-winter" hidden><div class="dt-scenarios" data-scenario-set="winter"></div></div>
+  <div class="dt-selection-line"><span id="dt-selection-label" aria-live="polite">Лето 2027 · любой сценарий</span><button type="button" class="dt-link-button " id="dt-reset-scenario">Любой сценарий</button></div>
+ </div>
+</section>
+<!-- 05. Когда стоит выбирать заранее -->
+<section class="dt-section dt-advance" data-block="5" aria-labelledby="dt-advance-title"><div class="dt-wrap"><span class="dt-eyebrow">02 / Если есть важные ориентиры</span><h2 id="dt-advance-title">Когда стоит выбирать заранее</h2><p class="dt-intro">Чем больше обязательных условий, тем полезнее начать с них — ещё до поиска отеля.</p>
+ <div class="dt-advance-grid">
+  <article class="dt-advance-item"><span class="dt-icon"><i data-dt-icon="calendar-days" aria-hidden="true"></i></span><h3>Школьные каникулы</h3><p>Если поездка привязана к каникулам, сразу обозначьте даты и допустимые отклонения.</p></article>
+  <article class="dt-advance-item"><span class="dt-icon"><i data-dt-icon="calendar-check" aria-hidden="true"></i></span><h3>Согласованные даты отпуска</h3><p>Сообщите точный период и желаемую продолжительность, если изменить отпуск сложно.</p></article>
+  <article class="dt-advance-item"><span class="dt-icon"><i data-dt-icon="building-2" aria-hidden="true"></i></span><h3>Конкретный отель</h3><p>Назовите отель и категорию номера. Наличие и условия нужно проверить на ваши даты.</p></article>
+  <article class="dt-advance-item"><span class="dt-icon"><i data-dt-icon="bed-double" aria-hidden="true"></i></span><h3>Подходящий семейный номер</h3><p>Укажите состав семьи и возраст детей, чтобы проверить подходящий вариант размещения.</p></article>
+ </div>
+</div></section>
+<!-- 06. Шесть аргументов -->
+<section class="dt-section dt-dark dt-arguments" id="dt-terms" data-block="6" aria-labelledby="dt-arguments-title"><div class="dt-wrap"><span class="dt-eyebrow">03 / Выбирать с пониманием условий</span><h2 id="dt-arguments-title">Шесть аргументов Чёрной пятницы</h2><p class="dt-intro">Что стоит разобрать в предложении перед решением. Конкретные условия зависят от выбранного тура.</p>
+ <div class="dt-arguments-grid">
+  <article class="dt-argument"><span class="dt-icon"><i data-dt-icon="receipt" aria-hidden="true"></i></span><div><h3>Полная стоимость</h3><p>Уточните сумму на весь состав туристов, включённые услуги и возможные дополнительные расходы.</p></div></article>
+  <article class="dt-argument"><span class="dt-icon"><i data-dt-icon="wallet" aria-hidden="true"></i></span><div><h3>Предоплата и доплата</h3><p>Проверьте размер первого платежа, срок доплаты и порядок расчётов для конкретного предложения.</p></div></article>
+  <article class="dt-argument"><span class="dt-icon"><i data-dt-icon="file-pen-line" aria-hidden="true"></i></span><div><h3>Изменение и отмена</h3><p>Изучите, какие изменения возможны и какие условия действуют при отмене поездки.</p></div></article>
+  <article class="dt-argument"><span class="dt-icon"><i data-dt-icon="plane" aria-hidden="true"></i></span><div><h3>Отель, номер и рейс</h3><p>Рассматривайте предложение целиком: размещение, питание, вылет и продолжительность отдыха.</p></div></article>
+  <article class="dt-argument"><span class="dt-icon"><i data-dt-icon="sliders-horizontal" aria-hidden="true"></i></span><div><h3>Сопоставимые предложения</h3><p>Сравнивайте варианты с одинаковыми датами, составом туристов, питанием и включёнными услугами.</p></div></article>
+  <article class="dt-argument"><span class="dt-icon"><i data-dt-icon="clipboard-check" aria-hidden="true"></i></span><div><h3>Повторная проверка</h3><p>Перед бронированием менеджер должен перепроверить актуальную цену, наличие и параметры тура.</p></div></article>
+ </div>
+</div></section>
+<!-- 07. Единый каталог: 25 карточек -->
+<section class="dt-section" id="dt-hotels" data-block="7" aria-labelledby="dt-hotels-title"><div class="dt-wrap">
+ <div class="dt-section-head dt-hotels-head"><div><span class="dt-eyebrow">04 / Отели по сценариям и бюджету</span><h2 id="dt-hotels-title">Выбор Дата Тур</h2><p class="dt-intro">Выберите ориентир для отдыха. Любой вариант нужно рассчитать на ваши даты и состав туристов.</p></div><span class="dt-count-label">25 демонстрационных карточек</span></div>
+ <div class="dt-filter-bar">
+  <label class="dt-filter-field"><span class="dt-filter-label">Сезон</span><select id="dt-hotel-season"><option value="summer">Лето 2027</option><option value="winter">Зима 2026/27</option></select></label>
+  <label class="dt-filter-field"><span class="dt-filter-label">Сценарий</span><select id="dt-hotel-scenario"><option value="all">Любой сценарий</option></select></label>
+  <div class="dt-filter-budgets"><span class="dt-filter-label">Уровень бюджета</span><div class="dt-budget" role="group" aria-label="Уровень бюджета"><button type="button" data-budget="all" aria-pressed="true">Любой</button><button type="button" data-budget="rational" aria-pressed="false">Рациональный</button><button type="button" data-budget="comfort" aria-pressed="false">Комфорт</button><button type="button" data-budget="premium" aria-pressed="false">Премиальный</button></div></div>
+  <span class="dt-result-count" id="dt-results" aria-live="polite"></span>
+ </div>
+ <div class="dt-hotel-track" id="dt-hotel-track" aria-label="Карточки отелей"></div>
+ <div class="dt-empty" id="dt-empty" hidden><h3>В этой подборке пока нет карточек</h3><p>Сохраните пожелания — можно начать с персонального подбора.</p><a class="dt-action " href="#dt-request">Подобрать под мои пожелания <span aria-hidden="true">↗</span></a></div>
+ <div class="dt-carousel-footer" id="dt-hotel-footer"><span>Фото и условия — демонстрационные, требуют замены.</span><div class="dt-arrows"><span id="dt-hotel-counter" aria-live="polite"></span><button class="dt-arrow " type="button" id="dt-hotel-prev" aria-label="Предыдущие отели">←</button><button class="dt-arrow " type="button" id="dt-hotel-next" aria-label="Следующие отели">→</button></div></div>
+</div></section>
+<!-- 08. Доверие: четыре незаполненных слота -->
+<section class="dt-section dt-trust" id="dt-trust" data-block="8" aria-labelledby="dt-trust-title"><div class="dt-wrap"><div class="dt-section-head"><div><span class="dt-eyebrow">05 / Опыт туристов</span><h2 id="dt-trust-title">Доверие к Datatour</h2><p class="dt-intro">Здесь появятся реальные отзывы и благодарности. Скриншот можно будет открыть крупнее.</p></div><span class="dt-count-label">4 места для материалов</span></div>
+ <div class="dt-review-track" id="dt-review-track" aria-label="Скриншоты отзывов"></div>
+ <div class="dt-carousel-footer"><span class="dt-trust-note">Сейчас это пустые слоты. Тексты отзывов не добавлены.</span><div class="dt-arrows"><span id="dt-review-counter" aria-live="polite"></span><button class="dt-arrow " type="button" id="dt-review-prev" aria-label="Предыдущие отзывы">←</button><button class="dt-arrow " type="button" id="dt-review-next" aria-label="Следующие отзывы">→</button></div></div>
+</div></section>
+<!-- 09. Подготовка к бронированию -->
+<section class="dt-section dt-white" data-block="9" aria-labelledby="dt-steps-title"><div class="dt-wrap"><span class="dt-eyebrow">06 / От пожеланий к решению</span><h2 id="dt-steps-title">Как подготовиться к бронированию</h2><p class="dt-intro">Пять шагов, чтобы оценить варианты и согласовать детали вашей поездки.</p>
+ <div class="dt-step-grid">
+  <article class="dt-step"><div class="dt-step-top"><span class="dt-step-number">01</span><span class="dt-icon"><i data-dt-icon="message-square" aria-hidden="true"></i></span></div><div><h3>Сообщить пожелания</h3><p>Период, состав туристов, бюджет и то, что особенно важно для отдыха.</p></div></article>
+  <article class="dt-step"><div class="dt-step-top"><span class="dt-step-number">02</span><span class="dt-icon"><i data-dt-icon="layout-list" aria-hidden="true"></i></span></div><div><h3>Получить варианты</h3><p>Рассмотреть предложения с параметрами поездки и расчётом на ваш состав.</p></div></article>
+  <article class="dt-step"><div class="dt-step-top"><span class="dt-step-number">03</span><span class="dt-icon"><i data-dt-icon="check-check" aria-hidden="true"></i></span></div><div><h3>Выбрать приоритет</h3><p>Обозначить предпочтительный отель и допустимые альтернативы.</p></div></article>
+  <article class="dt-step"><div class="dt-step-top"><span class="dt-step-number">04</span><span class="dt-icon"><i data-dt-icon="search-check" aria-hidden="true"></i></span></div><div><h3>Перепроверить цену и наличие</h3><p>Уточнить актуальную стоимость, рейс, номер и условия перед решением.</p></div></article>
+  <article class="dt-step"><div class="dt-step-top"><span class="dt-step-number">05</span><span class="dt-icon"><i data-dt-icon="file-check-2" aria-hidden="true"></i></span></div><div><h3>Согласовать и забронировать</h3><p>Проверить документы и порядок оплаты для выбранного тура.</p></div></article>
+ </div>
+ <div class="dt-step-bottom"><a href="#dt-request" class="dt-action ">Начать с пожеланий <span aria-hidden="true">↗</span></a><p>Предварительная заявка не фиксирует цену и наличие. Условия подтверждаются при оформлении.</p></div>
+</div></section>
+<!-- 10. Tourvisor: только контейнер -->
+<section class="dt-section dt-white dt-search" data-block="10" aria-labelledby="dt-search-title"><div class="dt-wrap"><div class="dt-search-shell"><h2 id="dt-search-title">Уже знаете, куда хотите? Проверьте варианты самостоятельно</h2><div class="dt-tourvisor" id="dt-tourvisor-container"><span class="dt-icon"><i data-dt-icon="search" aria-hidden="true"></i></span><h3>Здесь будет поиск туров Tourvisor</h3><p>Контейнер для подключения настоящего модуля. Результаты поиска в макете не отображаются.</p></div></div></div></section>
+<!-- 11. FAQ -->
+<section class="dt-section" id="dt-faq" data-block="11" aria-labelledby="dt-faq-title"><div class="dt-wrap dt-faq-layout"><div><span class="dt-eyebrow">07 / До оформления</span><h2 id="dt-faq-title">Вопросы, которые стоит задать</h2><p class="dt-intro">Ответы-заглушки. Перед публикацией их нужно дополнить подтверждёнными условиями.</p></div><div class="dt-faq-list">
+ <details><summary>Какие поездки участвуют в акции?</summary><p>[Перечень направлений, дат и предложений будет указан после подтверждения условий Datatour.] Не все туры автоматически участвуют в акции.</p></details>
+ <details><summary>Что входит в указанную стоимость?</summary><p>[Состав цены заполняется для конкретного предложения.] Проверяйте перелёт, размещение, питание, трансфер, страховку и состав туристов.</p></details>
+ <details><summary>Какие расходы оплачиваются дополнительно?</summary><p>[Дополнительные расходы указываются после проверки тура.] Они могут зависеть от направления, рейса и выбранных услуг.</p></details>
+ <details><summary>Как устроены предоплата и доплата?</summary><p>[Размер предоплаты, срок доплаты и порядок расчётов требуют подтверждения.] Менеджер уточнит условия выбранного предложения до оформления.</p></details>
+ <details><summary>Можно ли изменить или отменить поездку?</summary><p>[Условия изменения и отмены заполняются по конкретному туру.] До оплаты нужно ознакомиться с договором и применимыми условиями.</p></details>
+ <details><summary>Фиксирует ли заявка цену и наличие?</summary><p>Нет. Предварительная заявка передаёт пожелания для подбора. Актуальные цена, наличие и порядок их подтверждения уточняются при оформлении.</p></details>
+ <details><summary>Как проверить условия въезда?</summary><p>[Сведения проверяются по направлению и документам туристов перед бронированием.] Уточните требования к документам и другие применимые условия поездки.</p></details>
+ <details><summary>Можно ли обратиться без выбранной страны?</summary><p>В форме можно указать период, состав туристов, бюджет и пожелания без страны. [Порядок и сроки подбора будут дополнены после согласования.]</p></details>
+</div></div></section>
+<!-- 12. Финальная форма: данные локальные, отправки нет -->
+<section class="dt-section dt-dark dt-final" id="dt-request" data-block="12" aria-labelledby="dt-request-title"><div class="dt-wrap dt-final-layout">
+ <div><span class="dt-eyebrow">08 / Теперь — под ваш отпуск</span><h2 id="dt-request-title">Подготовим варианты под ваш отпуск</h2><p class="dt-intro">Расскажите о поездке. Выбранный сезон, сценарий и отель уже будут здесь.</p><div class="dt-final-aside"><div class="dt-row"><span class="dt-icon"><i data-dt-icon="clipboard-list" aria-hidden="true"></i></span><p>Чем точнее ориентиры, тем проще оценить подходящие варианты. Если даты ещё не определены, укажите примерный период.</p></div></div></div>
+ <form class="dt-final-form" id="dt-final-form" novalidate aria-label="Подробная форма подбора">
+  <input type="hidden" name="scenario" value="all"><input type="hidden" name="hotelId" value=""><input type="hidden" name="budgetLevel" value="all">
+  <div id="dt-selected-hotel" class="dt-selected-hotel" hidden><div>Отель для расчёта<strong id="dt-selected-name"></strong><span id="dt-selected-meta" class="dt-small"></span></div><button type="button" id="dt-remove-hotel" aria-label="Убрать выбранный отель">×</button></div>
+  <div class="dt-form-context" id="dt-form-context" aria-live="polite"></div>
+  <div class="dt-form-grid">
+   <label class="dt-field">Сезон<select name="season"><option value="summer">Лето 2027</option><option value="winter">Зима 2026/27</option></select></label>
+   <label class="dt-field">Желаемый период<input name="period" type="text" placeholder="Даты или примерный месяц"></label>
+   <label class="dt-field">Взрослые<select name="adults"><option value="1">1 взрослый</option><option value="2" selected>2 взрослых</option><option value="3">3 взрослых</option><option value="4">4 взрослых</option><option value="5">5 и более взрослых</option></select></label>
+   <label class="dt-field">Дети<select name="children"><option value="0">Без детей</option><option value="1">1 ребёнок</option><option value="2">2 ребёнка</option><option value="3">3 и более детей</option></select></label>
+   <label class="dt-field dt-span-2" id="dt-ages-field" hidden>Возраст детей на дату поездки<input name="ages" type="text" placeholder="Например: 5 и 10 лет" aria-describedby="dt-ages-error"><span class="dt-error" role="alert" id="dt-ages-error"></span></label>
+   <label class="dt-field dt-span-2">Общий бюджет на весь состав<input name="budgetAmount" type="text" placeholder="Сумма и валюта, например: 8 000 BYN"></label>
+   <label class="dt-field dt-span-2">Пожелания<textarea name="wishes" rows="3" placeholder="Направление, питание, номер, важные особенности"></textarea></label>
+   <label class="dt-field">Имя — необязательно<input name="name" type="text" autocomplete="given-name" placeholder="Как к вам обращаться"></label>
+   <label class="dt-field">Удобный канал связи<select name="channel"><option value="">Выберите канал</option><option value="phone">Телефон</option><option value="telegram">Telegram</option><option value="whatsapp">WhatsApp</option><option value="email">Email</option></select></label>
+   <label class="dt-field dt-span-2">Контакт <span class="dt-sr">Обязательное поле</span><input name="contact" type="text" autocomplete="email" placeholder="Телефон, email или @username" required aria-describedby="dt-final-contact-error"><span class="dt-error" role="alert" id="dt-final-contact-error"></span></label>
+  </div>
+  <label class="dt-consent"><input name="consent" type="checkbox" required aria-describedby="dt-consent-error"><span>Место для согласия на обработку данных. <a href="#dt-policy" data-document="Политика обработки персональных данных">Политика обработки данных</a> будет подключена до запуска. В макете отметка используется только для проверки формы.</span></label><span id="dt-consent-error" class="dt-error" role="alert"></span>
+  <div class="dt-form-submit"><button type="submit" class="dt-action ">Подготовить подбор <span aria-hidden="true">↗</span></button><span class="dt-small">Предварительная заявка не фиксирует цену и наличие.</span></div>
+  <div class="dt-message" id="dt-final-message" role="status" aria-live="polite"></div>
+ </form>
+</div></section>
+<!-- 13. Блог — не опубликованные статьи -->
+<section class="dt-section" data-block="13" aria-labelledby="dt-blog-title"><div class="dt-wrap"><span class="dt-eyebrow">09 / Полезное перед поездкой</span><h2 id="dt-blog-title">Новости и идеи для отдыха</h2><p class="dt-intro">Места для будущих публикаций. Материалы, даты и ссылки ещё не добавлены.</p>
+ <div class="dt-blog-grid">
+  <article class="dt-post"><div class="dt-post-media"><img data-photo="pool" alt="Демонстрационный фотослот публикации об условиях акции" loading="lazy"><span class="dt-photo-tag">Будущий материал</span></div><div class="dt-post-meta">[Дата публикации] · Условия акции</div><h3>[Что проверить в предложении Чёрной пятницы]</h3><p>[Анонс материала о составе цены и условиях выбранного тура.]</p><span class="dt-post-link">[Место для ссылки на публикацию]</span></article>
+  <article class="dt-post"><div class="dt-post-media"><img data-photo="beach" alt="Демонстрационный фотослот публикации о выборе отдыха" loading="lazy"><span class="dt-photo-tag">Будущий материал</span></div><div class="dt-post-meta">[Дата публикации] · Выбор отдыха</div><h3>[Как выбрать отдых под свой сценарий]</h3><p>[Анонс материала о пожеланиях семьи, пары или компании друзей.]</p><span class="dt-post-link">[Место для ссылки на публикацию]</span></article>
+  <article class="dt-post"><div class="dt-post-media"><img data-photo="coast" alt="Демонстрационный фотослот публикации о сезонных направлениях" loading="lazy"><span class="dt-photo-tag">Будущий материал</span></div><div class="dt-post-meta">[Дата публикации] · Сезонные направления</div><h3>[Лето или зима: с чего начать выбор]</h3><p>[Анонс материала о направлениях на разные периоды отпуска.]</p><span class="dt-post-link">[Место для ссылки на публикацию]</span></article>
+ </div>
+</div></section>
+<!-- 14. Контакты и контейнер карты -->
+<section class="dt-section dt-contacts" id="dt-contacts" data-block="14" aria-labelledby="dt-contacts-title"><div class="dt-wrap dt-contacts-layout"><div><span class="dt-eyebrow">10 / На связи</span><h2 id="dt-contacts-title">Обсудим ваш отпуск</h2><div class="dt-contact-grid"><div class="dt-contact-item"><span class="dt-contact-label">Офис</span><span>[Город, адрес офиса]</span></div><div class="dt-contact-item"><span class="dt-contact-label">Телефон</span><span>[Номер телефона]</span></div><div class="dt-contact-item"><span class="dt-contact-label">Мессенджеры</span><span>[Telegram / WhatsApp / другие ссылки]</span></div><div class="dt-contact-item"><span class="dt-contact-label">График работы</span><span>[Дни и часы работы]</span></div></div></div><div class="dt-map" id="dt-map-container"><span class="dt-icon"><i data-dt-icon="map-pin" aria-hidden="true"></i></span><h3>Здесь будет карта офиса</h3><p>[Адрес и карта добавляются после подтверждения контактных данных.]</p></div></div></section>
+</main>
+<!-- 15. Футер -->
+<footer class="dt-footer" data-block="15"><div class="dt-wrap"><div class="dt-footer-grid"><div><a href="#dt-home" class="dt-logo" aria-label="Datatour — в начало страницы">datatour<span class="dt-logo-dot" aria-hidden="true"></span></a><p class="dt-requisites">[Юридическое наименование · УНП · реквизиты]</p></div><nav class="dt-footer-links" aria-label="Служебные ссылки"><a href="#dt-policy" data-document="Политика обработки персональных данных">Политика обработки данных</a><a href="#dt-cookies" data-document="Политика cookies">Политика cookies</a><a href="#dt-campaign-terms" data-document="Условия акции">Условия акции</a><a href="#dt-service" data-document="Служебные ссылки">[Служебные ссылки]</a></nav></div><div class="dt-footer-bottom"><span>© 2026 Datatour · Демонстрационный макет</span><span>Цены, материалы и условия требуют заполнения перед публикацией.</span></div></div></footer>
+<dialog class="dt-dialog" id="dt-viewer" aria-labelledby="dt-viewer-title"><div class="dt-dialog-head"><h2 id="dt-viewer-title">Материал</h2><button type="button" class="dt-dialog-close " aria-label="Закрыть просмотр">×</button></div><div id="dt-viewer-content"></div></dialog>
+</div>
