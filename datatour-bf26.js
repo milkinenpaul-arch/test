@@ -40,7 +40,7 @@ function updateTimer(){
   $('.dt-hero .dt-eyebrow').textContent='Datatour · Ваш следующий отпуск';
   $('#dt-request-title').textContent='Подготовим варианты для вашего отпуска';
   $('#dt-request .dt-intro').textContent='Укажите пожелания: проверим актуальные цену, наличие и условия для вашей поездки.';
-  $$('a[data-goal=selection]').filter(a=>['#dt-request','#dt-quick-form'].includes(a.getAttribute('href'))).forEach(a=>{if(a.firstChild?.nodeType===3)a.firstChild.textContent='Подобрать актуальный тур';});
+  $$('a[data-goal=selection]').filter(a=>['#dt-request','#dt-quick-form'].includes(a.getAttribute('href'))||a.dataset.source==='search-manager').forEach(a=>{if(a.firstChild?.nodeType===3)a.firstChild.textContent='Подобрать актуальный тур';});
   forms.forEach(f=>{const o=f.elements.purpose.querySelector('option[value="booking"]');if(o)o.disabled=true;if(f.elements.purpose.value==='booking')f.elements.purpose.value='selection';});
   $$('[data-submit-label]').forEach(b=>{if(!b.disabled)b.textContent='Подобрать актуальный тур';});
   const idea=$('.dt-hero-idea');if(idea)idea.textContent='Подготовим актуальные варианты для вашего следующего отпуска.';
