@@ -1,0 +1,205 @@
+{
+  "version": "1.1.2",
+  "page_slug": "black-friday-2026",
+  "recipient": "datatour78@mail.ru",
+  "campaign": {
+    "start": "2026-11-27T00:00:00+03:00",
+    "end": "2026-11-30T00:00:00+03:00",
+    "timezone": "Europe/Minsk",
+    "label": "27–29 ноября 2026"
+  },
+  "calendar_black_friday": "2026-11-27",
+  "priority_hotels": [
+    {
+      "id": "priority-1",
+      "name": "REGNUM HOTELS",
+      "category": 5,
+      "group": 1
+    },
+    {
+      "id": "priority-2",
+      "name": "CULLINAN HOTEL",
+      "category": 5,
+      "group": 1
+    },
+    {
+      "id": "priority-3",
+      "name": "ETHNO HOTEL",
+      "category": 5,
+      "group": 1
+    },
+    {
+      "id": "priority-4",
+      "name": "GLORIA HOTELS",
+      "category": 5,
+      "group": 1
+    },
+    {
+      "id": "priority-5",
+      "name": "ELA EXCELLENCE",
+      "category": 5,
+      "group": 1
+    },
+    {
+      "id": "priority-6",
+      "name": "GURAL HOTELS",
+      "category": 5,
+      "group": 1
+    },
+    {
+      "id": "priority-7",
+      "name": "KAYA HOTELS",
+      "category": 5,
+      "group": 1
+    },
+    {
+      "id": "priority-8",
+      "name": "CALISTA LUXURY",
+      "category": 5,
+      "group": 1
+    },
+    {
+      "id": "priority-9",
+      "name": "VOYAGE HOTELS",
+      "category": 5,
+      "group": 1
+    },
+    {
+      "id": "priority-10",
+      "name": "MAXX ROYAL",
+      "category": 5,
+      "group": 1
+    },
+    {
+      "id": "priority-11",
+      "name": "BARUT HOTELS",
+      "category": 5,
+      "group": 1
+    },
+    {
+      "id": "priority-12",
+      "name": "AKRA HOTELS",
+      "category": 5,
+      "group": 1
+    },
+    {
+      "id": "priority-13",
+      "name": "NG PHASELIS BAY",
+      "category": 5,
+      "group": 1
+    },
+    {
+      "id": "priority-14",
+      "name": "RIXOS HOTELS",
+      "category": 5,
+      "group": 1
+    },
+    {
+      "id": "priority-15",
+      "name": "SANDY BEACH",
+      "category": 4,
+      "group": 2
+    },
+    {
+      "id": "priority-16",
+      "name": "BOSPHORUS SORGUN",
+      "category": 5,
+      "group": 2
+    },
+    {
+      "id": "priority-17",
+      "name": "PINE HOUSE",
+      "category": 4,
+      "group": 2
+    },
+    {
+      "id": "priority-18",
+      "name": "CAMYUVA BEACH",
+      "category": 4,
+      "group": 2
+    },
+    {
+      "id": "priority-19",
+      "name": "SAILORS HOTEL",
+      "category": 5,
+      "group": 2
+    },
+    {
+      "id": "priority-20",
+      "name": "MY LOME HOTEL",
+      "category": 5,
+      "group": 2
+    },
+    {
+      "id": "priority-21",
+      "name": "LONICERA HOTELS",
+      "category": 5,
+      "group": 2
+    },
+    {
+      "id": "priority-22",
+      "name": "LIU RESORT",
+      "category": 5,
+      "group": 2
+    },
+    {
+      "id": "priority-23",
+      "name": "KILIKYA HOTELS",
+      "category": 5,
+      "group": 2
+    },
+    {
+      "id": "priority-24",
+      "name": "CLUB MARCO POLO",
+      "category": 5,
+      "group": 2
+    },
+    {
+      "id": "priority-25",
+      "name": "RAI PREMIUM TEKIROVA",
+      "category": 5,
+      "group": 2
+    },
+    {
+      "id": "priority-26",
+      "name": "IC HOTELS",
+      "category": 5,
+      "group": 2
+    }
+  ],
+  "reviews": [],
+  "review_links": {},
+  "news": [
+    {
+      "id": 291,
+      "url": "https://sales.datatour.by/2026/10/14/datatour-vybor-otelya-do-rasprodazhi/",
+      "title": "Зачем выбирать отель до начала распродажи",
+      "slug": "datatour-vybor-otelya-do-rasprodazhi"
+    },
+    {
+      "id": 292,
+      "url": "https://sales.datatour.by/2026/10/14/datatour-sravnenie-akcionnoy-tseny/",
+      "title": "Как сравнивать акционную цену с обычным предложением",
+      "slug": "datatour-sravnenie-akcionnoy-tseny"
+    },
+    {
+      "id": 293,
+      "url": "https://sales.datatour.by/2026/10/14/datatour-polza-predvaritelnogo-podbora/",
+      "title": "Как предварительный подбор помогает быстрее принять решение",
+      "slug": "datatour-polza-predvaritelnogo-podbora"
+    }
+  ],
+  "analytics": {
+    "yandex_ids": [],
+    "ga_installed": false
+  },
+  "map": {
+    "lat": 53.906079,
+    "lon": 27.542627,
+    "url": "https://yandex.by/maps/-/CXBuAN1i"
+  },
+  "tourvisor": {
+    "module_id": "9981805",
+    "script": "https://tourvisor.ru/module/init.js"
+  }
+}

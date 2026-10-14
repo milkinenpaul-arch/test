@@ -1,0 +1,7 @@
+{
+  "hero": {
+    "source": "Existing beach photograph embedded in milkinenpaul-arch/test, commit a68681823f4f86166deebcd2b1361607b81301e9, datatour-bf26.js photos.beach",
+    "source_sha256": "98db406790ef796fc0c48aefca26152de966f78d0ac96fee0e6b1aafea8fa405",
+    "processing": "Responsive downsampling and WebP encoding; no generative alterations; illustrative coastline, not photographs of the named hotels."
+  }
+}

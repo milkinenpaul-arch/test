@@ -3,7 +3,7 @@
   "meta": {
     "title": "Datatour — Чёрная пятница 2026",
     "author": "milkinenpaul-arch",
-    "description": "Fresh WordPress preview of the HTML, CSS and JavaScript from GitHub main."
+    "description": "Fresh preview of the production plugin. Mail delivery is not verified in Playground."
   },
   "preferredVersions": {
     "php": "8.3",
@@ -13,63 +13,32 @@
   "login": true,
   "steps": [
     {
-      "step": "mkdir",
-      "path": "/wordpress/wp-content/themes/datatour-bf26"
-    },
-    {
-      "step": "writeFile",
-      "path": "/wordpress/wp-content/themes/datatour-bf26/style.css",
-      "data": "/*\nTheme Name: Datatour Playground Preview\nDescription: Minimal preview theme for the Datatour BF2026 landing. No plugins or build step.\nVersion: 1.0.0\nText Domain: datatour-bf26\n*/\nbody.dt-bf26-page { margin: 0; background: #f5f5ef; }\nbody.dt-bf26-page #dt-bf26 { margin: 0; width: 100%; max-width: none; }\n"
-    },
-    {
-      "step": "writeFile",
-      "path": "/wordpress/wp-content/themes/datatour-bf26/functions.php",
-      "data": "<?php\nif (!defined('ABSPATH')) { exit; }\nadd_action('after_setup_theme', function () {\n    add_theme_support('title-tag');\n    add_theme_support('html5', array('search-form', 'gallery', 'caption', 'style', 'script'));\n});\nadd_action('wp_enqueue_scripts', function () {\n    if (!is_page('black-friday-2026') && !is_front_page()) { return; }\n    $dir = get_stylesheet_directory();\n    $url = get_stylesheet_directory_uri();\n    wp_enqueue_style('dt-bf26-preview-shell', $url . '/style.css', array(), (string) filemtime($dir . '/style.css'));\n    wp_enqueue_style('dt-bf26-css', $url . '/datatour-bf26.css', array('dt-bf26-preview-shell'), (string) filemtime($dir . '/datatour-bf26.css'));\n    wp_enqueue_script('dt-bf26-js', $url . '/datatour-bf26.js', array(), (string) filemtime($dir . '/datatour-bf26.js'), true);\n});\n"
-    },
-    {
-      "step": "writeFile",
-      "path": "/wordpress/wp-content/themes/datatour-bf26/index.php",
-      "data": "<?php\nif (!defined('ABSPATH')) { exit; }\n?><!doctype html>\n<html lang=\"ru\">\n<head><meta charset=\"<?php bloginfo('charset'); ?>\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><?php wp_head(); ?></head>\n<body <?php body_class('dt-bf26-page'); ?>><?php\nwp_body_open();\nwhile (have_posts()) { the_post(); the_content(); }\nwp_footer();\n?></body></html>\n"
-    },
-    {
-      "step": "writeFile",
-      "path": "/wordpress/wp-content/themes/datatour-bf26/datatour-bf26.html",
-      "data": {
+      "step": "installPlugin",
+      "pluginData": {
         "resource": "url",
-        "url": "https://raw.githubusercontent.com/milkinenpaul-arch/test/main/datatour-bf26.html"
+        "url": "https://raw.githubusercontent.com/milkinenpaul-arch/test/main/downloads/datatour-bf26-2026-10-14/datatour-bf26-production-1.1.2.zip"
+      },
+      "options": {
+        "activate": true
       }
     },
     {
       "step": "writeFile",
-      "path": "/wordpress/wp-content/themes/datatour-bf26/datatour-bf26.css",
+      "path": "/wordpress/wp-content/datatour-news.json",
       "data": {
         "resource": "url",
-        "url": "https://raw.githubusercontent.com/milkinenpaul-arch/test/main/datatour-bf26.css"
+        "url": "https://raw.githubusercontent.com/milkinenpaul-arch/test/main/news-content.json"
       }
     },
     {
-      "step": "writeFile",
-      "path": "/wordpress/wp-content/themes/datatour-bf26/datatour-bf26.js",
-      "data": {
-        "resource": "url",
-        "url": "https://raw.githubusercontent.com/milkinenpaul-arch/test/main/datatour-bf26.js"
+      "step": "setSiteOptions",
+      "options": {
+        "permalink_structure": "/%postname%/"
       }
-    },
-    {
-      "step": "writeFile",
-      "path": "/wordpress/wp-content/themes/datatour-bf26/LUCIDE-LICENSE.txt",
-      "data": {
-        "resource": "url",
-        "url": "https://raw.githubusercontent.com/milkinenpaul-arch/test/main/LUCIDE-LICENSE.txt"
-      }
-    },
-    {
-      "step": "activateTheme",
-      "themeFolderName": "datatour-bf26"
     },
     {
       "step": "runPHP",
-      "code": "<?php\nrequire '/wordpress/wp-load.php';\n$admin = get_user_by('login', 'admin');\nif (!$admin || !user_can($admin, 'unfiltered_html')) { throw new RuntimeException('An administrator with unfiltered_html is required for this demo page.'); }\nwp_set_current_user($admin->ID);\n$html = file_get_contents('/wordpress/wp-content/themes/datatour-bf26/datatour-bf26.html');\nif (!$html || strpos($html, 'id=\"dt-bf26\"') === false) { throw new RuntimeException('Datatour HTML is missing or invalid.'); }\n$existing = get_page_by_path('black-friday-2026', OBJECT, 'page');\n$post = array('post_type'=>'page', 'post_title'=>'Чёрная пятница 2026 — Datatour', 'post_name'=>'black-friday-2026', 'post_status'=>'publish', 'post_content'=>wp_slash('<!-- wp:html -->' . \"\\n\" . $html . \"\\n\" . '<!-- /wp:html -->'), 'comment_status'=>'closed', 'ping_status'=>'closed');\nif ($existing) { $post['ID'] = $existing->ID; }\n$id = wp_insert_post($post, true);\nif (is_wp_error($id)) { throw new RuntimeException($id->get_error_message()); }\necho 'Datatour page ready: ' . $id;\n"
+      "code": "<?php\nrequire '/wordpress/wp-load.php';\n$source='/wordpress/wp-content/plugins/datatour-bf26-compatible/assets/v1.1.2/datatour-bf26-config.json';\n$config=json_decode(file_get_contents($source),true);\n$articles=json_decode(file_get_contents('/wordpress/wp-content/datatour-news.json'),true);\nforeach ($articles as $index => $article) {\n $existing=get_page_by_path($article['slug'],OBJECT,'post');\n $post=array('post_type'=>'post','post_status'=>'publish','post_title'=>$article['title'],'post_name'=>$article['slug'],'post_content'=>implode('',array_map(function ($text) { return '<p>'.esc_html($text).'</p>'; },$article['paragraphs'])).'<p><a href=\"'.esc_url(home_url('/black-friday-2026/#dt-request')).'\">'.esc_html($article['cta']).'</a></p>','post_excerpt'=>$article['excerpt'],'comment_status'=>'closed','ping_status'=>'closed');\n if ($existing) { $post['ID']=$existing->ID; }\n $id=wp_insert_post($post,true);\n if (is_wp_error($id)) { throw new RuntimeException($id->get_error_message()); }\n $config['news'][$index]['url']=get_permalink($id);\n}\nfile_put_contents($source,json_encode($config));\n$page=get_page_by_path('black-friday-2026',OBJECT,'page');\n$post=array('post_type'=>'page','post_status'=>'publish','post_title'=>'Чёрная пятница 2026 — Datatour','post_name'=>'black-friday-2026','post_content'=>'[datatour_bf26]','comment_status'=>'closed','ping_status'=>'closed');\nif ($page) { $post['ID']=$page->ID; }\n$id=wp_insert_post($post,true);\nif (is_wp_error($id)) { throw new RuntimeException($id->get_error_message()); }\nupdate_post_meta($id,'_wp_page_template','datatour-bf26/landing.php');\nflush_rewrite_rules();\necho 'Datatour preview ready';\n"
     }
   ]
 }
