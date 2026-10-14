@@ -355,7 +355,7 @@
 #dt-bf26 .dt-tourvisor{border:0;background:transparent;padding:25px 0;display:block;text-align:left}
 #dt-bf26 .dt-tourvisor p{font-size:16px;max-width:none}
 #dt-bf26 .dt-tourvisor>.dt-action{margin:16px 0}
-#dt-bf26 #dt-tourvisor-module{max-width:100%;min-width:0;width:100%;margin:24px 0}
+#dt-bf26 #dt-tourvisor-container>.tv-search-form{max-width:100%;min-width:0;width:100%;margin:24px 0}
 #dt-bf26 .dt-faq-list{margin-top:35px}
 #dt-bf26 .dt-faq-list summary{font-size:19px;font-weight:400;line-height:1.5}
 #dt-bf26 .dt-faq-list p{font-size:17px;line-height:1.7}
