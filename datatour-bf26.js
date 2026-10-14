@@ -112,7 +112,7 @@ function closeCookieSettings(){if(cookieDialog.close)cookieDialog.close();else c
 function saveConsent(next){const revoke=(consent.analytics&&!next.analytics)||(consent.external&&!next.external);consent=next;hasChoice=true;try{localStorage.setItem(storageKey,JSON.stringify({version:1,...consent,updatedAt:new Date().toISOString()}));}catch{}
  $('#dt-cookie-banner').hidden=true;closeCookieSettings();root.dispatchEvent(new CustomEvent('dtbf26:consent',{detail:{...consent}}));
  if(revoke){location.reload();return;}
- if(consent.external&&pendingExternal){const action=pendingExternal;pendingExternal=null;if(action==='tourvisor')loadTourvisor();if(action==='map')loadMap();}
+ if(consent.external&&pendingExternal){const action=pendingExternal;pendingExternal=null;if(action==='map')loadMap();}
 }
 function track(action,data={}){
  const safe={action,source:String(data.source||'page').slice(0,60)};
@@ -127,29 +127,10 @@ $$('[data-cookie-choice]').forEach(b=>b.addEventListener('click',()=>saveConsent
 $$('[data-cookie-settings]').forEach(b=>b.addEventListener('click',()=>openCookieSettings()));
 $('#dt-cookie-save').addEventListener('click',()=>saveConsent({analytics:$('#dt-consent-analytics').checked,external:$('#dt-consent-external').checked}));
 $('#dt-cookie-close').addEventListener('click',closeCookieSettings);
-let tourvisorPromise=null;
-function loadTourvisor(){
- if(!consent.external){openCookieSettings('tourvisor');return;}
- if(tourvisorPromise)return tourvisorPromise;
- const box=$('#dt-tourvisor-message');box.textContent='Загружаем поиск туров…';box.dataset.show='true';box.dataset.state='loading';
- tourvisorPromise=new Promise((resolve,reject)=>{
-  let script=document.querySelector('script[data-dt-tourvisor]');
-  const container=$('#dt-tourvisor-container');let finished=false;
-  const controlsReady=()=>{const module=container.querySelector('.tv-search-form');return module&&Array.from(module.querySelectorAll('input:not([type=hidden]),select,button,iframe,[role=button]')).some(el=>el.getBoundingClientRect().height>0);};
-  const complete=(error)=>{if(finished)return;finished=true;clearTimeout(timeout);observer.disconnect();
-   if(error){script?.remove();tourvisorPromise=null;box.textContent='Поиск сейчас недоступен. Попробуйте ещё раз или отправьте пожелания менеджеру.';box.dataset.state='error';$('#dt-load-tourvisor').hidden=false;reject(error);}
-   else{box.dataset.show='false';$('#dt-load-tourvisor').hidden=true;resolve();}
-  };
-  const observer=new MutationObserver(()=>{if(controlsReady())complete();});observer.observe(container,{childList:true,subtree:true,attributes:true});
-  const timeout=setTimeout(()=>complete(new Error('Tourvisor readiness timeout')),30000);
-  if(controlsReady()){complete();return;}
-  if(!script){script=document.createElement('script');script.src=cfg.tourvisor?.script||'https://tourvisor.ru/module/init.js';script.async=true;script.dataset.dtTourvisor='true';script.onload=()=>{if(controlsReady())complete();};script.onerror=()=>complete(new Error('Tourvisor unavailable'));document.head.appendChild(script);}
- });tourvisorPromise.catch(()=>{});return tourvisorPromise;
-}
 function loadMap(){if(!consent.external){openCookieSettings('map');return;}if($('#dt-map-frame iframe'))return;
  const frame=document.createElement('iframe');frame.title='Офис Datatour: Мельникайте, 2';frame.loading='lazy';frame.referrerPolicy='no-referrer-when-downgrade';frame.src='https://yandex.by/map-widget/v1/?ll=27.542627%2C53.906079&z=16&pt=27.542627%2C53.906079%2Cpm2rdm';$('#dt-map-frame').appendChild(frame);$('#dt-load-map').hidden=true;track('map',{source:'contacts'});
 }
-$('#dt-load-tourvisor').addEventListener('click',loadTourvisor);$('#dt-load-map').addEventListener('click',loadMap);
+$('#dt-load-map').addEventListener('click',loadMap);
 const viewer=$('#dt-viewer');let viewerTrigger=null;
 function renderReviews(){const list=Array.isArray(cfg.reviews)?cfg.reviews:[];
  $('#dt-trust').hidden=list.length===0;
