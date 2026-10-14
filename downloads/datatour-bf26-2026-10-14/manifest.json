@@ -1,0 +1,14 @@
+{
+  "repository": "milkinenpaul-arch/test",
+  "branch": "main",
+  "commit": "a68681823f4f86166deebcd2b1361607b81301e9",
+  "sha256": {
+    "datatour-bf26.html": "715eddf264c293055b65f78ad2cbd664f8fab904d2f80aa78a462c2bc2761af4",
+    "datatour-bf26.css": "ff7f68aa84ff04835c5d80ac9f3abc6d77604ca8308493d704059667613f43b1",
+    "datatour-bf26.js": "26afed5adc796513a1a3a7128dc820fa54131e144ec8ece94c0a5f07990d04a7",
+    "datatour-bf26-preview.html": "a8de91cfcf546c68bd8d8c661a761ba41fcce06cdae4e6e0cdfca1ebb329bd88",
+    "LUCIDE-LICENSE.txt": "1e7290b35280a048667bbf0ebabac1c7fd52a75300e8b2946ac165715997f2bc",
+    "README.md": "28637852b709fba9af346606bfe1e84d74eabbff7389396f410c912e3ed23e48",
+    "blueprint.json": "17182f09c7387136c70e0a4176ec31d1ec23aaff44c1b0c4d03d9db02e5cec4d"
+  }
+}
