@@ -1,5 +1,5 @@
 {
-  "version": "1.1.4",
+  "version": "1.1.5",
   "page_slug": "black-friday-2026",
   "recipient": "datatour78@mail.ru",
   "campaign": {
@@ -199,7 +199,7 @@
     "url": "https://yandex.by/maps/-/CXBuAN1i"
   },
   "tourvisor": {
-    "module_id": "9981805",
+    "module_id": "9981807",
     "script": "https://tourvisor.ru/module/init.js"
   }
 }
