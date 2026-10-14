@@ -6,13 +6,13 @@ from pathlib import Path
 import sys,json,hashlib,zipfile,base64
 ROOT=Path(__file__).resolve().parents[1]
 backup=Path(sys.argv[1]);version=json.loads((ROOT/'datatour-bf26-config.json').read_text())['version']
-name='datatour-bf26-restore-original'
+name='datatour-bf26-restore-original-'+version.replace('.','-')
 files={'templates/landing.php':backup/'templates/landing.php'}
 for file in ['datatour-bf26.html','datatour-bf26.css','datatour-bf26.js','shell.css']:files['assets/'+file]=backup/file
 original=(backup/'datatour-bf26.php').read_bytes()
 manifest={'current_main':hashlib.sha256((ROOT/'wordpress/datatour-bf26-compatible/datatour-bf26.php').read_bytes()).hexdigest(),'original_main':hashlib.sha256(original).hexdigest(),'original_resources':{name:hashlib.sha256(p.read_bytes()).hexdigest() for name,p in files.items()}}
 php='''<?php
-/** Plugin Name: Datatour — Restore original page implementation
+/** Plugin Name: Datatour — Restore original page implementation (VERSIONVALUE)
  * Description: Activation restores the checksummed pre-update landing plugin (demo forms). Activate only for rollback. Does not delete articles or change page URL/theme.
  * Version: 1.0.0
  */
@@ -42,6 +42,7 @@ function dtbf26restore_original() {
 }
 register_activation_hook(__FILE__,'dtbf26restore_original');
 '''
+php=php.replace('VERSIONVALUE',version)
 out=ROOT/'downloads/datatour-bf26-2026-10-14'/('datatour-bf26-rollback-from-'+version+'.zip')
 with zipfile.ZipFile(out,'w',zipfile.ZIP_DEFLATED) as z:
  z.writestr(name+'/restore-original.php',php)
