@@ -14,7 +14,7 @@ const root=path.resolve(__dirname,'..');
  let tests=0;const passed=label=>{tests++;console.log('PASS '+label);};
  try{
   const context=await browser.newContext({viewport:{width:1440,height:900}});
-  const page=await context.newPage(),errors=[],posts=[],events=[];let rejectMail=true,tourvisorLoads=0;
+  const page=await context.newPage(),errors=[],posts=[],events=[];let rejectMail=true,tourvisorLoads=0,mapLoads=0;
   page.on('pageerror',e=>errors.push(e.message));
   await context.route('**/wp-admin/admin-ajax.php**',async route=>{
    if(route.request().method()==='GET')return route.fulfill({json:{success:true,data:{nonce:'contract-nonce',issued:Math.floor(Date.now()/1000)-4,token:'contract-token'}}});
@@ -22,8 +22,9 @@ const root=path.resolve(__dirname,'..');
    return route.fulfill({status:rejectMail?503:200,json:rejectMail?{success:false,data:{code:'mail_failed',message:'Не удалось отправить заявку. Попробуйте ещё раз.'}}:{success:true,data:{message:'Спасибо! Заявка принята.',deliveryStatus:'accepted_by_wp_mail'}}});
   });
   await context.route(/^https?:\/\/tourvisor\.ru\/module\/init\.js$/,async route=>{tourvisorLoads++;await route.fulfill({contentType:'application/javascript',body:'document.querySelector("#dt-tourvisor-container .tv-search-form").innerHTML="<label>Lifecycle fixture<input type=search></label><button>Search fixture</button>";'});});
+  await context.route('https://yandex.by/map-widget/**',route=>{mapLoads++;return route.fulfill({contentType:'text/html',body:'Map lifecycle fixture'});});
   await page.goto(origin+'/datatour-bf26-preview.html',{waitUntil:'networkidle'});
-  assert.equal(await page.locator('[data-block]').count(),15);assert.equal(await page.locator('.dt-hotel-card').count(),25);assert.equal(await page.locator('[data-select-priority]').count(),26);passed('15 blocks, 25 cards, all 26 priority positions');
+  assert.equal(await page.locator('[data-block]').count(),14);assert.equal(await page.locator('.dt-hotel-card').count(),25);assert.equal(await page.locator('[data-select-priority]').count(),26);passed('14 blocks after footer merge, 25 cards, all 26 priority positions');
   assert.equal(await page.locator('[data-lead-form] input[name=consent]:checked').count(),0);
   assert.equal(await page.locator('.dt-header').evaluate(el=>getComputedStyle(el).position),'sticky');
   await page.locator('.dt-phones summary').click();assert.equal(await page.locator('.dt-phones[open]').count(),1);await page.keyboard.press('Escape');assert.equal(await page.locator('.dt-phones[open]').count(),0);
@@ -47,13 +48,16 @@ const root=path.resolve(__dirname,'..');
   const tracked=await page.evaluate(()=>window.recordedEvents);assert.ok(!JSON.stringify(tracked).includes('test@example.com'));assert.equal(tracked.filter(e=>e.action==='hotel').length,1);assert.equal(tracked.filter(e=>e.action==='form_accepted').length,1);passed('Event payload has no contact and does not duplicate hotel/acceptance events');
   assert.equal(tourvisorLoads,1);assert.equal(await page.locator('#dt-tourvisor-container .tv-search-form input').isVisible(),true);
   assert.equal(await page.locator('script[src="//tourvisor.ru/module/init.js"]').count(),1);assert.equal(await page.locator('#dt-load-tourvisor').count(),0);
-  assert.equal(await page.locator('#dt-map-frame iframe').count(),0);
-  await page.locator('[data-cookie-choice=necessary]').click();await page.reload({waitUntil:'networkidle'});
-  assert.equal(await page.locator('#dt-cookie-banner').isVisible(),false);assert.equal(tourvisorLoads,2);assert.equal(await page.locator('#dt-tourvisor-container .tv-search-form input').isVisible(),true);
-  await context.route('https://yandex.by/map-widget/**',route=>route.fulfill({contentType:'text/html',body:'Map lifecycle fixture'}));
-  await page.locator('#dt-load-map').click();assert.equal(await page.locator('#dt-cookie-dialog').isVisible(),true);assert.equal(await page.locator('#dt-map-frame iframe').count(),0);
-  await page.locator('#dt-consent-external').check();await page.locator('#dt-cookie-save').click();await page.waitForSelector('#dt-map-frame iframe');assert.equal(tourvisorLoads,2);
-  passed('Tourvisor autoloads once per page without consent or launch button; map remains consent-gated (lifecycle fixtures)');
+  assert.equal(await page.locator('#dt-map-frame iframe').count(),1);assert.equal(mapLoads,1);
+  assert.equal(await page.locator('#dt-map-frame iframe').getAttribute('loading'),'eager');assert.equal(await page.locator('#dt-load-map').count(),0);
+  assert.equal(await page.locator('footer#dt-contacts').count(),1);assert.equal(await page.locator('section.dt-contacts').count(),0);
+  assert.equal(await page.locator('.dt-footer-support a[href^="mailto:"]').count(),2);assert.equal(await page.locator('.dt-footer-company a[href^="tel:"]').count(),3);
+  assert.equal(await page.locator('.dt-footer-socials a').count(),3);assert.equal(await page.locator('.dt-footer-bottom .dt-footer-links a').count(),2);assert.equal(await page.locator('footer [data-cookie-settings],footer a[href="#dt-terms"]').count(),0);
+  await page.locator('[data-cookie-settings]').first().click();assert.equal(await page.locator('#dt-cookie-dialog').isVisible(),true);
+  await page.locator('#dt-cookie-close').click();await page.locator('[data-cookie-choice=necessary]').click();await page.reload({waitUntil:'networkidle'});
+  assert.equal(await page.locator('#dt-cookie-banner').isVisible(),false);assert.equal(tourvisorLoads,2);assert.equal(mapLoads,2);
+  assert.equal(await page.locator('#dt-tourvisor-container .tv-search-form input').isVisible(),true);assert.equal(await page.locator('#dt-map-frame iframe').count(),1);
+  passed('Merged footer retains contacts/policies/socials; eager map autoloads without a launch button or consent; cookie choice persists (vendor fixtures)');
   for(const width of [360,390,768,1440]){
    await page.setViewportSize({width,height:900});
    const sizes=await page.evaluate(()=>({width:document.documentElement.clientWidth,scroll:document.documentElement.scrollWidth}));assert.ok(sizes.scroll<=sizes.width,JSON.stringify({width,...sizes}));
@@ -69,6 +73,7 @@ const root=path.resolve(__dirname,'..');
   assert.deepEqual(errors,[]);passed('No JavaScript errors in the component');
   const render=await context.newPage();await render.goto(origin+'/datatour-bf26-preview.html',{waitUntil:'networkidle'});await render.locator('[data-cookie-choice=necessary]').evaluate(el=>el.click());
   for(const width of [1440,390]){await render.setViewportSize({width,height:1000});await render.screenshot({path:'/workspace/scratch/bf26-refresh/preview-'+width+'.png',fullPage:false});}
+  await page.setViewportSize({width:1440,height:1000});await page.locator('footer#dt-contacts').screenshot({path:'/workspace/scratch/bf26-refresh/footer-1440.png'});await page.setViewportSize({width:390,height:1000});await page.locator('footer#dt-contacts').screenshot({path:'/workspace/scratch/bf26-refresh/footer-390.png'});
   console.log('COMPLETED '+tests+' frontend contracts. Mail and vendor lifecycle are mocked here; production delivery/vendor behavior require separate live checks.');
  }finally{await browser.close();await new Promise(r=>server.close(r));}
 })().catch(e=>{console.error(e);process.exitCode=1;});

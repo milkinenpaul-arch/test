@@ -104,15 +104,14 @@ function moveTo(id,focus=false){const target=$(id);if(!target)return;updateHeade
 function setPurpose(goal,source){if(campaignState().status==='ended'&&goal==='booking')goal='selection';forms.forEach(f=>{f.elements.purpose.value=goal;f.elements.source.value=source||'page';const labels={selection:'Подобрать тур к распродаже',hotel:'Рассчитать выбранный отель',booking:'Записаться на бронирование'};const b=f.querySelector('[data-submit-label]');if(!b.disabled)b.textContent=campaignState().status==='ended'?'Подобрать актуальный тур':labels[goal];});}
 function selectHotel(id,source){const h=priorities.find(x=>x.id===id);if(!h)return;state.hotel=h;state.season='summer';syncState();setPurpose('hotel',source);track('hotel',{hotelId:h.id,source});moveTo('#dt-request',true);}
 // Consent stores preferences only. Form contents remain in memory, never analytics or storage.
-const storageKey='dtbf26-consent-v1';let consent={analytics:false,external:false},hasChoice=false,pendingExternal=null;
-try{const stored=JSON.parse(localStorage.getItem(storageKey)||'null');if(stored&&stored.version===1){consent={analytics:stored.analytics===true,external:stored.external===true};hasChoice=true;}}catch{}
+const storageKey='dtbf26-consent-v1';let consent={analytics:false},hasChoice=false;
+try{const stored=JSON.parse(localStorage.getItem(storageKey)||'null');if(stored&&stored.version===1){consent={analytics:stored.analytics===true};hasChoice=true;}}catch{}
 const cookieDialog=$('#dt-cookie-dialog');
-function openCookieSettings(pending=null){pendingExternal=pending;$('#dt-consent-analytics').checked=consent.analytics;$('#dt-consent-external').checked=consent.external;if(cookieDialog.showModal)cookieDialog.showModal();else cookieDialog.setAttribute('open','');}
+function openCookieSettings(){$('#dt-consent-analytics').checked=consent.analytics;if(cookieDialog.showModal)cookieDialog.showModal();else cookieDialog.setAttribute('open','');}
 function closeCookieSettings(){if(cookieDialog.close)cookieDialog.close();else cookieDialog.removeAttribute('open');}
-function saveConsent(next){const revoke=(consent.analytics&&!next.analytics)||(consent.external&&!next.external);consent=next;hasChoice=true;try{localStorage.setItem(storageKey,JSON.stringify({version:1,...consent,updatedAt:new Date().toISOString()}));}catch{}
+function saveConsent(next){const revoke=consent.analytics&&!next.analytics;consent=next;hasChoice=true;try{localStorage.setItem(storageKey,JSON.stringify({version:1,...consent,updatedAt:new Date().toISOString()}));}catch{}
  $('#dt-cookie-banner').hidden=true;closeCookieSettings();root.dispatchEvent(new CustomEvent('dtbf26:consent',{detail:{...consent}}));
  if(revoke){location.reload();return;}
- if(consent.external&&pendingExternal){const action=pendingExternal;pendingExternal=null;if(action==='map')loadMap();}
 }
 function track(action,data={}){
  const safe={action,source:String(data.source||'page').slice(0,60)};
@@ -123,14 +122,10 @@ function track(action,data={}){
  if(typeof window.ym==='function')for(const id of cfg.analytics?.yandex_ids||[])window.ym(Number(id),'reachGoal','dtbf26_'+action,safe);
 }
 $('#dt-cookie-banner').hidden=hasChoice;
-$$('[data-cookie-choice]').forEach(b=>b.addEventListener('click',()=>saveConsent({analytics:b.dataset.cookieChoice==='all',external:b.dataset.cookieChoice==='all'})));
+$$('[data-cookie-choice]').forEach(b=>b.addEventListener('click',()=>saveConsent({analytics:b.dataset.cookieChoice==='all'})));
 $$('[data-cookie-settings]').forEach(b=>b.addEventListener('click',()=>openCookieSettings()));
-$('#dt-cookie-save').addEventListener('click',()=>saveConsent({analytics:$('#dt-consent-analytics').checked,external:$('#dt-consent-external').checked}));
+$('#dt-cookie-save').addEventListener('click',()=>saveConsent({analytics:$('#dt-consent-analytics').checked}));
 $('#dt-cookie-close').addEventListener('click',closeCookieSettings);
-function loadMap(){if(!consent.external){openCookieSettings('map');return;}if($('#dt-map-frame iframe'))return;
- const frame=document.createElement('iframe');frame.title='Офис Datatour: Мельникайте, 2';frame.loading='lazy';frame.referrerPolicy='no-referrer-when-downgrade';frame.src='https://yandex.by/map-widget/v1/?ll=27.542627%2C53.906079&z=16&pt=27.542627%2C53.906079%2Cpm2rdm';$('#dt-map-frame').appendChild(frame);$('#dt-load-map').hidden=true;track('map',{source:'contacts'});
-}
-$('#dt-load-map').addEventListener('click',loadMap);
 const viewer=$('#dt-viewer');let viewerTrigger=null;
 function renderReviews(){const list=Array.isArray(cfg.reviews)?cfg.reviews:[];
  $('#dt-trust').hidden=list.length===0;
