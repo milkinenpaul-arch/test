@@ -451,12 +451,17 @@
 #dt-bf26 .dt-footer-socials .dt-socials{gap:8px}
 #dt-bf26 .dt-footer .dt-socials a{border-color:#ffffff30}
 #dt-bf26 .dt-footer .dt-socials a:hover{background:#ffffff15;border-color:#ffffff70}
+/* Match the button's upper edge to the phone label, inside its 44px hit target. */
+@media(min-width:901px){
+ #dt-bf26 .dt-header .dt-phones summary{line-height:18px}
+ #dt-bf26 .dt-header-cta{align-self:start;margin-top:13px}
+}
 @media(min-width:1200px){#dt-bf26 .dt-header-slogan{white-space:nowrap}}
 @media(max-width:1199px) and (min-width:901px){
  #dt-bf26 .dt-header-contacts{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:44px 36px;gap:0 10px;align-items:center}
  #dt-bf26 .dt-header-contact-info{display:contents}
  #dt-bf26 .dt-header .dt-phones{grid-column:1;grid-row:1;justify-self:end}
- #dt-bf26 .dt-header-cta{grid-column:2;grid-row:1}
+ #dt-bf26 .dt-header-cta{grid-column:2;grid-row:1;min-height:38px;padding:7px 14px}
  #dt-bf26 .dt-header .dt-address{grid-column:1/-1;grid-row:2;justify-self:end}
  #dt-bf26 .dt-header .dt-nav{gap:26px}
 }
