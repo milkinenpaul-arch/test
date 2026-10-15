@@ -3,5 +3,16 @@
     "source": "Existing beach photograph embedded in milkinenpaul-arch/test, commit a68681823f4f86166deebcd2b1361607b81301e9, datatour-bf26.js photos.beach",
     "source_sha256": "98db406790ef796fc0c48aefca26152de966f78d0ac96fee0e6b1aafea8fa405",
     "processing": "Responsive downsampling and WebP encoding; no generative alterations; illustrative coastline, not photographs of the named hotels."
+  },
+  "scenario_photographs": {
+    "source": "Existing photos object in repository commit a68681823f4f86166deebcd2b1361607b81301e9, datatour-bf26.js",
+    "use": "Illustrative scenario cards and editorial covers; not photographs of the named hotels. Restored exact original bytes.",
+    "files": {
+      "pool.jpg": "4628573851b92ec6970d43371c9aee67b25f2ffd838abf2a618ac0afe759a7fe",
+      "beach.jpg": "98db406790ef796fc0c48aefca26152de966f78d0ac96fee0e6b1aafea8fa405",
+      "coast.jpg": "1a7dbb65ef03492a3322ecb727cd972f5d344fbe7af916567647dd934fb339b7",
+      "palms.jpg": "a59d08b8e079f7fda2b07044551d5337d3b7028525df53eec0e942cf3f0ad110",
+      "resort.jpg": "08af0287f7c175af295fed20187a7d52dcc773c5b44c4e97f4e38f38605e50d2"
+    }
   }
 }

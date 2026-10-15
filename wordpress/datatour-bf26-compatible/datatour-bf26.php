@@ -2,14 +2,14 @@
 /**
  * Plugin Name: Datatour BF2026 Landing — Compatible
  * Description: Datatour landing, page template and server-side lead processing.
- * Version: 1.4.2
+ * Version: 2.0.0
  * Requires at least: 4.9
  * Requires PHP: 5.4
  * Text Domain: datatour-bf26
  */
 if (!defined('ABSPATH')) { exit; }
-define('DTBF26COMPAT_ASSET_DIR', __DIR__ . '/assets/v1.4.2');
-define('DTBF26COMPAT_ASSET_URL', plugin_dir_url(__FILE__) . 'assets/v1.4.2');
+define('DTBF26COMPAT_ASSET_DIR', __DIR__ . '/assets/v2.0.0');
+define('DTBF26COMPAT_ASSET_URL', plugin_dir_url(__FILE__) . 'assets/v2.0.0');
 function dtbf26compat_config() {
     static $config = null;
     if ($config === null) {
@@ -19,17 +19,30 @@ function dtbf26compat_config() {
     return $config;
 }
 function dtbf26compat_is_landing() { return is_page('black-friday-2026'); }
+function dtbf26compat_article() {
+    $config = dtbf26compat_config();
+    foreach (isset($config['news']) ? $config['news'] : array() as $article) {
+        if (!empty($article['id']) && (int) get_queried_object_id() === (int) $article['id'] && is_singular()) { return $article; }
+    }
+    return false;
+}
 function dtbf26compat_enqueue_assets() {
-    if (!dtbf26compat_is_landing()) { return; }
+    $article = dtbf26compat_article();
+    if (!dtbf26compat_is_landing() && !$article) { return; }
     $base = DTBF26COMPAT_ASSET_URL . '/';
     foreach (array('shell' => 'shell.css', 'style' => 'datatour-bf26.css') as $handle => $file) {
-        wp_enqueue_style('dtbf26-' . $handle, $base . $file, array(), '1.4.2-' . filemtime(DTBF26COMPAT_ASSET_DIR . '/' . $file));
+        wp_enqueue_style('dtbf26-' . $handle, $base . $file, array(), '2.0.0-' . filemtime(DTBF26COMPAT_ASSET_DIR . '/' . $file));
     }
-    wp_enqueue_script('dtbf26-script', $base . 'datatour-bf26.js', array(), '1.4.2-' . filemtime(DTBF26COMPAT_ASSET_DIR . '/datatour-bf26.js'), true);
+    if ($article) {
+        wp_enqueue_style('dtbf26-article', $base . 'article.css', array('dtbf26-style'), filemtime(DTBF26COMPAT_ASSET_DIR . '/article.css'));
+        wp_enqueue_script('dtbf26-article', $base . 'article.js', array(), filemtime(DTBF26COMPAT_ASSET_DIR . '/article.js'), true);
+        return;
+    }
+    wp_enqueue_script('dtbf26-script', $base . 'datatour-bf26.js', array(), '2.0.0-' . filemtime(DTBF26COMPAT_ASSET_DIR . '/datatour-bf26.js'), true);
     $config = dtbf26compat_config();
     unset($config['recipient']);
     $config['ajaxUrl'] = admin_url('admin-ajax.php');
-    foreach (array('reviews', 'payments', 'priority_hotels') as $key) {
+    foreach (array('reviews', 'payments', 'priority_hotels', 'scenario_images') as $key) {
         if (!empty($config[$key])) {
             foreach ($config[$key] as &$entry) {
                 if (!empty($entry['image']) && strpos($entry['image'], 'http') !== 0) {
@@ -67,9 +80,10 @@ add_filter('theme_page_templates', function ($templates) {
     return $templates;
 });
 add_filter('template_include', function ($template) {
+    if (dtbf26compat_article()) { return DTBF26COMPAT_ASSET_DIR . '/article-template.php'; }
     if (dtbf26compat_is_landing() && get_page_template_slug(get_queried_object_id()) === 'datatour-bf26/landing.php') {
         return __DIR__ . '/templates/landing.php';
     }
     return $template;
 });
-require_once __DIR__ . '/leads-v1.4.2.php';
+require_once __DIR__ . '/leads-v2.0.0.php';

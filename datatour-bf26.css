@@ -501,3 +501,71 @@
 #dt-bf26 .dt-hotel-has-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 #dt-bf26 .dt-hotel-has-photo .dt-hotel-category{position:absolute;top:12px;left:12px;line-height:1.2;padding:5px 9px;border-radius:8px;background:#172127d9;font-size:22px}
 #dt-bf26 .dt-hotel-photo-label{position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:#172127cc;color:#fff;font-size:12px;line-height:1.4}
+
+/* The new brief: a short hero, illustrated choices and one shared action area. */
+#dt-bf26 .dt-hero{padding:26px 0;min-height:0}
+#dt-bf26 .dt-hero-grid{grid-template-columns:minmax(0,1.2fr) minmax(360px,.82fr);gap:40px;align-items:center}
+#dt-bf26 .dt-hero .dt-eyebrow{margin-bottom:14px;font-size:13px;line-height:1.4}
+#dt-bf26 .dt-hero h1{font-size:clamp(38px,3.3vw,50px);line-height:1.1;letter-spacing:-.04em}
+#dt-bf26 .dt-hero-copy .dt-hero-idea{font-size:17px;line-height:1.5;margin-top:16px;max-width:610px}
+#dt-bf26 .dt-offers{gap:14px;margin-top:18px}
+#dt-bf26 .dt-hero-copy .dt-offers p{margin:0;padding:14px 0;line-height:1.35}
+#dt-bf26 .dt-offers span{font-size:15px;line-height:1.4}
+#dt-bf26 .dt-offers strong{font-size:30px;line-height:1.3;margin:5px 0}
+#dt-bf26 .dt-offers strong em{font-size:16px}
+#dt-bf26 .dt-hero-copy .dt-row{margin-top:20px;gap:10px}
+#dt-bf26 .dt-hero-copy .dt-action{font-size:15px;min-height:46px;padding:12px 16px;gap:9px}
+#dt-bf26 .dt-hero-copy .dt-action i{width:20px;height:20px}
+#dt-bf26 .dt-quick{padding:22px}
+#dt-bf26 .dt-quick h2{font-size:26px;line-height:1.2}
+#dt-bf26 .dt-quick .dt-quick-intro{margin:7px 0 15px;font-size:15px;line-height:1.45}
+#dt-bf26 .dt-quick-fields{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+#dt-bf26 .dt-quick .dt-field{font-size:15px;line-height:1.4;margin-bottom:10px}
+#dt-bf26 .dt-quick .dt-field input{min-height:42px;padding:9px 12px;margin-top:5px}
+#dt-bf26 .dt-quick .dt-field textarea{min-height:70px;padding:9px 12px;margin-top:5px;line-height:1.4}
+#dt-bf26 .dt-optional{font-size:12px;color:#64706b;font-weight:400}
+#dt-bf26 .dt-consent{font-size:13px;line-height:1.45}
+#dt-bf26 .dt-consent span,#dt-bf26 .dt-consent a{font-size:inherit;line-height:inherit}
+#dt-bf26 .dt-quick .dt-consent{margin:2px 0 12px}
+#dt-bf26 .dt-quick [type=submit]{font-size:16px;min-height:46px;padding:12px 18px}
+#dt-bf26 .dt-quick .dt-selected-hotel{margin-bottom:12px;padding:10px;font-size:13px;line-height:1.4}
+#dt-bf26 .dt-quick .dt-selected-hotel strong{font-size:15px}
+#dt-bf26 .dt-status [data-campaign-copy]{max-width:670px;line-height:1.5;margin-top:10px}
+#dt-bf26 .dt-scenario{padding:0;gap:0;align-items:stretch;overflow:hidden}
+#dt-bf26 .dt-scenario-photo{height:150px;flex:none;width:100%}
+#dt-bf26 .dt-scenario-photo img{display:block;width:100%;height:100%;object-fit:cover}
+#dt-bf26 .dt-scenario-text{padding:18px;display:flex;flex-direction:column;flex:1;gap:10px}
+#dt-bf26 .dt-scenario-name{font-size:20px;line-height:1.3}
+#dt-bf26 .dt-scenario-hint{font-size:15px;line-height:1.5}
+#dt-bf26 .dt-scenario-check{font-size:14px;line-height:1.4;padding-top:5px;margin-top:auto}
+#dt-bf26 .dt-early-choice{padding-bottom:42px}
+#dt-bf26 .dt-early-choice .dt-advance-grid{margin-top:30px;gap:18px}
+#dt-bf26 .dt-early-choice .dt-advance-item{border:1px solid var(--dt-line);border-radius:14px;padding:22px;background:#fff}
+#dt-bf26 .dt-early-choice .dt-advance-item h3{font-size:22px;line-height:1.3}
+#dt-bf26 .dt-early-choice .dt-advance-item p{font-size:16px;line-height:1.6;margin-top:12px}
+#dt-bf26 #dt-priority{padding-top:42px}
+#dt-bf26 #dt-priority h2{max-width:1080px}
+#dt-bf26 .dt-priority{background:#e5ebd9;border:1px solid #ccd7bb;border-radius:18px;padding:28px;margin-top:28px}
+#dt-bf26 .dt-priority-groups{margin-top:0}
+#dt-bf26 .dt-priority p{line-height:1.6;margin-top:24px}
+#dt-bf26 .dt-argument h3{font-size:24px;line-height:1.3}
+#dt-bf26 .dt-argument p{font-size:16px;line-height:1.65}
+#dt-bf26 .dt-process-start{padding-bottom:28px;background:#fff}
+#dt-bf26 .dt-process-end{padding-top:28px;border-top:0}
+#dt-bf26 .dt-process-start .dt-request-example{margin-top:24px}
+#dt-bf26 .dt-process-end h2{font-size:36px;line-height:1.2}
+#dt-bf26 .dt-process-end .dt-tourvisor{padding:12px 0}
+#dt-bf26 .dt-post{display:flex;flex-direction:column;border-top:0;padding:0}
+#dt-bf26 .dt-post-media{height:205px;margin-bottom:20px}
+#dt-bf26 .dt-post h3{font-size:23px;line-height:1.3}
+#dt-bf26 .dt-post p{font-size:16px;line-height:1.65;flex:1}
+#dt-bf26 .dt-post-link{font-size:16px}
+@media(max-width:1199px) and (min-width:901px){#dt-bf26 .dt-hero-grid{grid-template-columns:minmax(0,1fr) minmax(350px,.85fr);gap:24px}#dt-bf26 .dt-hero h1{font-size:40px}}
+@media(max-width:900px){#dt-bf26 .dt-hero-grid{grid-template-columns:1fr;gap:28px}#dt-bf26 .dt-hero h1{font-size:46px}#dt-bf26 .dt-quick{max-width:650px}#dt-bf26 .dt-scenario-photo{height:145px}#dt-bf26 .dt-scenario-text{padding:16px}#dt-bf26 .dt-priority{padding:22px}#dt-bf26 .dt-post-media{height:165px}}
+@media(max-width:600px){#dt-bf26 .dt-hero{padding:22px 0}#dt-bf26 .dt-hero-photo{margin-bottom:24px;aspect-ratio:16/8}#dt-bf26 .dt-hero h1{font-size:36px}#dt-bf26 .dt-hero-copy .dt-hero-idea{font-size:16px}#dt-bf26 .dt-hero-copy .dt-action{font-size:16px;width:100%;justify-content:space-between}#dt-bf26 .dt-quick{padding:20px}#dt-bf26 .dt-quick-fields{grid-template-columns:1fr}#dt-bf26 .dt-quick .dt-field{font-size:16px}#dt-bf26 .dt-consent{font-size:13px}#dt-bf26 .dt-scenario-photo{height:125px}#dt-bf26 .dt-scenario-text{padding:14px 12px}#dt-bf26 .dt-scenario-name{font-size:18px}#dt-bf26 .dt-scenario-hint{font-size:15px}#dt-bf26 .dt-scenario-check{font-size:13px}#dt-bf26 .dt-priority{padding:20px 16px}#dt-bf26 .dt-early-choice .dt-advance-grid{grid-template-columns:1fr}#dt-bf26 .dt-process-end h2{font-size:30px}#dt-bf26 .dt-post-media{height:200px}}
+#dt-bf26 .dt-quick .dt-field{gap:4px}
+#dt-bf26 .dt-quick .dt-field input,#dt-bf26 .dt-quick .dt-field textarea{margin-top:0}
+#dt-bf26 .dt-quick .dt-error:empty{display:none}
+#dt-bf26 .dt-hero{overflow:visible}
+#dt-bf26 .dt-hotel-body .dt-hotel-region{font-size:14px;line-height:1.4;color:#52665b;margin-top:7px}
+#dt-bf26 .dt-hotel-link{font-size:14px;line-height:1.5;text-decoration:underline;text-underline-offset:3px;display:inline-block;margin-top:10px;color:#375d53}

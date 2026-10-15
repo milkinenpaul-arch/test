@@ -1,0 +1,20 @@
+#dt-bf26 .dt-article{padding:30px 0 64px}
+#dt-bf26 .dt-article-back{display:inline-block;font-size:16px;line-height:1.5;text-decoration:underline;text-underline-offset:4px;margin-bottom:24px;color:#375c53}
+#dt-bf26 .dt-article-cover{width:100%;height:320px;overflow:hidden;border-radius:18px;margin-bottom:38px}
+#dt-bf26 .dt-article-cover img{display:block;width:100%;height:100%;object-fit:cover}
+#dt-bf26 .dt-article-body{width:min(100%,820px);margin:0 auto}
+#dt-bf26 .dt-article h1{font-size:46px;line-height:1.15;letter-spacing:-.035em;margin:14px 0 28px}
+#dt-bf26 .dt-article-content{font-size:18px;line-height:1.75}
+#dt-bf26 .dt-article-content p,#dt-bf26 .dt-article-content li{font-size:18px;line-height:1.75;font-weight:400}
+#dt-bf26 .dt-article-content p{margin:18px 0}
+#dt-bf26 .dt-article-content .dt-article-lead{font-size:21px;line-height:1.65;color:#476057;margin-bottom:30px}
+#dt-bf26 .dt-article-content h2{font-size:29px;line-height:1.3;letter-spacing:-.02em;margin:36px 0 16px}
+#dt-bf26 .dt-article-content ul{list-style:disc;margin:20px 0;padding-left:24px}
+#dt-bf26 .dt-article-content li{padding-left:4px;margin:10px 0}
+#dt-bf26 .dt-article-cta{margin-top:42px;padding:28px;background:#e5ebd9;border:1px solid #ccd7bb;border-radius:16px}
+#dt-bf26 .dt-article-cta h2{font-size:29px;line-height:1.3}
+#dt-bf26 .dt-article-cta p{font-size:17px;line-height:1.65;margin:16px 0 22px}
+#dt-bf26 .dt-article-cta .dt-action{font-size:16px;margin-right:22px}
+#dt-bf26 .dt-article-cta .dt-article-back{margin:18px 0 0}
+@media(max-width:600px){#dt-bf26 .dt-article{padding:24px 0 44px}#dt-bf26 .dt-article-cover{height:200px;border-radius:14px;margin-bottom:26px}#dt-bf26 .dt-article h1{font-size:32px}#dt-bf26 .dt-article-content p,#dt-bf26 .dt-article-content li{font-size:17px;line-height:1.7}#dt-bf26 .dt-article-content .dt-article-lead{font-size:19px}#dt-bf26 .dt-article-content h2,#dt-bf26 .dt-article-cta h2{font-size:25px}#dt-bf26 .dt-article-cta{padding:22px}}
+#dt-bf26 .dt-article *{font-family:inherit}

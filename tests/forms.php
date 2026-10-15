@@ -31,6 +31,9 @@ $cases=0;
 function rejected($extra,$code){$before=$GLOBALS['mail_calls'];$r=call_submit(payload($extra));expect(!$r->success&&$r->data['code']===$code,'Wrong rejection: '.$code);expect($GLOBALS['mail_calls']===$before,'Rejected request attempted mail');$GLOBALS['cases']++;}
 rejected(array('consent'=>''),'consent_required');
 rejected(array('contact'=>'not-a-contact'),'invalid_contact');
+rejected(array('formVariant'=>'quick','contact'=>'test@example.com'),'invalid_contact');
+rejected(array('formVariant'=>'quick','contact'=>'+375291234567','email'=>'not-an-email'),'invalid_email');
+rejected(array('name'=>array('forged')),'invalid_field');
 rejected(array('nonce'=>'wrong'),'expired_context');
 rejected(array('token'=>str_repeat('0',64)),'expired_context');
 rejected(array('website'=>'spam.example'),'spam_check');
@@ -50,6 +53,12 @@ $r=call_submit(payload(array('children'=>'1','ages'=>'14','hotelId'=>'priority-2
 $GLOBALS['mail_ok']=false;
 $r=call_submit(payload(array('requestId'=>'unit-test-request-00000002')));expect(!$r->success&&$r->data['code']==='mail_failed','Mail failure reported as success');$cases++;
 $r=call_submit(payload(array('requestId'=>'unit-test-request-00000002')));expect(!$r->success&&$GLOBALS['mail_calls']===2,'Failed request unexpectedly mailed again');$cases++;
+$GLOBALS['mail_ok']=true;
+$r=call_submit(payload(array('requestId'=>'unit-test-request-00000004','formVariant'=>'quick','contact'=>'+375291234567','name'=>'Турист','email'=>'traveller@example.com','hotelId'=>'priority-21','scenario'=>'family','budgetAmount'=>'3000 EUR')));
+expect($r->success,'Quick form rejected');
+expect(strpos($GLOBALS['last_mail'][2],'Имя: Турист')!==false && strpos($GLOBALS['last_mail'][2],'Email: traveller@example.com')!==false,'Optional name/email missing');
+expect(strpos($GLOBALS['last_mail'][2],'LONICERA HOTELS')!==false && strpos($GLOBALS['last_mail'][2],'Сценарий: family')!==false && strpos($GLOBALS['last_mail'][2],'Бюджет: 3000 EUR')!==false,'Hidden selection lost');
+expect(in_array('Reply-To: traveller@example.com',$GLOBALS['last_mail'][3]),'Optional validated email not used for reply');$cases++;
 $rate_key='dtbf26_rate_'.hash_hmac('sha256',$_SERVER['REMOTE_ADDR'],wp_salt());$GLOBALS['rates'][$rate_key]=6;
 rejected(array('requestId'=>'unit-test-request-00000003'),'rate_limit');
 echo 'PASS: '.$cases.' server contracts; consent, nonce, contact, ages, origin, hotel lookup, idempotency, mail failure and rate limit. No real mail sent.'.PHP_EOL;

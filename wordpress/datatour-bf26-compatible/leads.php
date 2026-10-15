@@ -52,6 +52,16 @@ function dtbf26compat_submit() {
     if (!dtbf26compat_valid_contact($contact)) {
         dtbf26compat_error('invalid_contact', 'Введите телефон с кодом страны, email или Telegram @username.', 400);
     }
+    $variant = dtbf26compat_field('formVariant', 20);
+    $name = dtbf26compat_field('name', 100);
+    $email = dtbf26compat_field('email', 200);
+    if ($variant === 'quick') {
+        $digits = preg_replace('/\D/', '', $contact);
+        if (!preg_match('/^\+?[\d\s()\-]{7,25}$/D', $contact) || strlen($digits) < 7 || strlen($digits) > 15) {
+            dtbf26compat_error('invalid_contact', 'Введите телефон с кодом страны.', 400);
+        }
+    }
+    if ($email !== '' && !is_email($email)) { dtbf26compat_error('invalid_email', 'Проверьте адрес email.', 400); }
     if (dtbf26compat_field('consent', 10) !== '1') {
         dtbf26compat_error('consent_required', 'Нужно согласие на обработку персональных данных.', 400);
     }
@@ -96,6 +106,7 @@ function dtbf26compat_submit() {
     $date = new DateTime('now', new DateTimeZone('Europe/Minsk'));
     $fields = array(
         'Цель' => $purposes[$purpose], 'Контакт' => $contact,
+        'Имя' => $name, 'Email' => $email,
         'Сезон' => $season === 'summer' ? 'Турция, лето 2027' : 'Зимние направления',
         'Направление' => dtbf26compat_field('direction', 200),
         'Период' => dtbf26compat_field('period', 200),
@@ -140,7 +151,8 @@ function dtbf26compat_submit() {
     $body = ($is_test ? "ТЕСТОВАЯ ПРОВЕРКА. Не обрабатывать как заявку клиента.\n\n" : '');
     foreach ($fields as $label => $value) { if ($value !== '') { $body .= $label . ': ' . $value . "\n"; } }
     $headers = array('Content-Type: text/plain; charset=UTF-8');
-    if (is_email($contact)) { $headers[] = 'Reply-To: ' . $contact; }
+    if ($email !== '') { $headers[] = 'Reply-To: ' . $email; }
+    elseif (is_email($contact)) { $headers[] = 'Reply-To: ' . $contact; }
     $recipient = !empty($config['recipient']) && is_email($config['recipient']) ? $config['recipient'] : 'datatour78@mail.ru';
     $GLOBALS['dtbf26_mail_active'] = true;
     $accepted = wp_mail($recipient, $subject, $body, $headers);

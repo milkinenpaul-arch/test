@@ -5,6 +5,13 @@ const root=path.resolve(__dirname,'..');
  const server=http.createServer((req,res)=>{
   const target=path.join(root,decodeURIComponent(req.url.split('?')[0]));
   if(!target.startsWith(root+path.sep)){res.writeHead(403);res.end();return;}
+  if(req.url.split('?')[0]==='/datatour-bf26-preview.html'){
+   const cfg=JSON.parse(fs.readFileSync(path.join(root,'datatour-bf26-config.json'),'utf8'));delete cfg.recipient;cfg.ajaxUrl='/wp-admin/admin-ajax.php';
+   for(const key of ['reviews','payments','priority_hotels','scenario_images'])for(const item of cfg[key]||[])if(item.image&&!item.image.startsWith('http'))item.image='/assets/'+item.image;
+   let body=fs.readFileSync(path.join(root,'datatour-bf26.html'),'utf8').replaceAll('{{asset_url}}','/assets').replaceAll('{{ajax_url}}',cfg.ajaxUrl);
+   cfg.news.forEach((item,i)=>body=body.replaceAll('{{news_'+(i+1)+'_url}}',item.url));
+   res.setHeader('Content-Type','text/html; charset=utf-8');res.end('<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0}'+fs.readFileSync(path.join(root,'datatour-bf26.css'),'utf8')+'</style><body>'+body+'<script>window.DatatourBF26='+JSON.stringify(cfg).replaceAll('</','<\\/')+';</script><script>'+fs.readFileSync(path.join(root,'datatour-bf26.js'),'utf8')+'</script></body></html>');return;
+  }
   if(!fs.existsSync(target)||!fs.statSync(target).isFile()){res.writeHead(404);res.end();return;}
   const types={'.html':'text/html; charset=utf-8','.webp':'image/webp','.js':'application/javascript','.css':'text/css'};
   res.setHeader('Content-Type',types[path.extname(target)]||'application/octet-stream');res.end(fs.readFileSync(target));
@@ -24,14 +31,32 @@ const root=path.resolve(__dirname,'..');
   await context.route(/^https?:\/\/tourvisor\.ru\/module\/init\.js$/,async route=>{tourvisorLoads++;await route.fulfill({contentType:'application/javascript',body:'document.querySelector("#dt-tourvisor-container .tv-search-form").innerHTML="<label>Lifecycle fixture<input type=search></label><button>Search fixture</button>";'});});
   await context.route('https://yandex.by/map-widget/**',route=>{mapLoads++;return route.fulfill({contentType:'text/html',body:'Map lifecycle fixture'});});
   await page.goto(origin+'/datatour-bf26-preview.html',{waitUntil:'networkidle'});
+  await page.locator('#dt-cookie-banner').evaluate(el=>el.hidden=true);
+  for(const [width,height] of [[1366,768],[1440,900]]){
+   await page.setViewportSize({width,height});
+   const fit=await page.locator('.dt-hero').evaluate(el=>({bottom:el.getBoundingClientRect().bottom,overflow:getComputedStyle(el).overflow}));
+   assert.ok(fit.bottom<=height,'Hero including header must fit '+JSON.stringify({width,height,...fit}));assert.notEqual(fit.overflow,'hidden');
+   await page.screenshot({path:'/workspace/scratch/bf26-refresh/brief-hero-'+width+'.png'});
+  }
+  await page.locator('#dt-cookie-banner').evaluate(el=>el.hidden=false);
+  await page.setViewportSize({width:1440,height:900});
+  assert.equal(await page.locator('.dt-hero-copy .dt-row a').count(),2);assert.equal(await page.locator('#dt-quick-form [type=submit]').textContent(),'Подобрать тур');
+  assert.equal(await page.locator('[data-form-context]').count(),0);assert.equal(await page.locator('#dt-quick-form input[name=contact]').getAttribute('type'),'tel');
+  assert.equal(await page.locator('#dt-quick-form h2').textContent(),'Подготовим варианты');
+  assert.equal(await page.locator('#dt-early-choice .dt-advance-item').count(),4);assert.equal(await page.locator('details.dt-priority').count(),0);
+  assert.equal(await page.locator('.dt-argument').count(),6);assert.equal(await page.locator('.dt-faq-list details').count(),7);
+  assert.equal(await page.locator('[data-scenario-set=summer] .dt-scenario-photo img').count(),5);
+  for(const photo of await page.locator('[data-scenario-set=summer] .dt-scenario-photo img').all()){await photo.scrollIntoViewIfNeeded();await photo.evaluate(el=>el.decode());assert.ok(await photo.evaluate(el=>el.naturalWidth>0));}
+  assert.equal(await page.locator('.dt-process-start .dt-step-bottom').count(),0);assert.equal(await page.locator('.dt-process-end .dt-row a').count(),2);
+  assert.equal(await page.locator('.dt-post-media img').count(),3);passed('Short hero fits 1366×768 and 1440×900; five restored scenario photographs, four early-choice situations, open list, six arguments and seven FAQ');
   assert.equal(await page.locator('[data-block]').count(),14);assert.equal(await page.locator('.dt-hotel-card').count(),25);assert.equal(await page.locator('[data-select-priority]').count(),26);passed('14 blocks after footer merge, 25 cards, all 26 priority positions');
   assert.equal(await page.locator('[data-budget],#dt-results').count(),0);assert.equal(await page.locator('#dt-hotel-footer > span').count(),0);
   const descriptions=await page.locator('.dt-hotel-description').allTextContents();assert.equal(descriptions.length,25);assert.equal(new Set(descriptions).size,25);assert.ok(descriptions.every(text=>text.length>=90&&!text.includes('Цена и наличие')));
-  assert.ok((await page.locator('[data-select-hotel]').allTextContents()).every(text=>text==='Рассчитать этот вариант'));assert.equal(await page.locator('#dt-hotel-track a').count(),0);
+  assert.ok((await page.locator('[data-select-hotel]').allTextContents()).every(text=>text==='Подобрать этот отель'));assert.equal(await page.locator('#dt-hotel-track a').count(),1);assert.equal(await page.locator('#dt-hotel-track a').getAttribute('href'),'https://sales.datatour.by/lonicera-world-resort/');
   for(const id of ['priority-1','priority-21','priority-25']){await page.locator('[data-select-hotel="'+id+'"]').click();assert.equal(await page.locator('#dt-final-form input[name=hotelId]').inputValue(),id);}
   const hotelPhoto=page.locator('[data-hotel="priority-21"] img');await hotelPhoto.scrollIntoViewIfNeeded();await hotelPhoto.evaluate(el=>el.decode());assert.ok(await hotelPhoto.evaluate(el=>el.naturalWidth>=1000));
   assert.ok((await page.locator('[data-hotel="priority-21"] .dt-hotel-photo-label').textContent()).includes('Lonicera World Resort'));assert.equal(await page.locator('.dt-hotel-media img').count(),1);
-  passed('25 distinct hotel descriptions, unchanged calculation buttons/selection, no price disclaimer, budget filter or position captions');
+  passed('25 distinct hotel descriptions, hotel selection buttons and parameter transfer, no price disclaimer, budget filter or position captions');
   assert.equal(await page.locator('#dt-trust').isVisible(),true);assert.equal(await page.locator('#dt-trust-title').textContent(),'Доверие к ДАТА ТУР');
   assert.equal(await page.locator('.dt-review-caption').count(),0);assert.equal(await page.locator('[data-review][aria-label]').count(),4);
   assert.equal((await page.locator('.dt-review-links').textContent()).trim(),'Больше отзывов в Яндекс и Гугл');
@@ -59,7 +84,7 @@ const root=path.resolve(__dirname,'..');
   await page.evaluate(()=>{window.recordedEvents=[];document.getElementById('dt-bf26').addEventListener('dtbf26:event',e=>window.recordedEvents.push(e.detail));});
   await page.locator('#dt-hotel-season').selectOption('winter');assert.equal(await page.locator('#dt-empty').isVisible(),true);await page.locator('#dt-hotel-season').selectOption('summer');
   await page.locator('[data-scenario-set=summer] [data-scenario=family]').click();
-  await page.locator('.dt-priority summary').click();await page.locator('[data-select-priority=priority-26]').click();
+  assert.equal(await page.locator('details.dt-priority').count(),0);await page.locator('[data-select-priority=priority-26]').click();
   assert.equal(await page.locator('#dt-final-form input[name=hotelLabel]').inputValue(),'IC HOTELS');assert.equal(await page.locator('#dt-quick-form input[name=hotelId]').inputValue(),'priority-26');
   assert.equal(await page.locator('#dt-final-form input[name=scenario]').inputValue(),'family');assert.equal(await page.locator('#dt-final-form input[name=budgetLevel]').inputValue(),'all');passed('Season, scenario, IC HOTELS and parameter transfer without a budget filter');
   await page.locator('#dt-final-form button[type=submit]').click();assert.equal(posts.length,0);assert.equal(await page.locator('#dt-final-form input[name=contact]').getAttribute('aria-invalid'),'true');
@@ -71,7 +96,15 @@ const root=path.resolve(__dirname,'..');
   rejectMail=false;
   await page.locator('#dt-final-form button[type=submit]').click();await page.waitForFunction(()=>document.getElementById('dt-final-message').dataset.state==='success');assert.equal(posts.length,2);
   await page.locator('#dt-final-form button[type=submit]').click();assert.equal(posts.length,2);passed('Success only after handler acceptance; repeated submit does not send again');
-  const tracked=await page.evaluate(()=>window.recordedEvents);assert.ok(!JSON.stringify(tracked).includes('test@example.com'));assert.equal(tracked.filter(e=>e.action==='hotel').length,1);assert.equal(tracked.filter(e=>e.action==='form_accepted').length,1);passed('Event payload has no contact and does not duplicate hotel/acceptance events');
+  await page.locator('#dt-quick-form input[name=contact]').fill('test@example.com');await page.locator('#dt-quick-form input[name=consent]').check();
+  await page.locator('#dt-quick-form button[type=submit]').click();assert.equal(posts.length,2);
+  await page.locator('#dt-quick-form input[name=contact]').fill('+375291234567');await page.locator('#dt-quick-form input[name=email]').fill('invalid');
+  await page.locator('#dt-quick-form button[type=submit]').click();assert.equal(posts.length,2);assert.equal(await page.locator('#dt-quick-form input[name=email]').getAttribute('aria-invalid'),'true');
+  await page.locator('#dt-quick-form input[name=email]').fill('traveller@example.com');await page.locator('#dt-quick-form input[name=name]').fill('Турист');
+  await page.locator('#dt-quick-form button[type=submit]').click();await page.waitForFunction(()=>document.getElementById('dt-quick-message').dataset.state==='success');assert.equal(posts.length,3);
+  for(const value of ['name="scenario"','family','priority-26','traveller@example.com','Турист'])assert.ok(posts[2].includes(value));
+  passed('Quick form requires a phone, validates optional email and preserves name, selected hotel and scenario in mocked submission');
+  const tracked=await page.evaluate(()=>window.recordedEvents);assert.ok(!JSON.stringify(tracked).includes('test@example.com'));assert.equal(tracked.filter(e=>e.action==='hotel').length,1);assert.equal(tracked.filter(e=>e.action==='form_accepted').length,2);passed('Event payload has no contact and does not duplicate hotel/acceptance events');
   assert.equal(tourvisorLoads,1);assert.equal(await page.locator('#dt-tourvisor-container .tv-search-form input').isVisible(),true);
   assert.equal(await page.locator('script[src="//tourvisor.ru/module/init.js"]').count(),1);assert.equal(await page.locator('#dt-load-tourvisor').count(),0);
   assert.equal(await page.locator('#dt-map-frame iframe').count(),1);assert.equal(mapLoads,1);
@@ -86,7 +119,7 @@ const root=path.resolve(__dirname,'..');
   passed('Merged footer retains contacts/policies/socials; eager map autoloads without a launch button or consent; cookie choice persists (vendor fixtures)');
   // Reproduce the legacy theme's universal typography rule, including nested spans.
   await page.addStyleTag({content:'*{font-family:Georgia,serif;font-size:18px;line-height:100%}'});
-  for(const width of [360,390,768,920,1024,1440]){
+  for(const width of [360,390,768,920,1024,1366,1440]){
    await page.setViewportSize({width,height:900});
    const sizes=await page.evaluate(()=>({width:document.documentElement.clientWidth,scroll:document.documentElement.scrollWidth}));assert.ok(sizes.scroll<=sizes.width,JSON.stringify({width,...sizes}));
    const typography=await page.evaluate(()=>['.dt-header-slogan','.dt-header-cta','.dt-phones summary span','.dt-header .dt-address span'].map(selector=>{const el=document.querySelector(selector),box=el.getBoundingClientRect();return {font:parseFloat(getComputedStyle(el).fontSize),top:box.y,bottom:box.bottom,center:box.y+box.height/2,height:box.height,line:parseFloat(getComputedStyle(el).lineHeight)};}));
@@ -114,7 +147,7 @@ const root=path.resolve(__dirname,'..');
    for(const selector of ['.dt-hero-idea','.dt-intro','.dt-argument p']){
     const style=await page.locator(selector).first().evaluate(el=>({weight:getComputedStyle(el).fontWeight,size:parseFloat(getComputedStyle(el).fontSize)}));assert.equal(style.weight,'400');assert.ok(style.size>=16);
    }
-  }passed('360/390/768/920/1024/1440: aligned header with equal font sizes, single-line address, no overflow and readable descriptions');
+  }passed('360/390/768/920/1024/1366/1440: aligned header with equal font sizes, single-line address, no overflow and readable descriptions');
   await page.evaluate(()=>{Date.now=()=>new Date('2026-11-27T00:00:00+03:00').getTime();});await page.waitForFunction(()=>document.getElementById('dt-campaign-status').textContent==='Акция идёт');
   await page.evaluate(()=>{Date.now=()=>new Date('2026-11-29T23:59:59+03:00').getTime();});await page.waitForTimeout(1100);assert.equal(await page.locator('#dt-campaign-status').textContent(),'Акция идёт');
   await page.evaluate(()=>{Date.now=()=>new Date('2026-11-30T00:00:00+03:00').getTime();});await page.waitForFunction(()=>document.getElementById('dt-campaign-status').textContent==='Акция завершена');
