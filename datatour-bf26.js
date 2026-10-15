@@ -11,7 +11,7 @@ const dtIconSVG={"baby": "<svg class=\"dt-svg-icon\" aria-hidden=\"true\"\n \n  
 dtIconSVG['arrow-up-right']='<svg class="dt-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg>';
 const icons=()=>$$('[data-dt-icon]').forEach(el=>{if(dtIconSVG[el.dataset.dtIcon])el.innerHTML=dtIconSVG[el.dataset.dtIcon];});
 const scenarios=[{id:'family',name:'С детьми',icon:'baby',summer:'Пляж, удобный номер и отдых в ритме семьи.',winter:'Возраст детей, каникулы и удобный перелёт.'},{id:'couple',name:'Вдвоём и спокойно',icon:'heart',summer:'Море, спокойный ритм и время друг для друга.',winter:'Тёплая пауза и отдых без лишней спешки.'},{id:'friends',name:'Активно и компанией',icon:'users',summer:'Общие планы и удобное размещение для компании.',winter:'Новые впечатления и активная поездка вместе.'},{id:'discover',name:'Море и впечатления',icon:'compass',summer:'Пляж, прогулки и поездки за пределы отеля.',winter:'Знакомство с направлением и отдых у моря.'},{id:'service',name:'Комфорт и сервис',icon:'sparkles',summer:'Важные детали номера, питания и обслуживания.',winter:'Продуманный отдых и внимание к вашим пожеланиям.'}];
-const seasons={summer:'Турция, лето 2027',winter:'Зимние направления'},budgets={all:'Бюджет без ограничений',rational:'Рациональный',comfort:'Комфорт',premium:'Премиальный'};
+const seasons={summer:'Турция, лето 2027',winter:'Зимние направления'};
 const priorities=Array.isArray(cfg.priority_hotels)?cfg.priority_hotels:[];
 const hotels=priorities.slice(0,25);
 const forms=$$('[data-lead-form]');
@@ -77,11 +77,11 @@ function renderScenarios(){
  $('#dt-hotel-scenario').innerHTML='<option value="all">Любой сценарий</option>'+scenarios.map(s=>'<option value="'+s.id+'">'+s.name+'</option>').join('');
 }
 function renderHotels(){
- $('#dt-hotel-track').innerHTML=hotels.map(h=>'<article class="dt-hotel-card" data-hotel="'+h.id+'"><div class="dt-hotel-media"><span class="dt-hotel-category">'+h.category+'*</span><span class="dt-hotel-type">'+'Отель или сеть из списка'+'</span></div><div class="dt-hotel-body"><h3>'+escapeHTML(h.name)+'</h3><p>Укажите даты, состав туристов и пожелания к номеру. Проверим конкретный вариант и рассчитаем стоимость.</p><p>Цена и наличие — по индивидуальному запросу.</p><button type="button" class="dt-action" data-select-hotel="'+h.id+'">Рассчитать этот вариант</button></div></article>').join('');
+ $('#dt-hotel-track').innerHTML=hotels.map(h=>'<article class="dt-hotel-card" data-hotel="'+h.id+'"><div class="dt-hotel-media'+(h.image?' dt-hotel-has-photo':'')+'">'+(h.image?'<img src="'+escapeHTML(h.image)+'" alt="'+escapeHTML(h.imageAlt||h.name)+'" loading="lazy" decoding="async">':'')+'<span class="dt-hotel-category">'+h.category+'*</span>'+(h.imageLabel?'<span class="dt-hotel-photo-label">'+escapeHTML(h.imageLabel)+'</span>':'')+'</div><div class="dt-hotel-body"><h3>'+escapeHTML(h.name)+'</h3><p class="dt-hotel-description">'+escapeHTML(h.description||'')+'</p><button type="button" class="dt-action" data-select-hotel="'+h.id+'">Рассчитать этот вариант</button></div></article>').join('');
 }
 function syncState(){
  const scenario=scenarios.find(x=>x.id===state.scenario);
- const description=seasons[state.season]+' · '+(scenario?scenario.name:'Любой сценарий')+' · '+budgets[state.budget];
+ const description=seasons[state.season]+' · '+(scenario?scenario.name:'Любой сценарий');
  forms.forEach(f=>{
   f.elements.season.value=state.season;f.elements.scenario.value=state.scenario;f.elements.budgetLevel.value=state.budget;
   f.elements.hotelId.value=state.hotel?.id||'';f.elements.hotelLabel.value=state.hotel?.name||'';
@@ -93,10 +93,8 @@ function syncState(){
  $$('[data-season]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.season===state.season)));
  $('#dt-panel-summer').hidden=state.season!=='summer';$('#dt-panel-winter').hidden=state.season!=='winter';
  $$('[data-scenario]').forEach(b=>{const chosen=b.dataset.scenario===state.scenario;b.setAttribute('aria-pressed',String(chosen));b.querySelector('.dt-scenario-check').textContent=chosen?'Выбрано':'Выбрать сценарий';});
- $$('[data-budget]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.budget===state.budget)));
  $('#dt-selection-label').textContent=description;
  const show=state.season==='summer';$('#dt-hotel-track').hidden=!show;$('#dt-hotel-footer').hidden=!show;$('#dt-empty').hidden=show;
- $('#dt-results').textContent=show?'Для индивидуального расчёта: '+hotels.length+' позиций':'Зимние варианты — по вашим пожеланиям';
  requestAnimationFrame(()=>updateCarousel('hotel'));
 }
 function changeSeason(season){state.season=season;if(state.hotel&&season==='winter')state.hotel=null;syncState();clearMessages();track('season',{season,source:'selection'});}
@@ -139,7 +137,6 @@ root.addEventListener('click',e=>{
  const menu=e.target.closest('.dt-menu-button');if(menu){const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Закрыть меню':'Открыть меню');$('#dt-navigation').dataset.open=String(open);updateHeader();return;}
  const season=e.target.closest('[data-season]');if(season){changeSeason(season.dataset.season);return;}
  const scenario=e.target.closest('[data-scenario]');if(scenario){state.scenario=state.scenario===scenario.dataset.scenario?'all':scenario.dataset.scenario;syncState();clearMessages();track('scenario',{scenario:state.scenario,source:'scenario'});return;}
- const budget=e.target.closest('[data-budget]');if(budget){state.budget=budget.dataset.budget;syncState();clearMessages();return;}
  const hotel=e.target.closest('[data-select-hotel],[data-select-priority]');if(hotel){selectHotel(hotel.dataset.selectHotel||hotel.dataset.selectPriority,hotel.dataset.selectPriority?'priority-list':'hotel-slider');return;}
  const remove=e.target.closest('[data-remove-hotel]');if(remove){state.hotel=null;syncState();setPurpose('selection','hotel-removed');return;}
  const review=e.target.closest('[data-review]');if(review){const r=cfg.reviews[Number(review.dataset.review)];if(!r)return;viewerTrigger=review;$('#dt-viewer-title').textContent=r.author;$('#dt-viewer-content').innerHTML='<img src="'+escapeHTML(r.image)+'" alt="Отзыв '+escapeHTML(r.author)+'"><p>'+escapeHTML(r.tripType||'')+'</p>';if(viewer.showModal)viewer.showModal();else viewer.setAttribute('open','');return;}

@@ -493,3 +493,11 @@
 #dt-bf26 #dt-viewer-content img{display:block;width:100%;max-width:100%;height:auto}
 @media(max-width:900px){#dt-bf26 .dt-review{flex-basis:calc((100% - 18px)/2)}}
 @media(max-width:600px){#dt-bf26 .dt-review{flex-basis:88%}#dt-bf26 .dt-review-button{height:430px;padding:12px}#dt-bf26 .dt-trust .dt-carousel-footer>span{max-width:100%}#dt-bf26 #dt-viewer{padding:14px;width:calc(100vw - 24px);max-height:calc(100vh - 24px)}}
+
+/* Hotel catalogue: unique copy, no budget filter or position-count caption. */
+#dt-bf26 #dt-hotel-footer{justify-content:flex-end}
+#dt-bf26 .dt-hotel-description{flex:1}
+#dt-bf26 .dt-hotel-media.dt-hotel-has-photo{height:190px;padding:0;display:block}
+#dt-bf26 .dt-hotel-has-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#dt-bf26 .dt-hotel-has-photo .dt-hotel-category{position:absolute;top:12px;left:12px;line-height:1.2;padding:5px 9px;border-radius:8px;background:#172127d9;font-size:22px}
+#dt-bf26 .dt-hotel-photo-label{position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:#172127cc;color:#fff;font-size:12px;line-height:1.4}
