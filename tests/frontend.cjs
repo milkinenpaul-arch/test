@@ -73,6 +73,10 @@ const root=path.resolve(__dirname,'..');
   for(const width of [360,390,768,920,1024,1440]){
    await page.setViewportSize({width,height:900});
    const sizes=await page.evaluate(()=>({width:document.documentElement.clientWidth,scroll:document.documentElement.scrollWidth}));assert.ok(sizes.scroll<=sizes.width,JSON.stringify({width,...sizes}));
+   const typography=await page.evaluate(()=>['.dt-header-slogan','.dt-header-cta','.dt-phones summary span','.dt-header .dt-address span'].map(selector=>{const el=document.querySelector(selector),box=el.getBoundingClientRect();return {font:parseFloat(getComputedStyle(el).fontSize),center:box.y+box.height/2,height:box.height,line:parseFloat(getComputedStyle(el).lineHeight)};}));
+   assert.deepEqual(typography.map(item=>item.font),[13,13,13,13]);
+   if(width>900){assert.ok(Math.max(...typography.slice(0,3).map(item=>item.center))-Math.min(...typography.slice(0,3).map(item=>item.center))<2);}
+   if(width>=1200){assert.ok(typography[0].height<=typography[0].line+1,'Desktop slogan must stay on one line');}
    const headerHeight=await page.locator('.dt-header').evaluate(el=>el.getBoundingClientRect().height);assert.ok(headerHeight<=(width<=900?175:140),JSON.stringify({width,headerHeight}));
    const address=await page.locator('.dt-header .dt-address').evaluate(el=>{const icon=el.querySelector('svg').getBoundingClientRect(),text=el.querySelector('span').getBoundingClientRect();return {height:el.getBoundingClientRect().height,line:parseFloat(getComputedStyle(el).lineHeight),iconCenter:icon.y+icon.height/2,textCenter:text.y+text.height/2};});
    assert.ok(address.height<=address.line+3,JSON.stringify({width,address}));assert.ok(Math.abs(address.iconCenter-address.textCenter)<2);
@@ -85,7 +89,7 @@ const root=path.resolve(__dirname,'..');
    for(const selector of ['.dt-hero-idea','.dt-intro','.dt-argument p']){
     const style=await page.locator(selector).first().evaluate(el=>({weight:getComputedStyle(el).fontWeight,size:parseFloat(getComputedStyle(el).fontSize)}));assert.equal(style.weight,'400');assert.ok(style.size>=16);
    }
-  }passed('360/390/768/920/1024/1440: compact header, single-line address, no overflow and readable descriptions');
+  }passed('360/390/768/920/1024/1440: aligned header with equal font sizes, single-line address, no overflow and readable descriptions');
   await page.evaluate(()=>{Date.now=()=>new Date('2026-11-27T00:00:00+03:00').getTime();});await page.waitForFunction(()=>document.getElementById('dt-campaign-status').textContent==='Акция идёт');
   await page.evaluate(()=>{Date.now=()=>new Date('2026-11-29T23:59:59+03:00').getTime();});await page.waitForTimeout(1100);assert.equal(await page.locator('#dt-campaign-status').textContent(),'Акция идёт');
   await page.evaluate(()=>{Date.now=()=>new Date('2026-11-30T00:00:00+03:00').getTime();});await page.waitForFunction(()=>document.getElementById('dt-campaign-status').textContent==='Акция завершена');
