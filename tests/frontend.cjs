@@ -26,7 +26,7 @@ const root=path.resolve(__dirname,'..');
   await page.goto(origin+'/datatour-bf26-preview.html',{waitUntil:'networkidle'});
   assert.equal(await page.locator('[data-block]').count(),14);assert.equal(await page.locator('.dt-hotel-card').count(),25);assert.equal(await page.locator('[data-select-priority]').count(),26);passed('14 blocks after footer merge, 25 cards, all 26 priority positions');
   assert.equal(await page.locator('#dt-trust').isVisible(),true);assert.equal(await page.locator('#dt-trust-title').textContent(),'Доверие к ДАТА ТУР');
-  assert.deepEqual(await page.locator('.dt-review-caption').allTextContents(),['Екатерина Л','Ольга Б.','Алла Швадронова','Ольга Типко']);
+  assert.equal(await page.locator('.dt-review-caption').count(),0);assert.equal(await page.locator('[data-review][aria-label]').count(),4);
   assert.equal((await page.locator('.dt-review-links').textContent()).trim(),'Больше отзывов в Яндекс и Гугл');
   assert.equal(await page.locator('.dt-review-links a').first().getAttribute('href'),'https://yandex.by/maps/-/CXBuAN1i');assert.equal(await page.locator('.dt-review-links a').last().getAttribute('href'),'https://maps.app.goo.gl/EM7heMBFGo85mfiw7');
   for(const button of await page.locator('[data-review]').all()){
