@@ -25,6 +25,16 @@ const root=path.resolve(__dirname,'..');
   await context.route('https://yandex.by/map-widget/**',route=>{mapLoads++;return route.fulfill({contentType:'text/html',body:'Map lifecycle fixture'});});
   await page.goto(origin+'/datatour-bf26-preview.html',{waitUntil:'networkidle'});
   assert.equal(await page.locator('[data-block]').count(),14);assert.equal(await page.locator('.dt-hotel-card').count(),25);assert.equal(await page.locator('[data-select-priority]').count(),26);passed('14 blocks after footer merge, 25 cards, all 26 priority positions');
+  assert.equal(await page.locator('#dt-trust').isVisible(),true);assert.equal(await page.locator('#dt-trust-title').textContent(),'Доверие к ДАТА ТУР');
+  assert.deepEqual(await page.locator('.dt-review-caption').allTextContents(),['Екатерина Л','Ольга Б.','Алла Швадронова','Ольга Типко']);
+  assert.equal((await page.locator('.dt-review-links').textContent()).trim(),'Больше отзывов в Яндекс и Гугл');
+  assert.equal(await page.locator('.dt-review-links a').first().getAttribute('href'),'https://yandex.by/maps/-/CXBuAN1i');assert.equal(await page.locator('.dt-review-links a').last().getAttribute('href'),'https://maps.app.goo.gl/EM7heMBFGo85mfiw7');
+  for(const button of await page.locator('[data-review]').all()){
+   await button.click();assert.equal(await page.locator('#dt-viewer').isVisible(),true);await page.waitForFunction(()=>{const img=document.querySelector('#dt-viewer-content img');return img&&img.complete&&img.naturalWidth>0;});
+   const viewport=await page.locator('#dt-viewer').boundingBox();assert.ok(viewport.y>=0&&viewport.y+viewport.height<=900);
+   await page.keyboard.press('Escape');assert.equal(await page.locator('#dt-viewer').isVisible(),false);assert.equal(await button.evaluate(el=>el===document.activeElement),true);
+  }
+  passed('Four supplied reviews and map links; each screenshot enlarges, fits viewport and restores focus on Escape');
   assert.equal(await page.locator('[data-lead-form] input[name=consent]:checked').count(),0);
   assert.equal(await page.locator('.dt-header').evaluate(el=>getComputedStyle(el).position),'sticky');
   const logoBox=await page.locator('.dt-header .dt-logo').boundingBox(),navBox=await page.locator('#dt-navigation').boundingBox();
@@ -84,6 +94,11 @@ const root=path.resolve(__dirname,'..');
    const headerHeight=await page.locator('.dt-header').evaluate(el=>el.getBoundingClientRect().height);assert.ok(headerHeight<=(width<=900?175:140),JSON.stringify({width,headerHeight}));
    const address=await page.locator('.dt-header .dt-address').evaluate(el=>{const icon=el.querySelector('svg').getBoundingClientRect(),text=el.querySelector('span').getBoundingClientRect();return {height:el.getBoundingClientRect().height,line:parseFloat(getComputedStyle(el).lineHeight),iconCenter:icon.y+icon.height/2,textCenter:text.y+text.height/2};});
    assert.ok(address.height<=address.line+3,JSON.stringify({width,address}));assert.ok(Math.abs(address.iconCenter-address.textCenter)<2);
+   if(width<=900){
+    await page.locator('#dt-review-track').evaluate(el=>el.scrollLeft=0);
+    await page.locator('[data-review="0"]').click();assert.equal(await page.locator('#dt-viewer-content img').evaluate(el=>el.getBoundingClientRect().width<=innerWidth-24),true);await page.locator('.dt-dialog-close').click();
+    await page.locator('#dt-review-next').click();await page.waitForTimeout(600);assert.ok(await page.locator('#dt-review-track').evaluate(el=>el.scrollLeft>0));
+   }
    if(width<=900){
     await page.locator('.dt-menu-button').click();assert.equal(await page.locator('#dt-navigation').isVisible(),true);assert.equal(await page.locator('.dt-menu-button').getAttribute('aria-expanded'),'true');
     await page.locator('#dt-navigation a[href="#dt-contacts"]').click();await page.waitForTimeout(800);

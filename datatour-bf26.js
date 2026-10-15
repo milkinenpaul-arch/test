@@ -131,7 +131,7 @@ function renderReviews(){const list=Array.isArray(cfg.reviews)?cfg.reviews:[];
  $('#dt-trust').hidden=list.length===0;
  $('#dt-review-track').innerHTML=list.map((r,i)=>'<article class="dt-review"><button type="button" class="dt-review-button" data-review="'+i+'" aria-label="Увеличить отзыв '+escapeHTML(r.author)+'"><img src="'+escapeHTML(r.image)+'" alt="Отзыв '+escapeHTML(r.author)+'" loading="lazy"></button><p class="dt-review-caption">'+escapeHTML(r.author)+(r.tripType?' · '+escapeHTML(r.tripType):'')+'</p></article>').join('');
  const links=cfg.review_links||{};
- $('.dt-review-links').innerHTML=(links.yandex&&links.google)?'<span>Больше отзывов в <a href="'+escapeHTML(links.yandex)+'" target="_blank" rel="noopener">Яндекс</a> и <a href="'+escapeHTML(links.google)+'" target="_blank" rel="noopener">Google</a></span>':'';
+ $('.dt-review-links').innerHTML=(links.yandex&&links.google)?'<span>Больше отзывов в <a href="'+escapeHTML(links.yandex)+'" target="_blank" rel="noopener">Яндекс</a> и <a href="'+escapeHTML(links.google)+'" target="_blank" rel="noopener">Гугл</a></span>':'';
 }
 function closeViewer(){if(viewer.close)viewer.close();else viewer.removeAttribute('open');viewerTrigger?.focus();}
 $('.dt-dialog-close').addEventListener('click',closeViewer);viewer.addEventListener('click',e=>{if(e.target===viewer)closeViewer();});
