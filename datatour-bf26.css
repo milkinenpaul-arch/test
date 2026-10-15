@@ -333,7 +333,6 @@
 #dt-bf26 .dt-priority p{font-size:16px}
 #dt-bf26 .dt-advance-item p,#dt-bf26 .dt-argument p,#dt-bf26 .dt-step p{font-size:17px;line-height:1.65}
 #dt-bf26 .dt-argument{gap:20px;align-items:flex-start}
-#dt-bf26 .dt-argument-number{font-size:28px;font-weight:400;color:var(--dt-accent);line-height:1.2}
 #dt-bf26 .dt-filter-field,#dt-bf26 .dt-filter-budgets{font-size:16px}
 #dt-bf26 .dt-filter-field select,#dt-bf26 .dt-budget button{font-size:16px}
 #dt-bf26 .dt-hotel-media{height:132px;background:linear-gradient(135deg,#183d47,#316c71);color:#fff;padding:20px;display:flex;flex-direction:column;justify-content:space-between}
