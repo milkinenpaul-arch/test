@@ -16,10 +16,17 @@
       "width": 1024,
       "height": 678,
       "verification": "Existing public Datatour attachment title identifies the complex; the building visibly bears the LONICERA name. Archive image, not claimed to depict all hotels in the network or current room/service details."
+    },
+    {
+      "hotel_id": "priority-1",
+      "card_name": "REGNUM HOTELS",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/123374.jpg",
+      "source": "Exact image URL provided by the user on 2026-10-15",
+      "delivery": "Direct external image URL in the card; no local copy",
+      "verification": "Hotel association supplied by the user. Source fetch and image decoding could not be checked in this executor: proxy CONNECT403. No image modification or invented replacement."
     }
   ],
   "pending_card_ids": [
-    "priority-1",
     "priority-2",
     "priority-3",
     "priority-4",

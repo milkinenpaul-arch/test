@@ -1,5 +1,5 @@
 {
-  "version": "2.0.1",
+  "version": "2.0.2",
   "page_slug": "black-friday-2026",
   "recipient": "datatour78@mail.ru",
   "campaign": {
@@ -16,7 +16,9 @@
       "category": 5,
       "group": 1,
       "description": "Премиальный отпуск в Белеке для тех, кто ценит красивую обстановку и внимание к деталям. Выберите Regnum для особенной поездки вдвоём или долгожданного отдыха всей семьёй.",
-      "region": "Турция · сеть отелей"
+      "region": "Турция · сеть отелей",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/123374.jpg",
+      "imageAlt": "REGNUM HOTELS — фотография отеля"
     },
     {
       "id": "priority-2",

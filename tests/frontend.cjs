@@ -55,7 +55,7 @@ const root=path.resolve(__dirname,'..');
   assert.ok((await page.locator('[data-select-hotel]').allTextContents()).every(text=>text==='Подобрать этот отель'));assert.equal(await page.locator('#dt-hotel-track a').count(),1);assert.equal(await page.locator('#dt-hotel-track a').getAttribute('href'),'https://sales.datatour.by/lonicera-world-resort/');
   for(const id of ['priority-1','priority-21','priority-25']){await page.locator('[data-select-hotel="'+id+'"]').click();assert.equal(await page.locator('#dt-final-form input[name=hotelId]').inputValue(),id);}
   const hotelPhoto=page.locator('[data-hotel="priority-21"] img');await hotelPhoto.scrollIntoViewIfNeeded();await hotelPhoto.evaluate(el=>el.decode());assert.ok(await hotelPhoto.evaluate(el=>el.naturalWidth>=1000));
-  assert.ok((await page.locator('[data-hotel="priority-21"] .dt-hotel-photo-label').textContent()).includes('Lonicera World Resort'));assert.equal(await page.locator('.dt-hotel-media img').count(),1);
+  assert.ok((await page.locator('[data-hotel="priority-21"] .dt-hotel-photo-label').textContent()).includes('Lonicera World Resort'));assert.equal(await page.locator('.dt-hotel-media img').count(),2);assert.equal(await page.locator('[data-hotel="priority-1"] img').getAttribute('src'),'https://static.tourvisor.ru/hotel_pics/main400/123374.jpg');
   passed('25 distinct hotel descriptions, hotel selection buttons and parameter transfer, no price disclaimer, budget filter or position captions');
   assert.equal(await page.locator('#dt-trust').isVisible(),true);assert.equal(await page.locator('#dt-trust-title').textContent(),'Доверие к ДАТА ТУР');
   assert.equal(await page.locator('.dt-review-caption').count(),0);assert.equal(await page.locator('[data-review][aria-label]').count(),4);
