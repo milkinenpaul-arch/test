@@ -27,7 +27,17 @@ const root=path.resolve(__dirname,'..');
   assert.equal(await page.locator('[data-block]').count(),14);assert.equal(await page.locator('.dt-hotel-card').count(),25);assert.equal(await page.locator('[data-select-priority]').count(),26);passed('14 blocks after footer merge, 25 cards, all 26 priority positions');
   assert.equal(await page.locator('[data-lead-form] input[name=consent]:checked').count(),0);
   assert.equal(await page.locator('.dt-header').evaluate(el=>getComputedStyle(el).position),'sticky');
-  await page.locator('.dt-phones summary').click();assert.equal(await page.locator('.dt-phones[open]').count(),1);await page.keyboard.press('Escape');assert.equal(await page.locator('.dt-phones[open]').count(),0);
+  const logoBox=await page.locator('.dt-header .dt-logo').boundingBox(),navBox=await page.locator('#dt-navigation').boundingBox();
+  assert.ok(Math.abs(logoBox.x+logoBox.width/2-720)<2);assert.ok(navBox.y>logoBox.y+logoBox.height);
+  assert.equal(await page.locator('.dt-header-slogan').textContent(),'Вы нам дату — мы вам варианты отдыха к Чёрной пятнице.');
+  for(const link of await page.locator('.dt-socials a').all()){assert.ok(await link.getAttribute('aria-label'));assert.equal((await link.textContent()).trim(),'');assert.equal(await link.locator('svg[aria-hidden=true]').count(),1);}
+  assert.equal(await page.locator('.dt-header .dt-address [data-dt-icon=map-pin] svg').count(),1);
+  const summary=page.locator('.dt-phones summary');await summary.focus();await page.keyboard.press('Enter');assert.equal(await page.locator('.dt-phones[open]').count(),1);
+  const labelBox=await summary.locator('span').boundingBox(),arrowBox=await summary.locator('.dt-phone-chevron').boundingBox();assert.ok(arrowBox.x-labelBox.x-labelBox.width<=10);assert.ok(Math.abs(arrowBox.y+arrowBox.height/2-labelBox.y-labelBox.height/2)<2);
+  await page.waitForTimeout(250);assert.equal(await summary.locator('svg').evaluate(el=>getComputedStyle(el).transform),'matrix(-1, 0, 0, -1, 0, 0)');
+  await page.locator('.dt-header-slogan').click();assert.equal(await page.locator('.dt-phones[open]').count(),0);
+  await summary.click();await page.keyboard.press('Escape');assert.equal(await page.locator('.dt-phones[open]').count(),0);assert.equal(await summary.evaluate(el=>el===document.activeElement),true);
+  passed('Centred logo and separate navigation; accessible social icons, geo icon and attached rotating phone chevron');
   assert.equal(await page.locator('.dt-phone-list a[href^="tel:"]').count(),4);passed('Sticky header, telephone links, keyboard/Escape and initially unchecked consent');
   await page.evaluate(()=>{window.recordedEvents=[];document.getElementById('dt-bf26').addEventListener('dtbf26:event',e=>window.recordedEvents.push(e.detail));});
   await page.locator('#dt-hotel-season').selectOption('winter');assert.equal(await page.locator('#dt-empty').isVisible(),true);await page.locator('#dt-hotel-season').selectOption('summer');
@@ -61,6 +71,12 @@ const root=path.resolve(__dirname,'..');
   for(const width of [360,390,768,1440]){
    await page.setViewportSize({width,height:900});
    const sizes=await page.evaluate(()=>({width:document.documentElement.clientWidth,scroll:document.documentElement.scrollWidth}));assert.ok(sizes.scroll<=sizes.width,JSON.stringify({width,...sizes}));
+   if(width<=900){
+    await page.locator('.dt-menu-button').click();assert.equal(await page.locator('#dt-navigation').isVisible(),true);assert.equal(await page.locator('.dt-menu-button').getAttribute('aria-expanded'),'true');
+    await page.locator('#dt-navigation a[href="#dt-contacts"]').click();await page.waitForTimeout(800);
+    assert.equal(await page.locator('#dt-navigation').isVisible(),false);assert.equal(await page.locator('.dt-menu-button').getAttribute('aria-expanded'),'false');
+    const header=await page.locator('.dt-header').boundingBox(),footer=await page.locator('footer .dt-logo').boundingBox();assert.ok(footer.y>=header.y+header.height-1);
+   }
    for(const selector of ['.dt-hero-idea','.dt-intro','.dt-argument p']){
     const style=await page.locator(selector).first().evaluate(el=>({weight:getComputedStyle(el).fontWeight,size:parseFloat(getComputedStyle(el).fontSize)}));assert.equal(style.weight,'400');assert.ok(style.size>=16);
    }
