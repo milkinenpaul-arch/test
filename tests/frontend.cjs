@@ -68,9 +68,14 @@ const root=path.resolve(__dirname,'..');
   assert.equal(await page.locator('#dt-cookie-banner').isVisible(),false);assert.equal(tourvisorLoads,2);assert.equal(mapLoads,2);
   assert.equal(await page.locator('#dt-tourvisor-container .tv-search-form input').isVisible(),true);assert.equal(await page.locator('#dt-map-frame iframe').count(),1);
   passed('Merged footer retains contacts/policies/socials; eager map autoloads without a launch button or consent; cookie choice persists (vendor fixtures)');
-  for(const width of [360,390,768,1440]){
+  // Reproduce the legacy theme's universal typography rule, including nested spans.
+  await page.addStyleTag({content:'*{font-family:Georgia,serif;font-size:18px;line-height:100%}'});
+  for(const width of [360,390,768,920,1024,1440]){
    await page.setViewportSize({width,height:900});
    const sizes=await page.evaluate(()=>({width:document.documentElement.clientWidth,scroll:document.documentElement.scrollWidth}));assert.ok(sizes.scroll<=sizes.width,JSON.stringify({width,...sizes}));
+   const headerHeight=await page.locator('.dt-header').evaluate(el=>el.getBoundingClientRect().height);assert.ok(headerHeight<=(width<=900?175:140),JSON.stringify({width,headerHeight}));
+   const address=await page.locator('.dt-header .dt-address').evaluate(el=>{const icon=el.querySelector('svg').getBoundingClientRect(),text=el.querySelector('span').getBoundingClientRect();return {height:el.getBoundingClientRect().height,line:parseFloat(getComputedStyle(el).lineHeight),iconCenter:icon.y+icon.height/2,textCenter:text.y+text.height/2};});
+   assert.ok(address.height<=address.line+3,JSON.stringify({width,address}));assert.ok(Math.abs(address.iconCenter-address.textCenter)<2);
    if(width<=900){
     await page.locator('.dt-menu-button').click();assert.equal(await page.locator('#dt-navigation').isVisible(),true);assert.equal(await page.locator('.dt-menu-button').getAttribute('aria-expanded'),'true');
     await page.locator('#dt-navigation a[href="#dt-contacts"]').click();await page.waitForTimeout(800);
@@ -80,7 +85,7 @@ const root=path.resolve(__dirname,'..');
    for(const selector of ['.dt-hero-idea','.dt-intro','.dt-argument p']){
     const style=await page.locator(selector).first().evaluate(el=>({weight:getComputedStyle(el).fontWeight,size:parseFloat(getComputedStyle(el).fontSize)}));assert.equal(style.weight,'400');assert.ok(style.size>=16);
    }
-  }passed('360/390/768/1440: no overflow, descriptions weight 400 and at least 16px');
+  }passed('360/390/768/920/1024/1440: compact header, single-line address, no overflow and readable descriptions');
   await page.evaluate(()=>{Date.now=()=>new Date('2026-11-27T00:00:00+03:00').getTime();});await page.waitForFunction(()=>document.getElementById('dt-campaign-status').textContent==='Акция идёт');
   await page.evaluate(()=>{Date.now=()=>new Date('2026-11-29T23:59:59+03:00').getTime();});await page.waitForTimeout(1100);assert.equal(await page.locator('#dt-campaign-status').textContent(),'Акция идёт');
   await page.evaluate(()=>{Date.now=()=>new Date('2026-11-30T00:00:00+03:00').getTime();});await page.waitForFunction(()=>document.getElementById('dt-campaign-status').textContent==='Акция завершена');

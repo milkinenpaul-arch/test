@@ -418,20 +418,21 @@
 @media(max-width:900px){#dt-bf26 .dt-footer-merged .dt-footer-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:30px}#dt-bf26 .dt-footer-support{grid-template-columns:1fr;gap:18px}}
 @media(max-width:600px){#dt-bf26 .dt-footer-merged{padding:34px 0 24px}#dt-bf26 .dt-footer-merged .dt-footer-grid{grid-template-columns:1fr;gap:34px}#dt-bf26 .dt-footer-merged #dt-map-frame iframe{height:300px}#dt-bf26 .dt-footer-socials{justify-content:flex-start;margin-top:25px}#dt-bf26 .dt-footer-merged .dt-footer-links{font-size:16px}}
 /* Header: slogan/socials, centred logo, contacts/action, separate navigation. */
-#dt-bf26 .dt-header{padding:18px 0 0}
-#dt-bf26 .dt-header-row{display:grid;grid-template-columns:minmax(0,1fr) 100px minmax(0,1fr);align-items:center;gap:28px;min-height:88px}
+#dt-bf26 .dt-header *{font-family:inherit;font-size:inherit;line-height:inherit}
+#dt-bf26 .dt-header{padding:8px 0 0}
+#dt-bf26 .dt-header-row{display:grid;grid-template-columns:minmax(0,1fr) 80px minmax(0,1fr);align-items:center;gap:16px;min-height:70px}
 #dt-bf26 .dt-header-intro{min-width:0}
-#dt-bf26 .dt-header-slogan{max-width:360px;margin:0;font-size:16px;line-height:1.45;font-weight:500}
+#dt-bf26 .dt-header-slogan{max-width:330px;margin:0;font-size:14px;line-height:1.35;font-weight:500}
 #dt-bf26 .dt-header .dt-logo{justify-self:center}
-#dt-bf26 .dt-header .dt-logo img{width:88px;height:auto}
-#dt-bf26 .dt-header-contacts{display:flex;justify-content:flex-end;align-items:center;gap:22px;min-width:0}
-#dt-bf26 .dt-header-contact-info{display:flex;flex-direction:column;align-items:flex-end;gap:2px;min-width:0;font-size:14px}
-#dt-bf26 .dt-header-cta{flex-shrink:0;font-size:15px;padding:13px 18px;white-space:nowrap}
-#dt-bf26 .dt-header .dt-address{display:flex;align-items:flex-start;justify-content:flex-end;gap:6px;line-height:1.4;text-align:right;font-size:13px;max-width:270px}
-#dt-bf26 .dt-header .dt-address i{display:inline-flex;flex-shrink:0;padding-top:1px}
-#dt-bf26 .dt-header .dt-address svg{width:17px;height:17px}
-#dt-bf26 .dt-header .dt-nav{display:flex;width:100%;justify-content:center;gap:38px;margin-top:16px;padding:5px 0;border-top:1px solid var(--dt-line);font-size:15px}
-#dt-bf26 .dt-header .dt-nav a{padding:10px 0}
+#dt-bf26 .dt-header .dt-logo img{width:70px;height:auto}
+#dt-bf26 .dt-header-contacts{display:flex;justify-content:flex-end;align-items:center;gap:14px;min-width:0}
+#dt-bf26 .dt-header-contact-info{display:flex;flex-direction:column;align-items:flex-end;gap:0;min-width:0;font-size:13px}
+#dt-bf26 .dt-header-cta{flex-shrink:0;font-size:13px;padding:11px 14px;min-height:44px;white-space:nowrap}
+#dt-bf26 .dt-header .dt-address{display:inline-flex;align-items:center;justify-content:flex-end;gap:5px;line-height:1.4;text-align:right;font-size:12px;max-width:none;white-space:nowrap}
+#dt-bf26 .dt-header .dt-address i{display:inline-flex;flex-shrink:0;width:16px;height:16px;padding:0}
+#dt-bf26 .dt-header .dt-address svg{width:16px;height:16px}
+#dt-bf26 .dt-header .dt-nav{display:flex;width:100%;justify-content:center;gap:32px;margin-top:5px;padding:0;border-top:1px solid var(--dt-line);font-size:14px}
+#dt-bf26 .dt-header .dt-nav a{padding:8px 0;min-height:40px}
 #dt-bf26 .dt-phones summary{gap:8px;min-height:44px;white-space:nowrap;font-weight:500;list-style:none}
 #dt-bf26 .dt-phones summary::marker{content:''}
 #dt-bf26 .dt-phones summary::-webkit-details-marker{display:none}
@@ -443,29 +444,35 @@
 #dt-bf26 .dt-socials a{display:inline-flex;align-items:center;justify-content:center;flex:none;width:44px;height:44px;border:1px solid transparent;border-radius:50%;transition:background .2s ease,color .2s ease}
 #dt-bf26 .dt-socials a:hover{background:#2023210d;border-color:transparent}
 #dt-bf26 .dt-socials svg{width:23px;height:23px;display:block}
-#dt-bf26 .dt-header-intro .dt-socials{margin:8px 0 0 -10px}
+#dt-bf26 .dt-header-intro .dt-socials{margin:2px 0 0 -7px}
+#dt-bf26 .dt-header .dt-socials a{width:36px;height:36px}
+#dt-bf26 .dt-header .dt-phones summary{min-height:36px}
+#dt-bf26 .dt-header .dt-socials svg{width:21px;height:21px}
 #dt-bf26 .dt-footer-socials .dt-socials{gap:8px}
 #dt-bf26 .dt-footer .dt-socials a{border-color:#ffffff30}
 #dt-bf26 .dt-footer .dt-socials a:hover{background:#ffffff15;border-color:#ffffff70}
 @media(max-width:1199px) and (min-width:901px){
- #dt-bf26 .dt-header-row{grid-template-columns:minmax(0,1fr) 88px minmax(0,1fr);gap:22px}
- #dt-bf26 .dt-header-contacts{gap:12px;flex-wrap:wrap}
- #dt-bf26 .dt-header-contact-info{align-items:flex-end;width:100%}
- #dt-bf26 .dt-header-slogan{max-width:300px}
- #dt-bf26 .dt-header .dt-nav{gap:30px}
+ #dt-bf26 .dt-header-contacts{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 10px;align-items:center}
+ #dt-bf26 .dt-header-contact-info{display:contents}
+ #dt-bf26 .dt-header .dt-phones{grid-column:1;grid-row:1;justify-self:end}
+ #dt-bf26 .dt-header-cta{grid-column:2;grid-row:1}
+ #dt-bf26 .dt-header .dt-address{grid-column:1/-1;grid-row:2;justify-self:end}
+ #dt-bf26 .dt-header .dt-nav{gap:26px}
 }
 @media(max-width:900px){
- #dt-bf26 .dt-header{padding:10px 0}
- #dt-bf26 .dt-header-row{grid-template-columns:minmax(0,1fr) auto 44px;gap:6px 12px;min-height:0}
+ #dt-bf26 .dt-header{padding:6px 0}
+ #dt-bf26 .dt-header-row{grid-template-columns:minmax(0,1fr) auto 44px;gap:3px 10px;min-height:0}
  #dt-bf26 .dt-header-intro,#dt-bf26 .dt-header-contacts,#dt-bf26 .dt-header-contact-info{display:contents}
  #dt-bf26 .dt-header .dt-logo{grid-column:1;grid-row:1;justify-self:start}
- #dt-bf26 .dt-header .dt-logo img{width:64px;height:auto}
+ #dt-bf26 .dt-header .dt-logo img{width:52px;height:auto}
  #dt-bf26 .dt-header-cta{grid-column:2;grid-row:1;font-size:14px;padding:11px 14px;min-height:44px}
  #dt-bf26 .dt-header .dt-menu-button{grid-column:3;grid-row:1;display:inline-flex;margin:0;width:44px;height:44px;min-width:44px;padding:9px}
- #dt-bf26 .dt-header-slogan{grid-column:1/-1;grid-row:2;max-width:none;font-size:14px;line-height:1.4;margin:5px 0 0}
+ #dt-bf26 .dt-header-slogan{grid-column:1/-1;grid-row:2;max-width:none;font-size:13px;line-height:1.35;margin:2px 0 0}
  #dt-bf26 .dt-header-intro .dt-socials{grid-column:1;grid-row:3;margin:0 0 0 -10px;gap:0;flex-wrap:nowrap}
- #dt-bf26 .dt-header .dt-phones{grid-column:2/-1;grid-row:3;justify-self:end;font-size:14px}
- #dt-bf26 .dt-header .dt-address{grid-column:1/-1;grid-row:4;max-width:none;justify-content:flex-start;text-align:left;font-size:13px}
- #dt-bf26 .dt-header .dt-nav{display:none;margin-top:10px;padding-top:8px;justify-content:flex-start;gap:0 24px;font-size:16px}
+ #dt-bf26 .dt-header .dt-socials a{width:44px;height:44px}
+ #dt-bf26 .dt-header .dt-phones summary{min-height:44px}
+ #dt-bf26 .dt-header .dt-phones{grid-column:2/-1;grid-row:3;justify-self:end;font-size:13px}
+ #dt-bf26 .dt-header .dt-address{grid-column:1/-1;grid-row:4;max-width:none;justify-content:flex-start;text-align:left;font-size:12px}
+ #dt-bf26 .dt-header .dt-nav{display:none;margin-top:6px;padding-top:4px;justify-content:flex-start;gap:0 24px;font-size:16px}
  #dt-bf26 .dt-header .dt-nav[data-open="true"]{display:flex}
 }
