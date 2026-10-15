@@ -1,5 +1,5 @@
 {
-  "version": "1.4.0",
+  "version": "1.4.1",
   "page_slug": "black-friday-2026",
   "recipient": "datatour78@mail.ru",
   "campaign": {
@@ -155,7 +155,10 @@
       "name": "LONICERA HOTELS",
       "category": 5,
       "group": 2,
-      "description": "Семейное путешествие на побережье Аланьи, где каждый день можно провести по-своему. В сети Lonicera выберем отель под состав вашей компании и привычный ритм отдыха."
+      "description": "Семейное путешествие на побережье Аланьи, где каждый день можно провести по-своему. В сети Lonicera выберем отель под состав вашей компании и привычный ритм отдыха.",
+      "image": "hotels/lonicera-world-resort.jpg",
+      "imageAlt": "Комплекс Lonicera World Resort: корпуса и бассейны, архив Datatour",
+      "imageLabel": "На фото: Lonicera World Resort · архив Datatour"
     },
     {
       "id": "priority-22",

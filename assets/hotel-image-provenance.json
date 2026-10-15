@@ -1,0 +1,48 @@
+{
+  "retrieved_on": "2026-10-15",
+  "photos": [
+    {
+      "hotel_id": "priority-21",
+      "card_name": "LONICERA HOTELS",
+      "pictured_property": "Lonicera World Resort",
+      "source_page": "https://sales.datatour.by/lonicera-world-resort/",
+      "source_attachment_id": 263,
+      "source_attachment_title": "lonicera-world-resort",
+      "source_uploaded_at": "2022-04-25T16:46:08",
+      "image_url": "https://sales.datatour.by/wp-content/uploads/2022/04/lonicera-world-resort-1024x678.jpg",
+      "original_image_url": "https://sales.datatour.by/wp-content/uploads/2022/04/lonicera-world-resort.jpg",
+      "local_asset": "hotels/lonicera-world-resort.jpg",
+      "sha256": "f2abc3f36ccba1686681eacc29504bf3f61bde0cdf7c677f44fff3c431b5cee1",
+      "width": 1024,
+      "height": 678,
+      "verification": "Existing public Datatour attachment title identifies the complex; the building visibly bears the LONICERA name. Archive image, not claimed to depict all hotels in the network or current room/service details."
+    }
+  ],
+  "pending_card_ids": [
+    "priority-1",
+    "priority-2",
+    "priority-3",
+    "priority-4",
+    "priority-5",
+    "priority-6",
+    "priority-7",
+    "priority-8",
+    "priority-9",
+    "priority-10",
+    "priority-11",
+    "priority-12",
+    "priority-13",
+    "priority-14",
+    "priority-15",
+    "priority-16",
+    "priority-17",
+    "priority-18",
+    "priority-19",
+    "priority-20",
+    "priority-22",
+    "priority-23",
+    "priority-24",
+    "priority-25"
+  ],
+  "network_status": "Hotel domains are present in the published environment configuration, but the current executor still receives proxy CONNECT 403. Both standard and approved elevated execution were checked. No proxy bypass was used."
+}

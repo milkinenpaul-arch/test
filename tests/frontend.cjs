@@ -28,7 +28,9 @@ const root=path.resolve(__dirname,'..');
   assert.equal(await page.locator('[data-budget],#dt-results').count(),0);assert.equal(await page.locator('#dt-hotel-footer > span').count(),0);
   const descriptions=await page.locator('.dt-hotel-description').allTextContents();assert.equal(descriptions.length,25);assert.equal(new Set(descriptions).size,25);assert.ok(descriptions.every(text=>text.length>=90&&!text.includes('Цена и наличие')));
   assert.ok((await page.locator('[data-select-hotel]').allTextContents()).every(text=>text==='Рассчитать этот вариант'));assert.equal(await page.locator('#dt-hotel-track a').count(),0);
-  for(const id of ['priority-1','priority-25']){await page.locator('[data-select-hotel="'+id+'"]').click();assert.equal(await page.locator('#dt-final-form input[name=hotelId]').inputValue(),id);}
+  for(const id of ['priority-1','priority-21','priority-25']){await page.locator('[data-select-hotel="'+id+'"]').click();assert.equal(await page.locator('#dt-final-form input[name=hotelId]').inputValue(),id);}
+  const hotelPhoto=page.locator('[data-hotel="priority-21"] img');await hotelPhoto.scrollIntoViewIfNeeded();await hotelPhoto.evaluate(el=>el.decode());assert.ok(await hotelPhoto.evaluate(el=>el.naturalWidth>=1000));
+  assert.ok((await page.locator('[data-hotel="priority-21"] .dt-hotel-photo-label').textContent()).includes('Lonicera World Resort'));assert.equal(await page.locator('.dt-hotel-media img').count(),1);
   passed('25 distinct hotel descriptions, unchanged calculation buttons/selection, no price disclaimer, budget filter or position captions');
   assert.equal(await page.locator('#dt-trust').isVisible(),true);assert.equal(await page.locator('#dt-trust-title').textContent(),'Доверие к ДАТА ТУР');
   assert.equal(await page.locator('.dt-review-caption').count(),0);assert.equal(await page.locator('[data-review][aria-label]').count(),4);
