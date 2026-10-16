@@ -115,7 +115,29 @@ const catalogue=JSON.parse(fs.readFileSync(path.join(root,'datatour-bf26-config.
   passed('Centred logo and separate navigation; accessible social icons, geo icon and attached rotating phone chevron');
   assert.equal(await page.locator('.dt-phone-list a[href^="tel:"]').count(),4);passed('Sticky header, telephone links, keyboard/Escape and initially unchecked consent');
   await page.evaluate(()=>{window.recordedEvents=[];document.getElementById('dt-bf26').addEventListener('dtbf26:event',e=>window.recordedEvents.push(e.detail));});
-  await page.locator('#dt-hotel-season').selectOption('winter');assert.equal(await page.locator('.dt-hotel-price-notes').isVisible(),false);assert.equal(await page.locator('.dt-hotel-offer-note').isVisible(),false);assert.equal(await page.locator('#dt-empty').isVisible(),true);await page.locator('#dt-hotel-season').selectOption('summer');
+  assert.deepEqual(await page.locator('#dt-hotel-season option').evaluateAll(els=>els.map(el=>el.value)),['summer']);
+  await page.locator('#dt-tab-winter').click();assert.equal(await page.locator('#dt-panel-winter').isVisible(),true);
+  assert.equal(await page.locator('[data-winter-country]').count(),6);assert.equal(await page.locator('#dt-panel-winter [data-scenario]').count(),0);
+  const countries=[['egypt','Египет','Шарм-эль-Шейх'],['uae','ОАЭ','Дубай, Шарджа, Аджман, Рас-эль-Хайма, Фуджейра'],['thailand','Таиланд','Пхукет, Као Лак, Паттайя; Краби — для комбинированных поездок'],['vietnam','Вьетнам','Фукуок'],['sri-lanka','Шри-Ланка','Южное и юго-западное побережье'],['china','Китай','Хайнань: Санья и курортные бухты']];
+  for(const [id,name,resorts] of countries){
+   const card=page.locator('[data-winter-country="'+id+'"]');assert.equal(await card.locator('.dt-winter-country-name').textContent(),name);assert.equal(await card.locator('.dt-winter-country-resorts').textContent(),resorts);
+   await card.click();assert.equal(await card.getAttribute('aria-pressed'),'true');assert.equal(await page.locator('[data-winter-country][aria-pressed=true]').count(),1);
+   for(const form of ['#dt-final-form','#dt-quick-form']){assert.equal(await page.locator(form+' [name=direction]').inputValue(),name+' · '+resorts);assert.equal(await page.locator(form+' [name=season]').inputValue(),'winter');assert.equal(await page.locator(form+' [name=hotelId]').inputValue(),'');assert.equal(await page.locator(form+' [name=purpose]').inputValue(),'selection');}
+  }
+  assert.equal(await page.locator('#dt-hotel-track').isVisible(),true);assert.equal(await page.locator('#dt-hotel-season').inputValue(),'summer');assert.equal(await page.locator('.dt-hotel-price-notes').isVisible(),true);
+  await page.locator('#dt-final-form [name=direction]').fill('Мои пожелания');assert.equal(await page.locator('[data-winter-country][aria-pressed=true]').count(),0);assert.equal(await page.locator('#dt-quick-form [name=direction]').inputValue(),'Мои пожелания');
+  await page.locator('[data-winter-country=egypt]').click();await page.locator('[data-winter-country=egypt]').click();assert.equal(await page.locator('#dt-final-form [name=direction]').inputValue(),'');
+  await page.locator('[data-winter-country=vietnam]').click();await page.locator('#dt-reset-scenario').click();assert.equal(await page.locator('[data-winter-country][aria-pressed=true]').count(),0);assert.equal(await page.locator('#dt-final-form [name=direction]').inputValue(),'');
+  for(const [width,columns] of [[1440,3],[768,2],[390,1],[360,1]]){
+   await page.setViewportSize({width,height:1000});
+   const layout=await page.locator('.dt-winter-countries').evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length);assert.equal(layout,columns);
+   const gap=await page.locator('.dt-tabs').evaluate(el=>el.getBoundingClientRect().top-el.previousElementSibling.getBoundingClientRect().bottom);assert.ok(gap>=20&&gap<=25);
+   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+   await page.locator('#dt-cookie-banner').evaluate(el=>el.hidden=true);await page.locator('#dt-choose').screenshot({path:'/workspace/scratch/bf26-refresh/winter-countries-'+width+'.png'});
+  }
+  await page.setViewportSize({width:1440,height:900});await page.locator('[data-winter-country=china]').click();await page.locator('#dt-tab-summer').click();assert.equal(await page.locator('#dt-final-form [name=direction]').inputValue(),'');assert.equal(await page.locator('#dt-panel-summer').isVisible(),true);
+  await page.locator('#dt-tab-summer').focus();await page.keyboard.press('End');assert.equal(await page.locator('#dt-panel-winter').isVisible(),true);await page.keyboard.press('Home');assert.equal(await page.locator('#dt-panel-summer').isVisible(),true);
+  passed('Six winter countries/resorts, form transfer and clearing, keyboard tabs, 20–24px spacing and 3/2/1-column layout; Turkey catalogue remains summer-only');
   await page.locator('[data-scenario-set=summer] [data-scenario=family]').click();
   assert.equal(await page.locator('details.dt-priority').count(),0);await page.locator('[data-select-priority=priority-26]').click();
   assert.equal(await page.locator('#dt-final-form input[name=hotelLabel]').inputValue(),'IC HOTELS');assert.equal(await page.locator('#dt-quick-form input[name=hotelId]').inputValue(),'priority-26');
@@ -145,6 +167,7 @@ const catalogue=JSON.parse(fs.readFileSync(path.join(root,'datatour-bf26-config.
   assert.equal(await page.locator('footer#dt-contacts').count(),1);assert.equal(await page.locator('section.dt-contacts').count(),0);
   assert.equal(await page.locator('.dt-footer-support a[href^="mailto:"]').count(),2);assert.equal(await page.locator('.dt-footer-company a[href^="tel:"]').count(),3);
   assert.equal(await page.locator('.dt-footer-socials a').count(),3);assert.equal(await page.locator('.dt-footer-bottom .dt-footer-links a').count(),2);assert.equal(await page.locator('footer [data-cookie-settings],footer a[href="#dt-terms"]').count(),0);
+  await page.locator('#dt-cookie-banner').evaluate(el=>el.hidden=false);
   await page.locator('[data-cookie-settings]').first().click();assert.equal(await page.locator('#dt-cookie-dialog').isVisible(),true);
   await page.locator('#dt-cookie-close').click();await page.locator('[data-cookie-choice=necessary]').click();await page.reload({waitUntil:'networkidle'});
   assert.equal(await page.locator('#dt-cookie-banner').isVisible(),false);assert.equal(tourvisorLoads,2);assert.equal(mapLoads,2);

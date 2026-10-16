@@ -16,7 +16,8 @@ const priorities=Array.isArray(cfg.priority_hotels)?cfg.priority_hotels:[];
 const hotels=priorities;
 let catalogueViewKey='';
 const forms=$$('[data-lead-form]');
-const state={season:'summer',scenario:'all',budget:'all',hotel:null};
+const winterDestinations=Array.isArray(cfg.winter_destinations)?cfg.winter_destinations:[];
+const state={season:'summer',scenario:'all',budget:'all',hotel:null,country:null};
 const motion=()=>matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth';
 function campaignState(now=Date.now()){
  const start=Date.parse(cfg.campaign?.start),end=Date.parse(cfg.campaign?.end);
@@ -80,6 +81,21 @@ function renderScenarios(){
  $$('[data-scenario-set]').forEach(c=>{c.innerHTML=scenarios.map(s=>{const image=images.find(i=>i.id===s.id);return '<button type="button" class="dt-scenario" data-scenario="'+s.id+'" aria-pressed="false">'+(image?'<span class="dt-scenario-photo"><img src="'+escapeHTML(image.image)+'" alt="'+escapeHTML(image.alt)+'" loading="lazy" decoding="async"><span class="dt-scenario-icon"><i data-dt-icon="'+s.icon+'"></i></span></span>':'')+'<span class="dt-scenario-text"><span class="dt-scenario-name">'+s.name+'</span><span class="dt-scenario-hint">'+s[c.dataset.scenarioSet]+'</span><span class="dt-scenario-check">Выбрать сценарий</span></span></button>';}).join('');});
  $('#dt-hotel-scenario').innerHTML='<option value="all">Любой сценарий</option>'+scenarios.map(s=>'<option value="'+s.id+'">'+s.name+'</option>').join('');
 }
+function renderWinterCountries(){
+ $('[data-winter-countries]').innerHTML=winterDestinations.map(d=>'<button type="button" class="dt-winter-country" data-winter-country="'+escapeHTML(d.id)+'" aria-pressed="false"><span class="dt-winter-country-head"><span class="dt-winter-country-icon" aria-hidden="true"><i data-dt-icon="map-pin"></i></span><span class="dt-winter-country-name">'+escapeHTML(d.name)+'</span></span><span class="dt-winter-country-resorts">'+escapeHTML(d.resorts)+'</span><span class="dt-winter-country-select">Выбрать направление</span></button>').join('');
+}
+function winterDirection(country){return country.name+' · '+country.resorts;}
+function clearWinterCountry(){
+ if(!state.country)return;
+ const direction=winterDirection(state.country);
+ forms.forEach(f=>{if(f.elements.direction.value===direction)f.elements.direction.value='';});state.country=null;
+}
+function selectWinterCountry(id){
+ const country=winterDestinations.find(d=>d.id===id);if(!country)return;
+ if(state.country?.id===id)clearWinterCountry();
+ else{state.country=country;forms.forEach(f=>f.elements.direction.value=winterDirection(country));}
+ state.season='winter';state.hotel=null;syncState();setPurpose('selection','winter-country');clearMessages();track('destination',{season:'winter',source:'winter-country'});
+}
 function hotelScenarioName(id){return scenarios.find(s=>s.id===id)?.name||'';}
 function hotelPageSize(){return matchMedia('(max-width:600px)').matches?1:matchMedia('(max-width:900px)').matches?2:matchMedia('(max-width:1199px)').matches?3:4;}
 function orderHotels(list){
@@ -114,27 +130,28 @@ function syncHotelCatalogue(){
 
 function syncState(){
  const scenario=scenarios.find(x=>x.id===state.scenario);
- const description=seasons[state.season]+' · '+(scenario?scenario.name:'Любой сценарий');
+ const description=seasons[state.season]+' · '+(state.season==='winter'?(state.country?.name||'Любое направление'):(scenario?scenario.name:'Любой сценарий'));
  forms.forEach(f=>{
   f.elements.season.value=state.season;f.elements.scenario.value=state.scenario;f.elements.budgetLevel.value=state.budget;
   f.elements.hotelId.value=state.hotel?.id||'';f.elements.hotelLabel.value=state.hotel?.name||'';
   f.querySelector('[data-selected-hotel]').hidden=!state.hotel;
   f.querySelector('[data-selected-name]').textContent=state.hotel?.name||'';
  });
- $('#dt-hotel-season').value=state.season;$('#dt-hotel-scenario').value=state.scenario;
+ $('#dt-hotel-season').value='summer';$('#dt-hotel-scenario').value=state.scenario;
  $$('[data-season]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.season===state.season)));
  $('#dt-panel-summer').hidden=state.season!=='summer';$('#dt-panel-winter').hidden=state.season!=='winter';
  $$('[data-scenario]').forEach(b=>{const chosen=b.dataset.scenario===state.scenario;b.setAttribute('aria-pressed',String(chosen));b.querySelector('.dt-scenario-check').textContent=chosen?'Выбрано':'Выбрать сценарий';});
+ $$('[data-winter-country]').forEach(b=>{const chosen=b.dataset.winterCountry===state.country?.id;b.setAttribute('aria-pressed',String(chosen));b.querySelector('.dt-winter-country-select').textContent=chosen?'Выбрано':'Выбрать направление';});
+ $('#dt-reset-scenario').textContent=state.season==='winter'?'Любое направление':'Любой сценарий';
  $('#dt-selection-label').textContent=description;
- const show=state.season==='summer';$('#dt-hotel-track').hidden=!show;$('#dt-hotel-footer').hidden=!show;$('#dt-empty').hidden=show;
- $$('[data-hotel-summer-note]').forEach(el=>el.hidden=!show||campaignState().status==='ended');
+ $$('[data-hotel-summer-note]').forEach(el=>el.hidden=campaignState().status==='ended');
  syncHotelCatalogue();
  requestAnimationFrame(()=>updateCarousel('hotel'));
 }
-function changeSeason(season){state.season=season;if(state.hotel&&season==='winter')state.hotel=null;syncState();clearMessages();track('season',{season,source:'selection'});}
+function changeSeason(season){if(season==='summer')clearWinterCountry();state.season=season;if(state.hotel&&season==='winter'){state.hotel=null;setPurpose('selection','season');}syncState();clearMessages();track('season',{season,source:'selection'});}
 function moveTo(id,focus=false){const target=$(id);if(!target)return;updateHeader();target.scrollIntoView({behavior:motion(),block:'start'});if(focus)target.querySelector('input:not([type="hidden"]):not([name="website"])')?.focus({preventScroll:true});}
 function setPurpose(goal,source){if(campaignState().status==='ended'&&goal==='booking')goal='selection';forms.forEach(f=>{f.elements.purpose.value=goal;f.elements.source.value=source||'page';const labels={selection:'Подобрать тур к распродаже',hotel:'Рассчитать выбранный отель',booking:'Записаться на бронирование'};const b=f.querySelector('[data-submit-label]');if(!b.disabled)b.textContent=campaignState().status==='ended'?'Подобрать актуальный тур':f.elements.formVariant?.value==='quick'?'Подобрать тур':labels[goal];});}
-function selectHotel(id,source){const h=priorities.find(x=>x.id===id);if(!h)return;state.hotel=h;state.season='summer';syncState();setPurpose('hotel',source);track('hotel',{hotelId:h.id,source});moveTo('#dt-request',true);}
+function selectHotel(id,source){const h=priorities.find(x=>x.id===id);if(!h)return;clearWinterCountry();state.hotel=h;state.season='summer';syncState();setPurpose('hotel',source);track('hotel',{hotelId:h.id,source});moveTo('#dt-request',true);}
 // Consent stores preferences only. Form contents remain in memory, never analytics or storage.
 const storageKey='dtbf26-consent-v1';let consent={analytics:false},hasChoice=false;
 try{const stored=JSON.parse(localStorage.getItem(storageKey)||'null');if(stored&&stored.version===1){consent={analytics:stored.analytics===true};hasChoice=true;}}catch{}
@@ -170,6 +187,7 @@ $('.dt-dialog-close').addEventListener('click',closeViewer);viewer.addEventListe
 root.addEventListener('click',e=>{
  const menu=e.target.closest('.dt-menu-button');if(menu){const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Закрыть меню':'Открыть меню');$('#dt-navigation').dataset.open=String(open);updateHeader();return;}
  const season=e.target.closest('[data-season]');if(season){changeSeason(season.dataset.season);return;}
+ const country=e.target.closest('[data-winter-country]');if(country){selectWinterCountry(country.dataset.winterCountry);return;}
  const scenario=e.target.closest('[data-scenario]');if(scenario){state.scenario=state.scenario===scenario.dataset.scenario?'all':scenario.dataset.scenario;syncState();clearMessages();track('scenario',{scenario:state.scenario,source:'scenario'});return;}
  const hotel=e.target.closest('[data-select-hotel],[data-select-priority]');if(hotel){selectHotel(hotel.dataset.selectHotel||hotel.dataset.selectPriority,hotel.dataset.selectPriority?'priority-list':'hotel-slider');return;}
  const remove=e.target.closest('[data-remove-hotel]');if(remove){state.hotel=null;syncState();setPurpose('selection','hotel-removed');return;}
@@ -183,7 +201,7 @@ root.addEventListener('click',e=>{
 root.addEventListener('keydown',e=>{if(e.key==='Escape'){if(viewer.hasAttribute('open'))closeViewer();if(cookieDialog.hasAttribute('open'))closeCookieSettings();$$('.dt-phones[open]').forEach(d=>{d.open=false;d.querySelector('summary').focus();});$('#dt-navigation').dataset.open='false';$('.dt-menu-button').setAttribute('aria-expanded','false');updateHeader();}});
 document.addEventListener('click',e=>$$('.dt-phones[open]').forEach(d=>{if(!d.contains(e.target))d.open=false;}));
 $('.dt-tabs').addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const season=e.key==='Home'?'summer':e.key==='End'?'winter':state.season==='summer'?'winter':'summer';changeSeason(season);$('#dt-tab-'+season).focus();}});
-$('#dt-hotel-season').addEventListener('change',e=>changeSeason(e.target.value));$('#dt-hotel-scenario').addEventListener('change',e=>{state.scenario=e.target.value;syncState();});$('#dt-reset-scenario').addEventListener('click',()=>{state.scenario='all';syncState();});
+$('#dt-hotel-season').addEventListener('change',e=>changeSeason(e.target.value));$('#dt-hotel-scenario').addEventListener('change',e=>{state.scenario=e.target.value;syncState();});$('#dt-reset-scenario').addEventListener('click',()=>{if(state.season==='winter')clearWinterCountry();else state.scenario='all';syncState();});
 function validContact(v){v=v.trim();return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)||(/^\+?[\d\s()\-]{7,25}$/.test(v)&&v.replace(/\D/g,'').length>=7&&v.replace(/\D/g,'').length<=15)||/^@[A-Za-z0-9_]{3,32}$/.test(v)||/^(?:https?:\/\/)?t\.me\/[A-Za-z0-9_]{3,32}$/.test(v);}
 function validateForm(f){let first=null;for(const field of ['contact','email','consent','ages']){const el=f.elements[field];if(!el)continue;let good=true,text='';
  if(field==='contact'){const phone=f.elements.formVariant?.value==='quick';good=phone?/^\+?[\d\s()\-]{7,25}$/.test(el.value.trim())&&el.value.replace(/\D/g,'').length>=7&&el.value.replace(/\D/g,'').length<=15:validContact(el.value);text=phone?'Введите телефон с кодом страны.':'Введите телефон с кодом страны, email или Telegram @username.';}
@@ -212,11 +230,11 @@ async function submitForm(f){if(f._busy||!validateForm(f))return;const values=ne
  finally{f._busy=false;f.setAttribute('aria-busy','false');button.disabled=false;button.textContent=label;}
 }
 forms.forEach(f=>{f.elements.adults.value='2';childrenChanged(f);f.addEventListener('submit',e=>{e.preventDefault();submitForm(f);});f.elements.children.addEventListener('change',()=>childrenChanged(f));f.elements.season.addEventListener('change',e=>changeSeason(e.target.value));f.elements.purpose.addEventListener('change',()=>{setPurpose(f.elements.purpose.value,f.elements.source.value);if(f.elements.purpose.value==='booking')track('booking',{purpose:'booking',source:f.elements.source.value});});
- f.addEventListener('input',e=>{clearMessages();if(['contact','direction','period','duration','adults','children','ages','budgetAmount','wishes'].includes(e.target.name)){for(const other of forms){if(other!==f)if(other.elements[e.target.name])other.elements[e.target.name].value=e.target.value;childrenChanged(other);}}});
+ f.addEventListener('input',e=>{clearMessages();if(['contact','direction','period','duration','adults','children','ages','budgetAmount','wishes'].includes(e.target.name)){for(const other of forms){if(other!==f)if(other.elements[e.target.name])other.elements[e.target.name].value=e.target.value;childrenChanged(other);}}if(e.target.name==='direction'&&state.country&&e.target.value!==winterDirection(state.country)){state.country=null;syncState();}});
 });
 const payments=Array.isArray(cfg.payments)?cfg.payments:[];$('#dt-payments').innerHTML=payments.map(p=>'<img src="'+escapeHTML(p.image)+'" alt="'+escapeHTML(p.name)+'" loading="lazy">').join('');$('#dt-payments').hidden=payments.length===0;
 window.addEventListener('resize',()=>{syncHotelCatalogue();requestAnimationFrame(()=>updateCarousel('hotel'));},{passive:true});
-renderScenarios();renderHotels();renderReviews();syncState();bindCarousel('hotel');bindCarousel('review');icons();updateTimer();setInterval(updateTimer,1000);
+renderScenarios();renderWinterCountries();renderHotels();renderReviews();syncState();bindCarousel('hotel');bindCarousel('review');icons();updateTimer();setInterval(updateTimer,1000);
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initDatatourBF26,{once:true});else initDatatourBF26();
 })();

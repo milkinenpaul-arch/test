@@ -1,5 +1,5 @@
 {
-  "version": "2.1.1",
+  "version": "2.2.1",
   "page_slug": "black-friday-2026",
   "recipient": "datatour78@mail.ru",
   "campaign": {
@@ -645,5 +645,37 @@
     "priced_count": 19,
     "pending_count": 7,
     "pending_placement": "second-page"
-  }
+  },
+  "winter_destinations": [
+    {
+      "id": "egypt",
+      "name": "Египет",
+      "resorts": "Шарм-эль-Шейх"
+    },
+    {
+      "id": "uae",
+      "name": "ОАЭ",
+      "resorts": "Дубай, Шарджа, Аджман, Рас-эль-Хайма, Фуджейра"
+    },
+    {
+      "id": "thailand",
+      "name": "Таиланд",
+      "resorts": "Пхукет, Као Лак, Паттайя; Краби — для комбинированных поездок"
+    },
+    {
+      "id": "vietnam",
+      "name": "Вьетнам",
+      "resorts": "Фукуок"
+    },
+    {
+      "id": "sri-lanka",
+      "name": "Шри-Ланка",
+      "resorts": "Южное и юго-западное побережье"
+    },
+    {
+      "id": "china",
+      "name": "Китай",
+      "resorts": "Хайнань: Санья и курортные бухты"
+    }
+  ]
 }

@@ -589,3 +589,19 @@
 /* Arrow points from the countdown label towards the timer. */
 #dt-bf26 .dt-countdown-arrow{display:block;width:44px;height:24px;flex:none;margin-left:4px;color:var(--dt-accent)}
 @media(max-width:600px){#dt-bf26 .dt-countdown-arrow{width:30px;height:30px;transform:rotate(90deg)}}
+
+/* Seasonal choice: spacing and winter destinations from the supplied country list. */
+#dt-bf26 #dt-choose .dt-tabs{margin-top:24px}
+#dt-bf26 .dt-winter-countries{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:26px}
+#dt-bf26 .dt-winter-country{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:18px;padding:24px;border:1px solid var(--dt-line);border-radius:16px;background:var(--dt-white);text-align:left;color:var(--dt-ink);font-size:16px;font-weight:400;line-height:1.5;min-width:0}
+#dt-bf26 .dt-winter-country *{font-family:inherit}
+#dt-bf26 .dt-winter-country:hover{border-color:#93a574}
+#dt-bf26 .dt-winter-country[aria-pressed="true"]{border-color:#72913e;box-shadow:inset 0 0 0 1px #72913e;background:#eff5e4}
+#dt-bf26 .dt-winter-country-head{display:flex;align-items:center;gap:14px}
+#dt-bf26 .dt-winter-country-icon{display:flex;align-items:center;justify-content:center;width:44px;height:44px;flex:none;border-radius:12px;background:#edf3e4;color:#375d53}
+#dt-bf26 .dt-winter-country-icon svg{display:block;width:24px;height:24px}
+#dt-bf26 .dt-winter-country-name{font-size:24px;font-weight:600;line-height:1.25;letter-spacing:-.025em}
+#dt-bf26 .dt-winter-country-resorts{font-size:16px;font-weight:400;line-height:1.65;color:#52635d}
+#dt-bf26 .dt-winter-country-select{margin-top:auto;padding-top:4px;font-size:15px;font-weight:600;line-height:1.5;color:#375d53}
+@media(max-width:900px){#dt-bf26 .dt-winter-countries{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){#dt-bf26 #dt-choose .dt-tabs{margin-top:20px}#dt-bf26 .dt-winter-countries{grid-template-columns:1fr;gap:14px;margin-top:22px}#dt-bf26 .dt-winter-country{padding:22px;gap:14px}#dt-bf26 .dt-winter-country-name{font-size:22px}}
