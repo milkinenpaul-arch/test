@@ -8,7 +8,7 @@ const catalogue=JSON.parse(fs.readFileSync(path.join(root,'datatour-bf26-config.
   if(!target.startsWith(root+path.sep)){res.writeHead(403);res.end();return;}
   if(req.url.split('?')[0]==='/datatour-bf26-preview.html'){
    const cfg=JSON.parse(fs.readFileSync(path.join(root,'datatour-bf26-config.json'),'utf8'));delete cfg.recipient;cfg.ajaxUrl='/wp-admin/admin-ajax.php';
-   for(const key of ['reviews','payments','priority_hotels','scenario_images'])for(const item of cfg[key]||[])if(item.image&&!item.image.startsWith('http'))item.image='/assets/'+item.image;
+   for(const key of ['reviews','payments','priority_hotels','scenario_images','winter_destinations'])for(const item of cfg[key]||[])if(item.image&&!item.image.startsWith('http'))item.image='/assets/'+item.image;
    let body=fs.readFileSync(path.join(root,'datatour-bf26.html'),'utf8').replaceAll('{{asset_url}}','/assets').replaceAll('{{ajax_url}}',cfg.ajaxUrl);
    cfg.news.forEach((item,i)=>body=body.replaceAll('{{news_'+(i+1)+'_url}}',item.url));
    res.setHeader('Content-Type','text/html; charset=utf-8');res.end('<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0}'+fs.readFileSync(path.join(root,'datatour-bf26.css'),'utf8')+'</style><body>'+body+'<script>window.DatatourBF26='+JSON.stringify(cfg).replaceAll('</','<\\/')+';</script><script>'+fs.readFileSync(path.join(root,'datatour-bf26.js'),'utf8')+'</script></body></html>');return;
@@ -118,9 +118,11 @@ const catalogue=JSON.parse(fs.readFileSync(path.join(root,'datatour-bf26-config.
   assert.deepEqual(await page.locator('#dt-hotel-season option').evaluateAll(els=>els.map(el=>el.value)),['summer']);
   await page.locator('#dt-tab-winter').click();assert.equal(await page.locator('#dt-panel-winter').isVisible(),true);
   assert.equal(await page.locator('[data-winter-country]').count(),6);assert.equal(await page.locator('#dt-panel-winter [data-scenario]').count(),0);
+  assert.equal(new Set(await page.locator('.dt-winter-country-media img').evaluateAll(els=>els.map(el=>el.src))).size,6);
   const countries=[['egypt','Египет','Шарм-эль-Шейх'],['uae','ОАЭ','Дубай, Шарджа, Аджман, Рас-эль-Хайма, Фуджейра'],['thailand','Таиланд','Пхукет, Као Лак, Паттайя; Краби — для комбинированных поездок'],['vietnam','Вьетнам','Фукуок'],['sri-lanka','Шри-Ланка','Южное и юго-западное побережье'],['china','Китай','Хайнань: Санья и курортные бухты']];
   for(const [id,name,resorts] of countries){
    const card=page.locator('[data-winter-country="'+id+'"]');assert.equal(await card.locator('.dt-winter-country-name').textContent(),name);assert.equal(await card.locator('.dt-winter-country-resorts').textContent(),resorts);
+   const image=card.locator('.dt-winter-country-media img');await image.scrollIntoViewIfNeeded();await image.evaluate(el=>el.decode());assert.equal(await image.evaluate(el=>el.naturalWidth),1536);assert.equal(await image.getAttribute('loading'),'lazy');assert.ok((await image.getAttribute('alt')).startsWith('Иллюстрация'));
    await card.click();assert.equal(await card.getAttribute('aria-pressed'),'true');assert.equal(await page.locator('[data-winter-country][aria-pressed=true]').count(),1);
    for(const form of ['#dt-final-form','#dt-quick-form']){assert.equal(await page.locator(form+' [name=direction]').inputValue(),name+' · '+resorts);assert.equal(await page.locator(form+' [name=season]').inputValue(),'winter');assert.equal(await page.locator(form+' [name=hotelId]').inputValue(),'');assert.equal(await page.locator(form+' [name=purpose]').inputValue(),'selection');}
   }

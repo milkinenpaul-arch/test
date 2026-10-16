@@ -26,7 +26,7 @@ def embedded(name):
 body=re.sub(r'\{\{asset_url\}\}/([A-Za-z0-9_./-]+)',lambda m:embedded(m.group(1)),body)
 for i,n in enumerate(config.get('news',[]),1):body=body.replace('{{news_'+str(i)+'_url}}',n['url'])
 for i in range(1,4):body=body.replace('{{news_'+str(i)+'_url}}','#dt-blog')
-for key in ['reviews','payments','priority_hotels','scenario_images']:
+for key in ['reviews','payments','priority_hotels','scenario_images','winter_destinations']:
  for entry in config.get(key,[]):
   if entry.get('image') and not entry['image'].startswith('http'):entry['image']=embedded(entry['image'])
 html='<!doctype html>\n<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Datatour — Чёрная пятница 2026</title><style>body{margin:0}\n'+(ROOT/'datatour-bf26.css').read_text()+'</style></head><body>'+body+'<script>window.DatatourBF26='+json.dumps(config,ensure_ascii=False).replace('</','<\\/')+';</script><script>'+(ROOT/'datatour-bf26.js').read_text()+'</script></body></html>\n'

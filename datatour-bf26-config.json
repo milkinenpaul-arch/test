@@ -1,5 +1,5 @@
 {
-  "version": "2.2.1",
+  "version": "2.2.2",
   "page_slug": "black-friday-2026",
   "recipient": "datatour78@mail.ru",
   "campaign": {
@@ -650,32 +650,44 @@
     {
       "id": "egypt",
       "name": "Египет",
-      "resorts": "Шарм-эль-Шейх"
+      "resorts": "Шарм-эль-Шейх",
+      "image": "countries/egypt.webp",
+      "imageAlt": "Иллюстрация побережья Красного моря в Египте"
     },
     {
       "id": "uae",
       "name": "ОАЭ",
-      "resorts": "Дубай, Шарджа, Аджман, Рас-эль-Хайма, Фуджейра"
+      "resorts": "Дубай, Шарджа, Аджман, Рас-эль-Хайма, Фуджейра",
+      "image": "countries/uae.webp",
+      "imageAlt": "Иллюстрация побережья Дубая, ОАЭ"
     },
     {
       "id": "thailand",
       "name": "Таиланд",
-      "resorts": "Пхукет, Као Лак, Паттайя; Краби — для комбинированных поездок"
+      "resorts": "Пхукет, Као Лак, Паттайя; Краби — для комбинированных поездок",
+      "image": "countries/thailand.webp",
+      "imageAlt": "Иллюстрация бухты с известняковыми скалами в Таиланде"
     },
     {
       "id": "vietnam",
       "name": "Вьетнам",
-      "resorts": "Фукуок"
+      "resorts": "Фукуок",
+      "image": "countries/vietnam.webp",
+      "imageAlt": "Иллюстрация тропического побережья Фукуока, Вьетнам"
     },
     {
       "id": "sri-lanka",
       "name": "Шри-Ланка",
-      "resorts": "Южное и юго-западное побережье"
+      "resorts": "Южное и юго-западное побережье",
+      "image": "countries/sri-lanka.webp",
+      "imageAlt": "Иллюстрация побережья Шри-Ланки"
     },
     {
       "id": "china",
       "name": "Китай",
-      "resorts": "Хайнань: Санья и курортные бухты"
+      "resorts": "Хайнань: Санья и курортные бухты",
+      "image": "countries/china.webp",
+      "imageAlt": "Иллюстрация бухты на острове Хайнань, Китай"
     }
   ]
 }

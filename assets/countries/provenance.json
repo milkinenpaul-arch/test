@@ -1,0 +1,71 @@
+{
+  "description": "Illustrative winter destination card imagery generated for this page. Country/resort text remains the user-supplied list; pictures are not proof of hotel amenities or exact current appearance.",
+  "images": [
+    {
+      "country_id": "egypt",
+      "asset": "countries/egypt.webp",
+      "source": "AI-generated illustrative destination image, not a verified location or hotel photograph",
+      "generated_on": "2026-10-16",
+      "source_sha256": "d42e956debdccd7b7e0175e89a30a399be632d72bdd4e18ef008b84bac7c4e63",
+      "sha256": "7ee4b5006b4dfbc26c244228326b0e6dffd8fbf926b65342a711adce28e0fdfb",
+      "width": 1536,
+      "height": 1024,
+      "processing": "WebP encoding only; source dimensions and image content retained. Display crop uses CSS object-fit."
+    },
+    {
+      "country_id": "uae",
+      "asset": "countries/uae.webp",
+      "source": "AI-generated illustrative destination image, not a verified location or hotel photograph",
+      "generated_on": "2026-10-16",
+      "source_sha256": "9b2ea0a1df4e2e17ab0576a18fe352b9275dedf3fba38414626da7996e1ecf69",
+      "sha256": "cc05304e18b92d9039a902c18da33af7a2d1e415777493b723aee0247953b3e2",
+      "width": 1536,
+      "height": 1024,
+      "processing": "WebP encoding only; source dimensions and image content retained. Display crop uses CSS object-fit."
+    },
+    {
+      "country_id": "thailand",
+      "asset": "countries/thailand.webp",
+      "source": "AI-generated illustrative destination image, not a verified location or hotel photograph",
+      "generated_on": "2026-10-16",
+      "source_sha256": "3e0070cf20d9fe6aee0d7c7e752e43e4750ea3df48e4d11babec576c51adbc97",
+      "sha256": "8a2d2082f4042a72e4f03390ca97eb1d525230ff970f60e2e97ab06ad0c16f56",
+      "width": 1536,
+      "height": 1024,
+      "processing": "WebP encoding only; source dimensions and image content retained. Display crop uses CSS object-fit."
+    },
+    {
+      "country_id": "vietnam",
+      "asset": "countries/vietnam.webp",
+      "source": "AI-generated illustrative destination image, not a verified location or hotel photograph",
+      "generated_on": "2026-10-16",
+      "source_sha256": "2346d7db944163f14dc92e755dc0dbadc57899ab75996660dd758add328856d6",
+      "sha256": "820a60c4f8112d7b60bc13b50bcdde6b55f7253eb6f88c8bf97cd178770c8c81",
+      "width": 1536,
+      "height": 1024,
+      "processing": "WebP encoding only; source dimensions and image content retained. Display crop uses CSS object-fit."
+    },
+    {
+      "country_id": "sri-lanka",
+      "asset": "countries/sri-lanka.webp",
+      "source": "AI-generated illustrative destination image, not a verified location or hotel photograph",
+      "generated_on": "2026-10-16",
+      "source_sha256": "6c72304d48ff36a2ad50a83ef837ac639e238ef67cc9f434f238e0b05a6b53d0",
+      "sha256": "c658ab3cb804a1738b6a092f581e1be0e2259ef8804418f2dc82c3e119255530",
+      "width": 1536,
+      "height": 1024,
+      "processing": "WebP encoding only; source dimensions and image content retained. Display crop uses CSS object-fit."
+    },
+    {
+      "country_id": "china",
+      "asset": "countries/china.webp",
+      "source": "AI-generated illustrative destination image, not a verified location or hotel photograph",
+      "generated_on": "2026-10-16",
+      "source_sha256": "8afa0911a100bd819b8aa2235da76df2d484e0b16078a72b902b85c82ab326b8",
+      "sha256": "34abf44ab2c7f6b1c493aa22b7a6dce1d6c9023a0865fe90c15bd1f866e36b33",
+      "width": 1536,
+      "height": 1024,
+      "processing": "WebP encoding only; source dimensions and image content retained. Display crop uses CSS object-fit."
+    }
+  ]
+}

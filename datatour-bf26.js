@@ -82,7 +82,7 @@ function renderScenarios(){
  $('#dt-hotel-scenario').innerHTML='<option value="all">Любой сценарий</option>'+scenarios.map(s=>'<option value="'+s.id+'">'+s.name+'</option>').join('');
 }
 function renderWinterCountries(){
- $('[data-winter-countries]').innerHTML=winterDestinations.map(d=>'<button type="button" class="dt-winter-country" data-winter-country="'+escapeHTML(d.id)+'" aria-pressed="false"><span class="dt-winter-country-head"><span class="dt-winter-country-icon" aria-hidden="true"><i data-dt-icon="map-pin"></i></span><span class="dt-winter-country-name">'+escapeHTML(d.name)+'</span></span><span class="dt-winter-country-resorts">'+escapeHTML(d.resorts)+'</span><span class="dt-winter-country-select">Выбрать направление</span></button>').join('');
+ $('[data-winter-countries]').innerHTML=winterDestinations.map(d=>'<button type="button" class="dt-winter-country" data-winter-country="'+escapeHTML(d.id)+'" aria-pressed="false"><span class="dt-winter-country-media"><img src="'+escapeHTML(d.image)+'" alt="'+escapeHTML(d.imageAlt)+'" width="1536" height="1024" loading="lazy" decoding="async"></span><span class="dt-winter-country-copy"><span class="dt-winter-country-head"><span class="dt-winter-country-icon" aria-hidden="true"><i data-dt-icon="map-pin"></i></span><span class="dt-winter-country-name">'+escapeHTML(d.name)+'</span></span><span class="dt-winter-country-resorts">'+escapeHTML(d.resorts)+'</span><span class="dt-winter-country-select">Выбрать направление</span></span></button>').join('');
 }
 function winterDirection(country){return country.name+' · '+country.resorts;}
 function clearWinterCountry(){
