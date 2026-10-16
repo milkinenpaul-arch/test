@@ -2,14 +2,14 @@
 /**
  * Plugin Name: Datatour BF2026 Landing — Compatible
  * Description: Datatour landing, page template and server-side lead processing.
- * Version: 2.2.3
+ * Version: 2.2.4
  * Requires at least: 4.9
  * Requires PHP: 5.4
  * Text Domain: datatour-bf26
  */
 if (!defined('ABSPATH')) { exit; }
-define('DTBF26COMPAT_ASSET_DIR', __DIR__ . '/assets/v2.2.3');
-define('DTBF26COMPAT_ASSET_URL', plugin_dir_url(__FILE__) . 'assets/v2.2.3');
+define('DTBF26COMPAT_ASSET_DIR', __DIR__ . '/assets/v2.2.4');
+define('DTBF26COMPAT_ASSET_URL', plugin_dir_url(__FILE__) . 'assets/v2.2.4');
 function dtbf26compat_config() {
     static $config = null;
     if ($config === null) {
@@ -31,14 +31,14 @@ function dtbf26compat_enqueue_assets() {
     if (!dtbf26compat_is_landing() && !$article) { return; }
     $base = DTBF26COMPAT_ASSET_URL . '/';
     foreach (array('shell' => 'shell.css', 'style' => 'datatour-bf26.css') as $handle => $file) {
-        wp_enqueue_style('dtbf26-' . $handle, $base . $file, array(), '2.2.3-' . filemtime(DTBF26COMPAT_ASSET_DIR . '/' . $file));
+        wp_enqueue_style('dtbf26-' . $handle, $base . $file, array(), '2.2.4-' . filemtime(DTBF26COMPAT_ASSET_DIR . '/' . $file));
     }
     if ($article) {
         wp_enqueue_style('dtbf26-article', $base . 'article.css', array('dtbf26-style'), filemtime(DTBF26COMPAT_ASSET_DIR . '/article.css'));
         wp_enqueue_script('dtbf26-article', $base . 'article.js', array(), filemtime(DTBF26COMPAT_ASSET_DIR . '/article.js'), true);
         return;
     }
-    wp_enqueue_script('dtbf26-script', $base . 'datatour-bf26.js', array(), '2.2.3-' . filemtime(DTBF26COMPAT_ASSET_DIR . '/datatour-bf26.js'), true);
+    wp_enqueue_script('dtbf26-script', $base . 'datatour-bf26.js', array(), '2.2.4-' . filemtime(DTBF26COMPAT_ASSET_DIR . '/datatour-bf26.js'), true);
     $config = dtbf26compat_config();
     unset($config['recipient']);
     $config['ajaxUrl'] = admin_url('admin-ajax.php');
@@ -86,4 +86,4 @@ add_filter('template_include', function ($template) {
     }
     return $template;
 });
-require_once __DIR__ . '/leads-v2.2.3.php';
+require_once __DIR__ . '/leads-v2.2.4.php';

@@ -623,3 +623,10 @@
 #dt-bf26 .dt-faq-check{display:flex;align-items:center;justify-content:center;width:24px;height:24px;margin-top:3px;border-radius:7px;background:#e7f0d4;color:#47652c}
 #dt-bf26 .dt-faq-check svg{display:block;width:18px;height:18px}
 @media(max-width:600px){#dt-bf26 .dt-early-choice{padding:48px 0}#dt-bf26 .dt-faq-benefits{font-size:16px;gap:12px}}
+
+/* Art-directed ocean background: one responsive source, full-bleed on every screen. */
+#dt-bf26 .dt-hero{background-color:#031923}
+#dt-bf26 .dt-hero-photo{display:block}
+#dt-bf26 .dt-hero-photo img{object-position:50% 50%}
+#dt-bf26 .dt-hero:before{background:linear-gradient(90deg,rgba(0,15,22,.22),rgba(0,15,22,.04) 70%)}
+@media(max-width:600px){#dt-bf26 .dt-hero-photo{position:absolute;inset:0;z-index:-2;width:100%;height:100%;margin:0;aspect-ratio:auto;border-radius:0}#dt-bf26 .dt-hero-photo img{object-position:58% 50%}#dt-bf26 .dt-hero:before{background:linear-gradient(180deg,rgba(0,14,21,.12),rgba(0,14,21,.28) 45%,rgba(0,14,21,.5) 70%,rgba(0,14,21,.32))}}

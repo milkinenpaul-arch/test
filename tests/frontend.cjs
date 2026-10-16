@@ -21,6 +21,21 @@ const catalogue=JSON.parse(fs.readFileSync(path.join(root,'datatour-bf26-config.
  const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true});
  let tests=0;const passed=label=>{tests++;console.log('PASS '+label);};
  try{
+  for(const [width,deviceScaleFactor,candidate] of [[1024,1,'desktop-1280'],[1440,1,'desktop-1920'],[1440,2,'desktop-1920'],[390,1,'mobile-480'],[390,2,'mobile-768']]){
+   const check=await browser.newContext({viewport:{width,height:900},deviceScaleFactor});
+   await check.route('**/*',route=>route.request().url().startsWith(origin+'/')?route.continue():route.abort());
+   const tab=await check.newPage(),requests=[];tab.on('request',r=>{if(r.url().includes('/hero-ocean/'))requests.push(r.url());});
+   await tab.goto(origin+'/datatour-bf26-preview.html',{waitUntil:'networkidle'});
+   const image=tab.locator('.dt-hero-photo img');await image.evaluate(el=>el.decode());
+   assert.equal(requests.length,1);assert.ok(requests[0].endsWith(candidate+'.webp'));assert.ok((await image.evaluate(el=>el.currentSrc)).endsWith(candidate+'.webp'));
+   assert.ok(fs.statSync(path.join(root,'assets/hero-ocean',candidate+'.webp')).size<150000);
+   assert.equal(await image.getAttribute('fetchpriority'),'high');assert.equal(await image.getAttribute('loading'),'eager');
+   const hero=await tab.locator('.dt-hero').boundingBox(),background=await tab.locator('.dt-hero-photo').boundingBox();
+   for(const key of ['x','y','width','height'])assert.ok(Math.abs(hero[key]-background[key])<1);
+   assert.ok(await tab.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+   await check.close();
+  }
+  passed('Ocean hero: exactly one responsive WebP request at desktop/mobile DPR1/2, each under150KB, high priority and full-bleed without layout overflow');
   const context=await browser.newContext({viewport:{width:1440,height:900}});
   const page=await context.newPage(),errors=[],posts=[],events=[];let rejectMail=true,tourvisorLoads=0,mapLoads=0;
   page.on('pageerror',e=>errors.push(e.message));

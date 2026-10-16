@@ -1,8 +1,66 @@
 {
   "hero": {
-    "source": "Existing beach photograph embedded in milkinenpaul-arch/test, commit a68681823f4f86166deebcd2b1361607b81301e9, datatour-bf26.js photos.beach",
-    "source_sha256": "98db406790ef796fc0c48aefca26152de966f78d0ac96fee0e6b1aafea8fa405",
-    "processing": "Responsive downsampling and WebP encoding; no generative alterations; illustrative coastline, not photographs of the named hotels."
+    "source": "Two images supplied inline by the user on 2026-10-16: dark ocean and turquoise rock pools. The image editing tool produced faithful portrait/landscape exports from those two references, preserving dimensions and framing. Pixel identity with the original inline uploads is not independently established.",
+    "processing": "Responsive downsampling and WebP quality 76, method 6; no further retouching or scene changes. Source exports remain outside Git.",
+    "delivery": "Art-directed picture element: portrait at max-width 600px, landscape above 600px. One candidate requested per page load; eager/high priority.",
+    "files": [
+      {
+        "role": "desktop",
+        "file": "hero-ocean/desktop-1280.webp",
+        "width": 1280,
+        "height": 480,
+        "bytes": 81004,
+        "sha256": "fa10e51d61fc945962b11389bb0b142f88d0b056a56527387c99db65cda9d583",
+        "source_dimensions": [
+          2048,
+          768
+        ],
+        "source_export_sha256": "39cb3feecbb9bd1278d417573b53161cf4312207a39568878bcde9737714a5c1",
+        "source_export_bytes": 2613431
+      },
+      {
+        "role": "desktop",
+        "file": "hero-ocean/desktop-1920.webp",
+        "width": 1920,
+        "height": 720,
+        "bytes": 149742,
+        "sha256": "59fcedf22b2edff013757e2cf97915f3de92bdded95be18cc59e93b9eb65290a",
+        "source_dimensions": [
+          2048,
+          768
+        ],
+        "source_export_sha256": "39cb3feecbb9bd1278d417573b53161cf4312207a39568878bcde9737714a5c1",
+        "source_export_bytes": 2613431
+      },
+      {
+        "role": "mobile",
+        "file": "hero-ocean/mobile-480.webp",
+        "width": 480,
+        "height": 840,
+        "bytes": 56316,
+        "sha256": "ddd601c651d7790a06d1d364912e15efb5b16379e85a15dc1b3505edb844118d",
+        "source_dimensions": [
+          948,
+          1659
+        ],
+        "source_export_sha256": "9789aa99d09e7dc0fcd0fcb4e2e54a1bf1c75c3745a1ace25e1c748e96c74db3",
+        "source_export_bytes": 2518175
+      },
+      {
+        "role": "mobile",
+        "file": "hero-ocean/mobile-768.webp",
+        "width": 768,
+        "height": 1344,
+        "bytes": 118744,
+        "sha256": "5a176ea9f5d01a9c79251cdc6fca053190dc06d2b5a46261a67919634d43ddae",
+        "source_dimensions": [
+          948,
+          1659
+        ],
+        "source_export_sha256": "9789aa99d09e7dc0fcd0fcb4e2e54a1bf1c75c3745a1ace25e1c748e96c74db3",
+        "source_export_bytes": 2518175
+      }
+    ]
   },
   "scenario_photographs": {
     "source": "Existing photos object in repository commit a68681823f4f86166deebcd2b1361607b81301e9, datatour-bf26.js",
@@ -14,5 +72,10 @@
       "palms.jpg": "a59d08b8e079f7fda2b07044551d5337d3b7028525df53eec0e942cf3f0ad110",
       "resort.jpg": "08af0287f7c175af295fed20187a7d52dcc773c5b44c4e97f4e38f38605e50d2"
     }
+  },
+  "previous_hero": {
+    "source": "Existing beach photograph embedded in milkinenpaul-arch/test, commit a68681823f4f86166deebcd2b1361607b81301e9, datatour-bf26.js photos.beach",
+    "source_sha256": "98db406790ef796fc0c48aefca26152de966f78d0ac96fee0e6b1aafea8fa405",
+    "processing": "Responsive downsampling and WebP encoding; no generative alterations; illustrative coastline, not photographs of the named hotels."
   }
 }
