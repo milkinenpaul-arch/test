@@ -53,6 +53,7 @@ function absint($value) {return abs((int)$value);}
 function esc_html($value) {return htmlspecialchars((string)$value,ENT_QUOTES,'UTF-8');}
 function esc_url($value) {return esc_html($value);}
 function dtbf26compat_config(){return json_decode(file_get_contents(__DIR__.'/../datatour-bf26-config.json'),true);}
+require __DIR__.'/../wordpress/datatour-bf26-compatible/telegram.php';
 require __DIR__.'/../wordpress/datatour-bf26-compatible/leads.php';
 $_SERVER=array('REQUEST_METHOD'=>'POST','REMOTE_ADDR'=>'192.0.2.1','HTTP_ORIGIN'=>'https://sales.datatour.by');
 function payload($extra=array()) {$issued=time()-4;return array_merge(array('nonce'=>'valid-nonce','issued'=>(string)$issued,'token'=>hash_hmac('sha256',$issued.'|valid-nonce',wp_salt()),'website'=>'','contact'=>'test@example.com','consent'=>'1','purpose'=>'selection','season'=>'summer','adults'=>'2','children'=>'0','ages'=>'','requestId'=>'unit-test-request-00000001','source'=>'contract-test','scenario'=>'all','budgetLevel'=>'all','hotelId'=>'','wishes'=>'Test only'),$extra);}

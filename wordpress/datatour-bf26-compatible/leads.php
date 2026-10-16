@@ -158,6 +158,7 @@ function dtbf26compat_submit() {
     $record['lead_id'] = $lead_id;
     $record['test'] = $is_test;
     update_option($key, $record, false);
+    dtbf26compat_notify_telegram($lead_id);
     $subject = ($is_test ? '[ТЕСТ — проверка формы, не заявка клиента] ' : '') . 'Datatour: ' . $purposes[$purpose];
     $body = ($is_test ? "ТЕСТОВАЯ ПРОВЕРКА. Не обрабатывать как заявку клиента.\n\n" : '');
     foreach ($fields as $label => $value) { if ($value !== '') { $body .= $label . ': ' . $value . "\n"; } }
@@ -233,7 +234,7 @@ function dtbf26compat_leads_admin() {
         if (!$lead || $lead->post_type !== 'dtbf26_lead' || $lead->post_status !== 'private') { wp_die('Заявка не найдена.', '', array('response' => 404)); }
         $data = json_decode($lead->post_content, true);
         echo '<p><a href="' . esc_url($base) . '">← Все заявки</a></p><h2>Заявка №' . (int) $id . (!empty($data['test']) ? ' — ТЕСТ' : '') . '</h2>';
-        echo '<p><strong>Сохранена в WordPress.</strong> Email: ' . esc_html(dtbf26compat_mail_label(get_post_meta($id, '_dtbf26_email_state', true))) . '.</p>';
+        echo '<p><strong>Сохранена в WordPress.</strong> Telegram: ' . esc_html(dtbf26compat_telegram_label($id)) . '. Email: ' . esc_html(dtbf26compat_mail_label(get_post_meta($id, '_dtbf26_email_state', true))) . '.</p>';
         echo '<table class="widefat striped"><tbody>';
         foreach (isset($data['fields']) ? $data['fields'] : array() as $label => $value) {
             if ($value === '') { continue; }
@@ -242,11 +243,11 @@ function dtbf26compat_leads_admin() {
         echo '</tbody></table></div>';
         return;
     }
-    echo '<p>Заявки сохраняются здесь независимо от отправки email. Статус «Передано серверу» не подтверждает получение письма.</p>';
+    echo '<p>Заявки сохраняются здесь независимо от отправки email. Статус «Передано серверу» не подтверждает получение письма.</p><p><a href="' . esc_url(admin_url('admin.php?page=dtbf26-telegram')) . '">Настроить уведомления Telegram</a></p>';
     $page = isset($_GET['lead_page']) && is_scalar($_GET['lead_page']) ? max(1, absint($_GET['lead_page'])) : 1;
     $query = new WP_Query(array('post_type' => 'dtbf26_lead', 'post_status' => 'private', 'posts_per_page' => 20, 'paged' => $page, 'orderby' => array('date' => 'DESC', 'ID' => 'DESC')));
     echo '<p>Всего заявок: <strong>' . (int) $query->found_posts . '</strong></p>';
-    echo '<div style="overflow-x:auto"><table class="widefat striped"><thead><tr><th>Дата (Минск)</th><th>Контакт</th><th>Обращение</th><th>Email-уведомление</th><th></th></tr></thead><tbody>';
+    echo '<div style="overflow-x:auto"><table class="widefat striped"><thead><tr><th>Дата (Минск)</th><th>Контакт</th><th>Обращение</th><th>Telegram</th><th>Email-уведомление</th><th></th></tr></thead><tbody>';
     foreach ($query->posts as $lead) {
         $data = json_decode($lead->post_content, true);
         $fields = isset($data['fields']) ? $data['fields'] : array();
@@ -254,9 +255,9 @@ function dtbf26compat_leads_admin() {
         $contact = isset($fields['Контакт']) ? $fields['Контакт'] : '';
         $name = isset($fields['Имя']) ? $fields['Имя'] : '';
         $purpose = isset($fields['Цель']) ? $fields['Цель'] : '';
-        echo '<tr><td>' . esc_html($date) . (!empty($data['test']) ? '<br><strong>ТЕСТ</strong>' : '') . '</td><td>' . esc_html($name) . '<br>' . esc_html($contact) . '</td><td>' . esc_html($purpose) . '</td><td>' . esc_html(dtbf26compat_mail_label(get_post_meta($lead->ID, '_dtbf26_email_state', true))) . '</td><td><a class="button" href="' . esc_url(add_query_arg('lead', $lead->ID, $base)) . '">Открыть</a></td></tr>';
+        echo '<tr><td>' . esc_html($date) . (!empty($data['test']) ? '<br><strong>ТЕСТ</strong>' : '') . '</td><td>' . esc_html($name) . '<br>' . esc_html($contact) . '</td><td>' . esc_html($purpose) . '</td><td>' . esc_html(dtbf26compat_telegram_label($lead->ID)) . '</td><td>' . esc_html(dtbf26compat_mail_label(get_post_meta($lead->ID, '_dtbf26_email_state', true))) . '</td><td><a class="button" href="' . esc_url(add_query_arg('lead', $lead->ID, $base)) . '">Открыть</a></td></tr>';
     }
-    if (!$query->posts) { echo '<tr><td colspan="5">Сохранённых заявок пока нет.</td></tr>'; }
+    if (!$query->posts) { echo '<tr><td colspan="6">Сохранённых заявок пока нет.</td></tr>'; }
     echo '</tbody></table></div>';
     if ($query->max_num_pages > 1) {
         echo '<p>Страница ' . (int) $page . ' из ' . (int) $query->max_num_pages . ' ';

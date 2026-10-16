@@ -12,7 +12,8 @@ for p in (ROOT/'assets').rglob('*'):
  if p.is_file():
   out=ASSETS/p.relative_to(ROOT/'assets');out.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,out)
 shutil.copyfile(PLUGIN/'assets'/'shell.css',ASSETS/'shell.css')
-shutil.copyfile(PLUGIN/'leads.php',PLUGIN/('leads-v'+VERSION+'.php'))
+for module in ['leads','telegram']:
+ shutil.copyfile(PLUGIN/(module+'.php'),PLUGIN/(module+'-v'+VERSION+'.php'))
 shutil.copyfile(ROOT/'LUCIDE-LICENSE.txt',PLUGIN/'LUCIDE-LICENSE.txt')
 config=json.loads((ROOT/'datatour-bf26-config.json').read_text())
 config.pop('recipient',None);config['ajaxUrl']='/wp-admin/admin-ajax.php'
@@ -34,7 +35,7 @@ html='<!doctype html>\n<html lang="ru"><head><meta charset="utf-8"><meta name="v
 output=ROOT/'downloads'/'datatour-bf26-2026-10-14'/('datatour-bf26-production-'+VERSION+'.zip')
 with zipfile.ZipFile(output,'w',zipfile.ZIP_DEFLATED) as z:
  for p in sorted(PLUGIN.rglob('*')):
-  if p.is_file() and p.relative_to(PLUGIN).parts[0] != 'assets' and p.name != 'leads.php' and (not p.name.startswith('leads-v') or p.name == 'leads-v'+VERSION+'.php'):
+  if p.is_file() and p.relative_to(PLUGIN).parts[0] != 'assets' and p.name not in ['leads.php','telegram.php'] and (not p.name.startswith(('leads-v','telegram-v')) or p.name in ['leads-v'+VERSION+'.php','telegram-v'+VERSION+'.php']):
    z.write(p,Path('datatour-bf26-compatible')/p.relative_to(PLUGIN))
  for p in sorted(ASSETS.rglob('*')):
   if p.is_file():z.write(p,Path('datatour-bf26-compatible')/p.relative_to(PLUGIN))

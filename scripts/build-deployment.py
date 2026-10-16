@@ -17,7 +17,7 @@ else:
 targets={}
 for p in (PLUGIN/'assets'/('v'+VERSION)).rglob('*'):
  if p.is_file():targets[str(p.relative_to(PLUGIN))]=p
-for f in ['leads-v'+VERSION+'.php','datatour-bf26.php']:
+for f in ['leads-v'+VERSION+'.php','telegram-v'+VERSION+'.php','datatour-bf26.php']:
  targets[f]=PLUGIN/f
 payload=out/'payload'
 for f,p in targets.items():
