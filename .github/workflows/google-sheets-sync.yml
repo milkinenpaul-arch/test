@@ -1,0 +1,127 @@
+name: Google Sheets ↔ GitHub
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Preview the changes or apply the sync
+        type: choice
+        options: [dry-run, apply]
+        default: dry-run
+      resolve:
+        description: Explicitly resolve conflicts for the listed sheet IDs
+        type: choice
+        options: [none, google, github]
+        default: none
+      sheet_ids:
+        description: Numeric sheet IDs to resolve, comma-separated; otherwise leave blank
+        type: string
+        required: false
+  schedule:
+    - cron: '*/10 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - data/google-sheets/**
+      - integrations/google-sheets/**
+      - scripts/sync-google-sheets.py
+      - tests/sheets_sync.py
+      - .github/workflows/google-sheets-sync.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: google-sheets-sync-main
+  cancel-in-progress: false
+
+jobs:
+  checks:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r integrations/google-sheets/requirements.txt
+      - run: python tests/sheets_sync.py
+
+  sync:
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      (vars.GOOGLE_SHEETS_SYNC_ENABLED == 'true' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    env:
+      GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
+      SYNC_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.mode || 'apply' }}
+      SYNC_RESOLVE: ${{ inputs.resolve || 'none' }}
+      SYNC_SHEET_IDS: ${{ inputs.sheet_ids }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check Google credential binding
+        run: |
+          if [ -z "$GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON" ]; then
+            echo '::error::Add GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON in repository Settings → Secrets and variables → Actions.'
+            exit 1
+          fi
+      - run: python -m pip install -r integrations/google-sheets/requirements.txt
+      - run: python tests/sheets_sync.py
+      - name: Refuse a stale checkout before Google writes
+        run: |
+          git fetch origin main
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo '::error::main changed during the run. Run the workflow again.'
+            exit 1
+          fi
+      - name: Compare and synchronize values and formulas
+        shell: bash
+        run: |
+          sync_args=(--report "$RUNNER_TEMP/google-sheets-sync-report.json")
+          if [ "$SYNC_MODE" = 'apply' ]; then
+            sync_args+=(--apply)
+          else
+            sync_args+=(--dry-run)
+          fi
+          if [ "$SYNC_RESOLVE" != 'none' ]; then
+            sync_args+=(--resolve "$SYNC_RESOLVE")
+            IFS=',' read -ra sync_sheet_ids <<< "$SYNC_SHEET_IDS"
+            for sync_sheet_id in "${sync_sheet_ids[@]}"; do
+              sync_args+=(--sheet-id "$sync_sheet_id")
+            done
+          elif [ -n "$SYNC_SHEET_IDS" ]; then
+            echo '::error::Select an explicit resolution direction when supplying sheet IDs.'
+            exit 1
+          fi
+          python scripts/sync-google-sheets.py "${sync_args[@]}"
+      - name: Commit the confirmed snapshot without force push
+        if: success() && env.SYNC_MODE == 'apply'
+        run: |
+          git add -- data/google-sheets/workbook.json data/google-sheets/sync-state.json
+          if git diff --cached --quiet; then
+            echo 'Both sides are already synchronized.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Sync Google Sheets values and formulas'
+          git push origin HEAD:main
+      - name: Save the plan or conflict report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: google-sheets-sync-report
+          path: ${{ runner.temp }}/google-sheets-sync-report.json
+          if-no-files-found: ignore
+          retention-days: 7
