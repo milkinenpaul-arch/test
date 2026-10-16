@@ -97,7 +97,8 @@ function dtbf26compat_submit() {
     $hotel_id = dtbf26compat_field('hotelId', 60);
     $hotel_label = '';
     if ($hotel_id !== '') {
-        foreach (isset($config['priority_hotels']) ? $config['priority_hotels'] : array() as $hotel) {
+        $hotels = array_merge(isset($config['priority_hotels']) ? $config['priority_hotels'] : array(), isset($config['datatour_choice_hotels']) ? $config['datatour_choice_hotels'] : array());
+        foreach ($hotels as $hotel) {
             if ($hotel['id'] === $hotel_id) { $hotel_label = $hotel['name']; break; }
         }
         if ($hotel_label === '') { dtbf26compat_error('invalid_hotel', 'Выберите отель из списка или укажите пожелания.', 400); }

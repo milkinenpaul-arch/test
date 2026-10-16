@@ -1,5 +1,5 @@
 {
-  "version": "2.2.6",
+  "version": "2.2.7",
   "page_slug": "black-friday-2026",
   "recipient": "datatour78@mail.ru",
   "campaign": {
@@ -688,6 +688,483 @@
       "resorts": "Хайнань: Санья и курортные бухты",
       "image": "countries/china.webp",
       "imageAlt": "Иллюстрация бухты на острове Хайнань, Китай"
+    }
+  ],
+  "datatour_choice_hotels": [
+    {
+      "id": "choice-1",
+      "name": "BOTANIK PLATINUM",
+      "sourceName": "BOTANIK PLATINUM 5 *",
+      "categoryLabel": "5*",
+      "region": "Аланья",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/27646.jpg",
+      "imageAlt": "BOTANIK PLATINUM — фотография отеля",
+      "scenarios": [
+        "family"
+      ],
+      "description": "семьям с детьми, которым хочется разнообразного курортного отдыха. Пляжные дни, бассейны и развлечения помогут собрать отпуск, интересный и взрослым, и детям.",
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "цена на просчете..",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-2",
+      "name": "ROYAL GARDEN BEACH",
+      "sourceName": "ROYAL GARDEN BEACH 5 *",
+      "categoryLabel": "5*",
+      "region": "Аланья",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/15905.jpg",
+      "imageAlt": "ROYAL GARDEN BEACH — фотография отеля",
+      "scenarios": [
+        "family"
+      ],
+      "description": "семьям и компаниям, которые любят оживлённый курортный ритм. Побережье Конаклы удобно для отпуска с морем, прогулками и вечерними планами.",
+      "priceStatus": "priced",
+      "priceAmount": 6938,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "от 6938 BYN за двоих",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-3",
+      "name": "INSULA RESORT & SPA",
+      "sourceName": "INSULA RESORT & SPA 5 *",
+      "categoryLabel": "5*",
+      "region": "Аланья",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1463.jpg",
+      "imageAlt": "INSULA RESORT & SPA — фотография отеля",
+      "scenarios": [
+        "family"
+      ],
+      "description": "семьям с детьми и любителям активного отдыха у моря. Курортный формат Конаклы — хороший повод чередовать пляж, бассейн и развлечения в течение дня.",
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "цена на просчете..",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-4",
+      "name": "BIENO CLUB HOTEL SVS",
+      "sourceName": "BIENO CLUB HOTEL SVS 4 *",
+      "categoryLabel": "4*",
+      "region": "Аланья",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1062.jpg",
+      "imageAlt": "BIENO CLUB HOTEL SVS — фотография отеля",
+      "scenarios": [
+        "discover"
+      ],
+      "description": "парам и друзьям, которые хотят совместить море с прогулками по Махмутлару. Практичный выбор, когда важны курортная жизнь вокруг и разумный бюджет поездки.",
+      "priceStatus": "priced",
+      "priceAmount": 5610,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "от 5610 BYN за двоих",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-5",
+      "name": "ULUSOY KEMER HOLIDAY CLUB",
+      "sourceName": "ULUSOY KEMER HOLIDAY CLUB HV1",
+      "categoryLabel": "HV1",
+      "region": "Кемер",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1568.jpg",
+      "imageAlt": "ULUSOY KEMER HOLIDAY CLUB — фотография отеля",
+      "scenarios": [
+        "family"
+      ],
+      "description": "семьям с детьми и тем, кто любит отдых среди зелени. Сосны, прогулки и невысокие корпуса создают настроение уютной курортной деревни у моря.",
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "цена на просчете..",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-6",
+      "name": "BLUE FISH HOTEL",
+      "sourceName": "BLUE FISH HOTEL 4 *",
+      "categoryLabel": "4*",
+      "region": "Аланья",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1051.jpg",
+      "imageAlt": "BLUE FISH HOTEL — фотография отеля",
+      "scenarios": [
+        "couple"
+      ],
+      "description": "парам и друзьям, которые ищут доступный отпуск на побережье Аланьи. Можно посвятить день морю, а другой — знакомству с городом и окрестностями.",
+      "priceStatus": "priced",
+      "priceAmount": 6165,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "от 6165 BYN за двоих",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-7",
+      "name": "EOS BEACH RESORT",
+      "sourceName": "Eos Beach Resort (ex. Crystal Land Of Paradise) 4*+",
+      "categoryLabel": "4*+",
+      "region": "Аланья",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1094.jpg",
+      "imageAlt": "EOS BEACH RESORT — фотография отеля",
+      "scenarios": [
+        "family"
+      ],
+      "description": "семьям и парам, которые выбирают пляжный отдых в районе Авсаллара. Курортная атмосфера располагает к простому плану на день: море, отдых и время вместе.",
+      "priceStatus": "priced",
+      "priceAmount": 6379,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "от 6379 BYN за двоих",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-8",
+      "name": "ORFEUS PARK HOTEL",
+      "sourceName": "ORFEUS PARK HOTEL 4+ *",
+      "categoryLabel": "4*+",
+      "region": "Сиде",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/3456.jpg",
+      "imageAlt": "ORFEUS PARK HOTEL — фотография отеля",
+      "scenarios": [
+        "family"
+      ],
+      "description": "семьям с детьми, которые хотят разумно распределить отпускной бюджет. Курортный Сиде подойдёт для чередования пляжных дней, отдыха у бассейна и прогулок.",
+      "priceStatus": "priced",
+      "priceAmount": 6265,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "от 6265 BYN за двоих",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-9",
+      "name": "CLUB SIDE COAST HOTEL",
+      "sourceName": "CLUB SIDE COAST HOTEL 5*",
+      "categoryLabel": "5*",
+      "region": "Сиде",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1123.jpg",
+      "imageAlt": "CLUB SIDE COAST HOTEL — фотография отеля",
+      "scenarios": [
+        "family"
+      ],
+      "description": "семьям и компаниям, которым нравится классический курортный отпуск. Здесь уместен ритм без спешки: море, бассейн и общие планы на вечер.",
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "цена на просчете..",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-10",
+      "name": "ASTORIA HOTEL & SPA",
+      "sourceName": "ASTORIA HOTEL & SPA 4*",
+      "categoryLabel": "4*",
+      "region": "Кемер",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1017.jpg",
+      "imageAlt": "ASTORIA HOTEL & SPA — фотография отеля",
+      "scenarios": [
+        "couple"
+      ],
+      "description": "парам и друзьям, которые любят быть ближе к городской жизни. Компактный формат в Кемере удобен для сочетания пляжного отдыха с прогулками и кафе.",
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "цена на просчете..",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-11",
+      "name": "BARUT HEMERA",
+      "sourceName": "BARUT HEMERA-5*",
+      "categoryLabel": "5*",
+      "region": "Сиде",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1033.jpg",
+      "imageAlt": "BARUT HEMERA — фотография отеля",
+      "scenarios": [
+        "service"
+      ],
+      "description": "парам и семьям, для которых в отпуске важны кухня, зелень и внимание к деталям. Вариант для неспешного отдыха у моря с акцентом на комфорт.",
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "цена на просчете..",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-12",
+      "name": "LANCORA BEACH HOTEL",
+      "sourceName": "LANCORA BEACH HOTEL 4*",
+      "categoryLabel": "4*",
+      "region": "Кемер",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1319.jpg",
+      "imageAlt": "LANCORA BEACH HOTEL — фотография отеля",
+      "scenarios": [
+        "friends"
+      ],
+      "description": "парам и друзьям, которые хотят совместить пляж и вечернюю жизнь Кемера. Городской курортный формат позволяет легко менять планы и гулять по побережью.",
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "цена на просчете..",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-13",
+      "name": "CLUB HOTEL SUNBEL",
+      "sourceName": "Club Hotel Sunbel-4*",
+      "categoryLabel": "4*",
+      "region": "Кемер",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1102.jpg",
+      "imageAlt": "CLUB HOTEL SUNBEL — фотография отеля",
+      "scenarios": [
+        "couple"
+      ],
+      "description": "парам и любителям более камерного отдыха. Бельдиби привлекает сочетанием моря и горных пейзажей — для отпуска с прогулками и неторопливым ритмом.",
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "цена на просчете..",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-14",
+      "name": "DG HOTELS ROSE RESORT",
+      "sourceName": "DG HOTELS ROSE RESORT (ex.ROSE RESORT 12+)-4*",
+      "categoryLabel": "4*",
+      "region": "Кемер",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1457.jpg",
+      "imageAlt": "DG HOTELS ROSE RESORT — фотография отеля",
+      "scenarios": [
+        "couple"
+      ],
+      "description": "парам и друзьям, которые едут за морем и впечатлениями от Кемера. Подойдёт тем, кто любит чередовать отдых в отеле с прогулками и небольшими поездками.",
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "цена на просчете..",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-15",
+      "name": "CRYSTAL PRESTIGE PEARL COLLECTION",
+      "sourceName": "CRYSTAL PRESTIGE PEARL COLLECTION 5*",
+      "categoryLabel": "5*",
+      "region": "Кемер",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1331.jpg",
+      "imageAlt": "CRYSTAL PRESTIGE PEARL COLLECTION — фотография отеля",
+      "scenarios": [
+        "family"
+      ],
+      "description": "активным семьям с детьми. Большой курортный формат, бассейны и развлечения — для тех, кто хочет насыщенные отпускные дни на фоне горных пейзажей.",
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "цена на просчете..",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-16",
+      "name": "DAIMA BIZ HOTEL",
+      "sourceName": "Daima Biz Hotel 5*",
+      "categoryLabel": "5*",
+      "region": "Кемер",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/3435.jpg",
+      "imageAlt": "DAIMA BIZ HOTEL — фотография отеля",
+      "scenarios": [
+        "family"
+      ],
+      "description": "семьям с детьми, которым нравится активный отдых и водные развлечения. Хорошая идея для отпуска, в котором пляжные паузы чередуются с яркими впечатлениями.",
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "цена на просчете..",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-17",
+      "name": "NARCIA RESORT SIDE",
+      "sourceName": "NARCIA RESORT SIDE",
+      "categoryLabel": "",
+      "region": "Сиде",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/2222.jpg",
+      "imageAlt": "NARCIA RESORT SIDE — фотография отеля",
+      "scenarios": [
+        "family"
+      ],
+      "description": "семьям с детьми, которые любят бассейны, горки и оживлённую курортную атмосферу. Вариант, когда хочется больше развлечений в течение дня и отдыха у моря.",
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "цена на просчете..",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-18",
+      "name": "LABRANDA ALANTUR HOTEL",
+      "sourceName": "LABRANDA ALANTUR HOTEL 5 *",
+      "categoryLabel": "5*",
+      "region": "Аланья",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1361.jpg",
+      "imageAlt": "LABRANDA ALANTUR HOTEL — фотография отеля",
+      "scenarios": [
+        "couple"
+      ],
+      "description": "парам и семьям, которым хочется больше зелени и пространства для прогулок. Невысокие корпуса и отдых на побережье располагают к неторопливому отпуску.",
+      "priceStatus": "priced",
+      "priceAmount": 6838,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "от 6838 BYN за двоих",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-19",
+      "name": "SEHER RESORT & SPA HOTEL",
+      "sourceName": "Seher Resort & Spa Hotel-5*",
+      "categoryLabel": "5*",
+      "region": "Сиде",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1483.jpg",
+      "imageAlt": "SEHER RESORT & SPA HOTEL — фотография отеля",
+      "scenarios": [
+        "family"
+      ],
+      "description": "семьям с детьми и парам, которые выбирают пляжный Сиде. Побережье Эвренсеки — для долгих прогулок у моря и спокойного чередования пляжа и отдыха.",
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "цена на просчете..",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-20",
+      "name": "ELDAR GARDEN RESORT HOTEL",
+      "sourceName": "ELDAR GARDEN RESORT HOTEL 4*",
+      "categoryLabel": "4*",
+      "region": "Кемер",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1046.jpg",
+      "imageAlt": "ELDAR GARDEN RESORT HOTEL — фотография отеля",
+      "scenarios": [
+        "discover"
+      ],
+      "description": "парам и семьям, которым близок отдых на фоне гор Кемера. Можно сочетать курортные дни с прогулками и поездками по живописным окрестностям.",
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "цена на просчете..",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-21",
+      "name": "CAMYUVA BEACH",
+      "sourceName": "CAMYUVA BEACH-4*",
+      "categoryLabel": "4*",
+      "region": "Кемер",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1250.jpg",
+      "imageAlt": "CAMYUVA BEACH — фотография отеля",
+      "scenarios": [
+        "couple"
+      ],
+      "description": "парам и семьям, которые предпочитают уютную Чамьюву. Сочетание моря и горных пейзажей подойдёт для отдыха вдвоём, прогулок и неспешных дней на побережье.",
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "цена на просчете..",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-22",
+      "name": "NIRVANA MEDITERRANEAN EXCELLENCE",
+      "sourceName": "NIRVANA MEDITERRANEAN EXCELLENCE 5*HV",
+      "categoryLabel": "5* · HV",
+      "region": "Кемер",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/28327.jpg",
+      "imageAlt": "NIRVANA MEDITERRANEAN EXCELLENCE — фотография отеля",
+      "scenarios": [
+        "service"
+      ],
+      "description": "семьям и парам, которые хотят отпуск с акцентом на комфорт. Сосновая зелень Бельдиби и просторный курортный формат — для красивой перезагрузки у моря.",
+      "priceStatus": "priced",
+      "priceAmount": 11219,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "от 11219 BYN за двоих",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-23",
+      "name": "CARETTA RELAX HOTEL",
+      "sourceName": "Caretta Relax Hotel 4*",
+      "categoryLabel": "4*",
+      "region": "Аланья",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/9358.jpg",
+      "imageAlt": "CARETTA RELAX HOTEL — фотография отеля",
+      "scenarios": [
+        "couple"
+      ],
+      "description": "парам и семьям, которые ищут практичный вариант на побережье Конаклы. Для поездки, где важнее море, совместные впечатления и разумный отпускной бюджет.",
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "цена на просчете..",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-24",
+      "name": "KIMEROS PARK HOLIDAY VILLAGE",
+      "sourceName": "KIMEROS PARK HOLIDAY VILLAGE 5*",
+      "categoryLabel": "5*",
+      "region": "Кемер",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/37527.jpg",
+      "imageAlt": "KIMEROS PARK HOLIDAY VILLAGE — фотография отеля",
+      "scenarios": [
+        "family"
+      ],
+      "description": "семьям и парам, которые любят сосны, прогулки и невысокие корпуса. Отдых в курортном парке подойдёт тем, кто ценит природу и время вместе у моря.",
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "цена на просчете..",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
+    },
+    {
+      "id": "choice-25",
+      "name": "CLUB HOTEL CARETTA BEACH",
+      "sourceName": "Club Hotel Caretta Beach 4*",
+      "categoryLabel": "4*",
+      "region": "Аланья",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1090.jpg",
+      "imageAlt": "CLUB HOTEL CARETTA BEACH — фотография отеля",
+      "scenarios": [
+        "family"
+      ],
+      "description": "семьям с детьми, которым нравится живой курортный ритм. Пляж, бассейны и отдых в Конаклы — для отпуска, где легко чередовать активность и спокойные паузы.",
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "за двоих",
+      "priceSourceLabel": "цена на просчете..",
+      "selectionUrl": "https://datatour.by/?tvsearch=nuaei1"
     }
   ]
 }

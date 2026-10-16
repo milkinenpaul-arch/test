@@ -8,7 +8,7 @@ const catalogue=JSON.parse(fs.readFileSync(path.join(root,'datatour-bf26-config.
   if(!target.startsWith(root+path.sep)){res.writeHead(403);res.end();return;}
   if(req.url.split('?')[0]==='/datatour-bf26-preview.html'){
    const cfg=JSON.parse(fs.readFileSync(path.join(root,'datatour-bf26-config.json'),'utf8'));delete cfg.recipient;cfg.ajaxUrl='/wp-admin/admin-ajax.php';
-   for(const key of ['reviews','payments','priority_hotels','scenario_images','winter_destinations'])for(const item of cfg[key]||[])if(item.image&&!item.image.startsWith('http'))item.image='/assets/'+item.image;
+   for(const key of ['reviews','payments','priority_hotels','datatour_choice_hotels','scenario_images','winter_destinations'])for(const item of cfg[key]||[])if(item.image&&!item.image.startsWith('http'))item.image='/assets/'+item.image;
    let body=fs.readFileSync(path.join(root,'datatour-bf26.html'),'utf8').replaceAll('{{asset_url}}','/assets').replaceAll('{{ajax_url}}',cfg.ajaxUrl);
    cfg.news.forEach((item,i)=>body=body.replaceAll('{{news_'+(i+1)+'_url}}',item.url));
    res.setHeader('Content-Type','text/html; charset=utf-8');res.end('<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0}'+fs.readFileSync(path.join(root,'datatour-bf26.css'),'utf8')+'</style><body>'+body+'<script>window.DatatourBF26='+JSON.stringify(cfg).replaceAll('</','<\\/')+';</script><script>'+fs.readFileSync(path.join(root,'datatour-bf26.js'),'utf8')+'</script></body></html>');return;
@@ -67,11 +67,54 @@ const catalogue=JSON.parse(fs.readFileSync(path.join(root,'datatour-bf26-config.
   for(const photo of await page.locator('[data-scenario-set=summer] .dt-scenario-photo img').all()){await photo.scrollIntoViewIfNeeded();await photo.evaluate(el=>el.decode());assert.ok(await photo.evaluate(el=>el.naturalWidth>0));}
   assert.equal(await page.locator('.dt-process-start .dt-step-bottom').count(),0);assert.equal(await page.locator('.dt-process-end .dt-row a').count(),2);
   assert.equal(await page.locator('.dt-post-media img').count(),3);passed('Short hero fits 1366×768 and 1440×900; five restored scenario photographs, four early-choice situations, open list, six arguments and seven FAQ');
-  assert.equal(await page.locator('[data-block]').count(),14);assert.equal(await page.locator('.dt-hotel-card').count(),26);assert.equal(await page.locator('[data-select-priority]').count(),26);passed('14 blocks after footer merge, 26 cards and all 26 priority positions');
+  assert.equal(await page.locator('[data-block]').count(),15);assert.equal(await page.locator('#dt-hotels .dt-hotel-card').count(),26);assert.equal(await page.locator('[data-select-priority]').count(),26);passed('15 blocks including customer favourites; original catalogue retains all 26 cards and priority positions');
+  const choice=JSON.parse(fs.readFileSync(path.join(root,'datatour-bf26-config.json'),'utf8')).datatour_choice_hotels;
+  assert.equal(choice.length,25);
+  assert.deepEqual(choice.filter(h=>h.priceStatus==='priced').map(h=>[h.name,h.priceAmount]),[['ROYAL GARDEN BEACH',6938],['BIENO CLUB HOTEL SVS',5610],['BLUE FISH HOTEL',6165],['EOS BEACH RESORT',6379],['ORFEUS PARK HOTEL',6265],['LABRANDA ALANTUR HOTEL',6838],['NIRVANA MEDITERRANEAN EXCELLENCE',11219]]);
+  assert.deepEqual(choice.map(h=>Number(h.image.match(/(\d+)\.jpg$/)[1])),[27646,15905,1463,1062,1568,1051,1094,3456,1123,1017,1033,1319,1102,1457,1331,3435,2222,1361,1483,1046,1250,28327,9358,37527,1090]);
+  const choiceOrder=[...choice.filter(h=>h.priceStatus==='priced'),...choice.filter(h=>h.priceStatus==='pending')].map(h=>h.id);
+  assert.deepEqual(await page.locator('#dt-choice-track > article').evaluateAll(els=>els.map(el=>el.dataset.hotel)),choiceOrder);
+  assert.equal(await page.locator('#dt-choice .dt-choice-card').count(),25);assert.equal(await page.locator('#dt-choice [data-price-status=priced].dt-hotel-card').count(),7);
+  assert.equal(await page.locator('#dt-choice .dt-hotel-price-basis').count(),7);
+  assert.ok((await page.locator('#dt-choice .dt-hotel-price-basis').allTextContents()).every(s=>s==='за двоих'));
+  assert.equal(await page.locator('#dt-choice [data-price-status=pending].dt-hotel-card').count(),18);
+  for(const h of choice){const card=page.locator('#dt-choice [data-hotel="'+h.id+'"]');assert.equal(await card.locator('img').getAttribute('src'),h.image);assert.equal(await card.locator('img').getAttribute('loading'),'lazy');assert.equal(await card.locator('.dt-hotel-offer-link').getAttribute('href'),'https://datatour.by/?tvsearch=nuaei1');assert.ok((await card.locator('.dt-hotel-description').textContent()).startsWith('Кому подойдёт:'));}
+  assert.equal(new Set(await page.locator('#dt-choice .dt-hotel-description').allTextContents()).size,25);
+  assert.equal(await page.locator('#dt-choice [data-hotel=choice-5] .dt-hotel-category').textContent(),'HV1');assert.equal(await page.locator('#dt-choice [data-hotel=choice-17] .dt-hotel-category').count(),0);
+  assert.equal(await page.locator('#dt-choice .dt-eyebrow').textContent(),'07 / ВЫБОР ДАТА ТУР');
+  assert.equal(await page.locator('#dt-choice-title').textContent(),'ТОП 25 ОТЕЛЕЙ ТУРЦИИ 2026, которые покупали клиенты');
+  assert.ok(await page.locator('#dt-choice').evaluate(el=>el.previousElementSibling.id==='dt-steps'&&el.nextElementSibling.id==='dt-search'));
+  passed('Customer favourites: exactly 25 XLSX hotels, 7 prices per couple first in source order, 18 pending, supplied photos/links and distinct recommendations');
+  await page.emulateMedia({reducedMotion:'reduce'});
+  for(const width of [1440,1024,768,390,360]){
+   await page.setViewportSize({width,height:900});await page.locator('#dt-choice').scrollIntoViewIfNeeded();
+   await page.locator('#dt-choice-track').evaluate(el=>el.scrollTo({left:0,behavior:'instant'}));await page.waitForTimeout(80);
+   const measures=await page.locator('#dt-choice-track').evaluate(el=>({width:el.clientWidth,scroll:el.scrollWidth,card:el.firstElementChild.getBoundingClientRect().width}));
+   assert.ok(measures.scroll>measures.width&&measures.card>200&&measures.card<=measures.width);
+   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+   await page.locator('#dt-choice-next').click();await page.waitForFunction(()=>document.querySelector('#dt-choice-track').scrollLeft>100);
+   await page.locator('#dt-choice-track').focus();await page.keyboard.press('ArrowRight');
+   assert.equal(await page.locator('#dt-choice-prev').isEnabled(),true);
+   await page.locator('#dt-choice-track').evaluate(el=>el.scrollTo({left:el.scrollWidth,behavior:'instant'}));await page.waitForFunction(()=>document.querySelector('#dt-choice-next').disabled);
+   assert.ok((await page.locator('#dt-choice-counter').textContent()).includes('25'));
+   assert.deepEqual(await page.locator('#dt-choice-track > article').evaluateAll(els=>els.map(el=>el.dataset.hotel)),choiceOrder);
+   await page.locator('#dt-choice-track').evaluate(el=>el.scrollTo({left:0,behavior:'instant'}));
+   await page.screenshot({path:'/workspace/scratch/bf26-refresh/customer-choice-'+width+'-photo-fixture.png'});
+  }
+  await page.setViewportSize({width:1440,height:900});
+  for(const id of ['choice-2','choice-5','choice-1','choice-25']){
+   await page.locator('#dt-tab-winter').click();await page.locator('[data-winter-country=egypt]').click();
+   await page.locator('[data-select-hotel="'+id+'"]').click();
+   for(const form of ['#dt-final-form','#dt-quick-form']){assert.equal(await page.locator(form+' input[name=hotelId]').inputValue(),id);assert.equal(await page.locator(form+' input[name=hotelLabel]').inputValue(),choice.find(h=>h.id===id).name);assert.equal(await page.locator(form+' [name=season]').inputValue(),'summer');assert.equal(await page.locator(form+' [name=direction]').inputValue(),'');assert.equal(await page.locator(form+' [name=source]').inputValue(),'datatour-choice');}
+  }
+  assert.equal(await page.locator('#dt-choice .dt-hotel-card:not([hidden])').count(),25);
+  await page.locator('#dt-final-form [data-remove-hotel]').click();
+  await page.emulateMedia({reducedMotion:'no-preference'});
+  passed('Independent favourites slider: responsive 4/3/2/1-card layout, arrows/keyboard/counter/end state, and cross-season hotel transfer to both forms');
   assert.equal(await page.locator('[data-budget],#dt-results').count(),0);assert.equal(await page.locator('#dt-hotel-footer > span').count(),0);
-  const descriptions=await page.locator('.dt-hotel-description').allTextContents();assert.equal(descriptions.length,26);assert.equal(new Set(descriptions).size,26);assert.ok(descriptions.every(text=>text.length>=90&&!text.includes('Цена и наличие')));
-  assert.ok((await page.locator('[data-select-hotel]').allTextContents()).every(text=>text==='Подобрать этот отель'));assert.equal(await page.locator('.dt-hotel-offer-link').count(),26);
-  assert.equal(await page.locator('.dt-hotel-card[data-price-status=priced]').count(),19);assert.equal(await page.locator('.dt-hotel-card[data-price-status=pending]').count(),7);
+  const descriptions=await page.locator('#dt-hotels .dt-hotel-description').allTextContents();assert.equal(descriptions.length,26);assert.equal(new Set(descriptions).size,26);assert.ok(descriptions.every(text=>text.length>=90&&!text.includes('Цена и наличие')));
+  assert.ok((await page.locator('[data-select-hotel]').allTextContents()).every(text=>text==='Подобрать этот отель'));assert.equal(await page.locator('#dt-hotels .dt-hotel-offer-link').count(),26);
+  assert.equal(await page.locator('#dt-hotels .dt-hotel-card[data-price-status=priced]').count(),19);assert.equal(await page.locator('#dt-hotels .dt-hotel-card[data-price-status=pending]').count(),7);
   for(const h of catalogue){
    const card=page.locator('[data-hotel="'+h.id+'"]');
    assert.equal(await card.locator('img').getAttribute('src'),h.image);assert.equal(await card.locator('.dt-hotel-offer-link').getAttribute('href'),h.selectionUrl);
@@ -88,14 +131,14 @@ const catalogue=JSON.parse(fs.readFileSync(path.join(root,'datatour-bf26-config.
   assert.ok((await page.locator('.dt-hotel-offer-note').textContent()).includes('Такие цены бывают один раз в году.'));
   for(const [width,n] of [[1440,4],[1024,3],[768,2],[390,1]]){
    await page.setViewportSize({width,height:1000});await page.waitForTimeout(100);
-   const ordered=await page.locator('.dt-hotel-card:not([hidden])').evaluateAll(els=>els.map(el=>({id:el.dataset.hotel,price:Number(el.dataset.price),status:el.dataset.priceStatus})));
+   const ordered=await page.locator('#dt-hotels .dt-hotel-card:not([hidden])').evaluateAll(els=>els.map(el=>({id:el.dataset.hotel,price:Number(el.dataset.price),status:el.dataset.priceStatus})));
    const priced=ordered.filter(h=>h.status==='priced');assert.deepEqual(priced.map(h=>h.price),priced.map(h=>h.price).sort((a,b)=>a-b));
    assert.deepEqual(ordered.slice(0,n).map(h=>h.id),priced.slice(0,n).map(h=>h.id));assert.ok(ordered.slice(n,n+7).every(h=>h.status==='pending'));
    await page.locator('#dt-hotel-next').click();await page.waitForTimeout(650);
    const first=await page.locator('#dt-hotel-track').evaluate(el=>{const left=el.getBoundingClientRect().left;return Array.from(el.children).find(c=>!c.hidden&&c.getBoundingClientRect().right>left+5)?.dataset.priceStatus;});assert.equal(first,'pending');
    for(const scenario of ['family','couple','friends','discover','service']){
     await page.locator('#dt-hotel-scenario').selectOption(scenario);await page.waitForTimeout(100);
-    const ids=await page.locator('.dt-hotel-card:not([hidden])').evaluateAll(els=>els.map(el=>el.dataset.hotel));
+    const ids=await page.locator('#dt-hotels .dt-hotel-card:not([hidden])').evaluateAll(els=>els.map(el=>el.dataset.hotel));
     assert.deepEqual([...ids].sort(),catalogue.filter(h=>h.scenarios.includes(scenario)).map(h=>h.id).sort());
     assert.ok(await page.locator('#dt-hotel-track').evaluate(el=>el.scrollLeft<=5));
    }

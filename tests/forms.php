@@ -124,4 +124,12 @@ $GLOBALS['is_admin']=false;$_GET=array('lead'=>$id);
 try{dtbf26compat_leads_admin();throw new Exception('Non-admin accessed lead details');}catch(AdminDenied $e){expect($e->getCode()===403,'Wrong admin denial');}$cases++;
 $GLOBALS['is_admin']=true;ob_start();dtbf26compat_leads_admin();$detail=ob_get_clean();
 expect(strpos($detail,'Заявка №'.$id)!==false&&strpos($detail,'Китай · Хайнань')!==false&&strpos($detail,'Сохранена в WordPress')!==false,'Admin cannot view saved details');$cases++;
+// Every new customer-favourite ID must resolve on the server, without trusting client labels.
+foreach(dtbf26compat_config()['datatour_choice_hotels'] as $hotel){
+ $GLOBALS['rates']=array();
+ $r=call_submit(payload(array('requestId'=>'choice-contract-request-'.$hotel['id'],'hotelId'=>$hotel['id'],'hotelLabel'=>'Forged name','source'=>'datatour-choice')));
+ $id=dtbf26compat_find_lead('choice-contract-request-'.$hotel['id']);$data=json_decode(get_post($id)->post_content,true);
+ expect($r->success && $data['fields']['Отель или сеть']===$hotel['name'] && strpos($GLOBALS['last_mail'][2],'Forged name')===false,'Favourite hotel not resolved on server');
+}
+$cases++;$GLOBALS['rates']=array();rejected(array('hotelId'=>'choice-999'),'invalid_hotel');
 echo 'PASS: '.$cases.' server contracts; consent, nonce, contact, ages, origin, hotel lookup, durable storage, independent email status, storage failure, admin-only access, idempotency and rate limit. No real mail sent.'.PHP_EOL;
