@@ -30,7 +30,7 @@ function updateTimer(){
  const labels={unknown:'Проверим предложения на ваши даты',before:'До начала акции',active:'Акция идёт',ended:'Акция завершена'};
  $('#dt-campaign-status').textContent=labels[t.status];
  const campaignLabel=cfg.campaign?.label||'В дни акции';
- $('#dt-campaign-note').textContent=t.status==='ended'?'Акция '+campaignLabel+' завершилась. Подберём актуальные предложения на ваши даты.':'Предложения акции Datatour — '+campaignLabel+', время Минска.';
+ $('.dt-countdown-arrow').toggleAttribute('hidden',t.status!=='before');
  if(t.status!=='ended')$('.dt-hero .dt-eyebrow').textContent='Чёрная пятница · '+campaignLabel;
  const s=Math.max(0,Math.floor(t.remaining/1000));
  const values=[Math.floor(s/86400),Math.floor(s/3600)%24,Math.floor(s/60)%60,s%60];
