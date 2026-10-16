@@ -131,6 +131,8 @@ function dtbf26compat_submit() {
         if ($value !== '') { $fields[$utm] = $value; }
     }
     $key = 'dtbf26_req_' . hash('sha256', $request_id);
+    $saved_id = dtbf26compat_find_lead($request_id);
+    if ($saved_id) { dtbf26compat_lead_success($request_id, get_post_meta($saved_id, '_dtbf26_email_state', true), true); }
     $existing = get_option($key, false);
     if (is_array($existing)) {
         if ($existing['state'] === 'accepted') {
@@ -147,6 +149,15 @@ function dtbf26compat_submit() {
     if (!add_option($key, $record, '', 'no')) { dtbf26compat_error('in_progress', 'Заявка уже обрабатывается. Повторите проверку статуса позже.', 409); }
     set_transient($rate_key, $rate + 1, 15 * MINUTE_IN_SECONDS);
     $is_test = dtbf26compat_field('test', 10) === '1' && current_user_can('manage_options');
+    $lead_id = dtbf26compat_save_lead($request_id, $fields, $is_test);
+    if (!$lead_id) {
+        delete_option($key);
+        dtbf26compat_error('storage_failed', 'Не удалось сохранить заявку. Попробуйте ещё раз или позвоните менеджеру.', 503);
+    }
+    $record['state'] = 'accepted';
+    $record['lead_id'] = $lead_id;
+    $record['test'] = $is_test;
+    update_option($key, $record, false);
     $subject = ($is_test ? '[ТЕСТ — проверка формы, не заявка клиента] ' : '') . 'Datatour: ' . $purposes[$purpose];
     $body = ($is_test ? "ТЕСТОВАЯ ПРОВЕРКА. Не обрабатывать как заявку клиента.\n\n" : '');
     foreach ($fields as $label => $value) { if ($value !== '') { $body .= $label . ': ' . $value . "\n"; } }
@@ -157,11 +168,11 @@ function dtbf26compat_submit() {
     $GLOBALS['dtbf26_mail_active'] = true;
     $accepted = wp_mail($recipient, $subject, $body, $headers);
     $GLOBALS['dtbf26_mail_active'] = false;
-    $record['state'] = $accepted ? 'accepted' : 'failed';
-    $record['test'] = $is_test;
+    $email_status = $accepted ? 'accepted_by_wp_mail' : 'failed';
+    update_post_meta($lead_id, '_dtbf26_email_state', $email_status);
+    $record['email_status'] = $email_status;
     update_option($key, $record, false);
-    if (!$accepted) { dtbf26compat_error('mail_failed', 'Не удалось отправить заявку. Попробуйте ещё раз или позвоните менеджеру.', 503); }
-    wp_send_json_success(array('message' => 'Спасибо! Заявка принята. Менеджер свяжется с вами.', 'requestId' => $request_id, 'deliveryStatus' => 'accepted_by_wp_mail'));
+    dtbf26compat_lead_success($request_id, $email_status, false);
 }
 add_action('wp_ajax_dtbf26_submit', 'dtbf26compat_submit');
 add_action('wp_ajax_nopriv_dtbf26_submit', 'dtbf26compat_submit');
@@ -174,3 +185,84 @@ function dtbf26compat_cleanup() {
 }
 add_action('dtbf26_cleanup_requests', 'dtbf26compat_cleanup');
 add_action('init', function () { if (!wp_next_scheduled('dtbf26_cleanup_requests')) { wp_schedule_event(time() + HOUR_IN_SECONDS, 'hourly', 'dtbf26_cleanup_requests'); } });
+
+// Leads are private WordPress records; they are never exposed in the REST API or search.
+add_action('init', function () {
+    $caps = array();
+    foreach (array('edit_post', 'read_post', 'delete_post', 'edit_posts', 'edit_others_posts', 'publish_posts', 'read_private_posts', 'delete_posts', 'delete_private_posts', 'delete_published_posts', 'delete_others_posts', 'edit_private_posts', 'edit_published_posts', 'create_posts', 'read') as $cap) { $caps[$cap] = 'manage_options'; }
+    register_post_type('dtbf26_lead', array('label' => 'Заявки Datatour', 'public' => false, 'publicly_queryable' => false, 'exclude_from_search' => true, 'show_ui' => false, 'show_in_menu' => false, 'show_in_rest' => false, 'query_var' => false, 'rewrite' => false, 'can_export' => false, 'supports' => false, 'capabilities' => $caps, 'map_meta_cap' => false));
+});
+function dtbf26compat_find_lead($request_id) {
+    $ids = get_posts(array('post_type' => 'dtbf26_lead', 'post_status' => 'private', 'name' => 'dtbf26-' . hash('sha256', $request_id), 'posts_per_page' => 1, 'fields' => 'ids'));
+    return $ids ? (int) $ids[0] : 0;
+}
+function dtbf26compat_save_lead($request_id, $fields, $is_test) {
+    $data = array('request_id' => $request_id, 'fields' => $fields, 'test' => $is_test);
+    // Hex escaping also preserves ampersands through WordPress content filters for anonymous visitors.
+    $json = wp_json_encode($data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+    if ($json === false) { return 0; }
+    // Keep all submitted fields in one database row, rather than a sequence of meta writes.
+    $id = wp_insert_post(array('post_type' => 'dtbf26_lead', 'post_status' => 'private', 'post_title' => ($is_test ? 'ТЕСТ — ' : '') . 'Заявка Datatour', 'post_name' => 'dtbf26-' . hash('sha256', $request_id), 'post_content' => wp_slash($json), 'comment_status' => 'closed', 'ping_status' => 'closed'), true);
+    if (is_wp_error($id) || !$id) { return 0; }
+    $stored = get_post($id);
+    if (!$stored || json_decode($stored->post_content, true) !== $data) {
+        wp_delete_post($id, true); // Remove only this incomplete insert, never an existing lead.
+        return 0;
+    }
+    update_post_meta($id, '_dtbf26_email_state', 'pending');
+    return (int) $id;
+}
+function dtbf26compat_lead_success($request_id, $email_status, $duplicate) {
+    wp_send_json_success(array('message' => $duplicate ? 'Заявка уже принята. Менеджер свяжется с вами.' : 'Спасибо! Заявка принята. Менеджер свяжется с вами.', 'requestId' => $request_id, 'duplicate' => (bool) $duplicate, 'storageStatus' => 'saved', 'deliveryStatus' => 'saved_in_wordpress', 'emailStatus' => $email_status));
+}
+function dtbf26compat_mail_label($state) {
+    $labels = array('accepted_by_wp_mail' => 'Передано серверу; доставка не подтверждена', 'failed' => 'Не отправлено', 'pending' => 'Отправка начата; результат неизвестен');
+    return isset($labels[$state]) ? $labels[$state] : 'Нет данных об отправке';
+}
+add_action('admin_menu', function () {
+    add_menu_page('Заявки Datatour', 'Заявки Datatour', 'manage_options', 'dtbf26-leads', 'dtbf26compat_leads_admin', 'dashicons-email-alt', 26);
+});
+function dtbf26compat_leads_admin() {
+    if (!current_user_can('manage_options')) { wp_die('Доступ только для администратора.', '', array('response' => 403)); }
+    nocache_headers();
+    $base = admin_url('admin.php?page=dtbf26-leads');
+    $id = isset($_GET['lead']) && is_scalar($_GET['lead']) ? absint($_GET['lead']) : 0;
+    echo '<div class="wrap"><h1>Заявки Datatour</h1>';
+    if ($id) {
+        $lead = get_post($id);
+        if (!$lead || $lead->post_type !== 'dtbf26_lead' || $lead->post_status !== 'private') { wp_die('Заявка не найдена.', '', array('response' => 404)); }
+        $data = json_decode($lead->post_content, true);
+        echo '<p><a href="' . esc_url($base) . '">← Все заявки</a></p><h2>Заявка №' . (int) $id . (!empty($data['test']) ? ' — ТЕСТ' : '') . '</h2>';
+        echo '<p><strong>Сохранена в WordPress.</strong> Email: ' . esc_html(dtbf26compat_mail_label(get_post_meta($id, '_dtbf26_email_state', true))) . '.</p>';
+        echo '<table class="widefat striped"><tbody>';
+        foreach (isset($data['fields']) ? $data['fields'] : array() as $label => $value) {
+            if ($value === '') { continue; }
+            echo '<tr><th scope="row" style="width:240px">' . esc_html($label) . '</th><td style="white-space:pre-wrap;overflow-wrap:anywhere">' . esc_html($value) . '</td></tr>';
+        }
+        echo '</tbody></table></div>';
+        return;
+    }
+    echo '<p>Заявки сохраняются здесь независимо от отправки email. Статус «Передано серверу» не подтверждает получение письма.</p>';
+    $page = isset($_GET['lead_page']) && is_scalar($_GET['lead_page']) ? max(1, absint($_GET['lead_page'])) : 1;
+    $query = new WP_Query(array('post_type' => 'dtbf26_lead', 'post_status' => 'private', 'posts_per_page' => 20, 'paged' => $page, 'orderby' => array('date' => 'DESC', 'ID' => 'DESC')));
+    echo '<p>Всего заявок: <strong>' . (int) $query->found_posts . '</strong></p>';
+    echo '<div style="overflow-x:auto"><table class="widefat striped"><thead><tr><th>Дата (Минск)</th><th>Контакт</th><th>Обращение</th><th>Email-уведомление</th><th></th></tr></thead><tbody>';
+    foreach ($query->posts as $lead) {
+        $data = json_decode($lead->post_content, true);
+        $fields = isset($data['fields']) ? $data['fields'] : array();
+        $date = isset($fields['Дата (Europe/Minsk)']) ? $fields['Дата (Europe/Minsk)'] : $lead->post_date;
+        $contact = isset($fields['Контакт']) ? $fields['Контакт'] : '';
+        $name = isset($fields['Имя']) ? $fields['Имя'] : '';
+        $purpose = isset($fields['Цель']) ? $fields['Цель'] : '';
+        echo '<tr><td>' . esc_html($date) . (!empty($data['test']) ? '<br><strong>ТЕСТ</strong>' : '') . '</td><td>' . esc_html($name) . '<br>' . esc_html($contact) . '</td><td>' . esc_html($purpose) . '</td><td>' . esc_html(dtbf26compat_mail_label(get_post_meta($lead->ID, '_dtbf26_email_state', true))) . '</td><td><a class="button" href="' . esc_url(add_query_arg('lead', $lead->ID, $base)) . '">Открыть</a></td></tr>';
+    }
+    if (!$query->posts) { echo '<tr><td colspan="5">Сохранённых заявок пока нет.</td></tr>'; }
+    echo '</tbody></table></div>';
+    if ($query->max_num_pages > 1) {
+        echo '<p>Страница ' . (int) $page . ' из ' . (int) $query->max_num_pages . ' ';
+        if ($page > 1) { echo '<a class="button" href="' . esc_url(add_query_arg('lead_page', $page - 1, $base)) . '">← Назад</a> '; }
+        if ($page < $query->max_num_pages) { echo '<a class="button" href="' . esc_url(add_query_arg('lead_page', $page + 1, $base)) . '">Далее →</a>'; }
+        echo '</p>';
+    }
+    echo '</div>';
+}

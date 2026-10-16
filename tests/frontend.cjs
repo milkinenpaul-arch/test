@@ -37,12 +37,12 @@ const catalogue=JSON.parse(fs.readFileSync(path.join(root,'datatour-bf26-config.
   }
   passed('Ocean hero: exactly one responsive WebP request at desktop/mobile DPR1/2, each under150KB, high priority and full-bleed without layout overflow');
   const context=await browser.newContext({viewport:{width:1440,height:900}});
-  const page=await context.newPage(),errors=[],posts=[],events=[];let rejectMail=true,tourvisorLoads=0,mapLoads=0;
+  const page=await context.newPage(),errors=[],posts=[],events=[];let rejectStorage=true,tourvisorLoads=0,mapLoads=0;
   page.on('pageerror',e=>errors.push(e.message));
   await context.route('**/wp-admin/admin-ajax.php**',async route=>{
    if(route.request().method()==='GET')return route.fulfill({json:{success:true,data:{nonce:'contract-nonce',issued:Math.floor(Date.now()/1000)-4,token:'contract-token'}}});
    posts.push(route.request().postData());
-   return route.fulfill({status:rejectMail?503:200,json:rejectMail?{success:false,data:{code:'mail_failed',message:'Не удалось отправить заявку. Попробуйте ещё раз.'}}:{success:true,data:{message:'Спасибо! Заявка принята.',deliveryStatus:'accepted_by_wp_mail'}}});
+   return route.fulfill({status:rejectStorage?503:200,json:rejectStorage?{success:false,data:{code:'storage_failed',message:'Не удалось сохранить заявку. Попробуйте ещё раз.'}}:{success:true,data:{message:'Спасибо! Заявка принята.',deliveryStatus:'saved_in_wordpress',storageStatus:'saved',emailStatus:'failed'}}});
   });
   await context.route(/^https?:\/\/tourvisor\.ru\/module\/init\.js$/,async route=>{tourvisorLoads++;await route.fulfill({contentType:'application/javascript',body:'document.querySelector("#dt-tourvisor-container .tv-search-form").innerHTML="<label>Lifecycle fixture<input type=search></label><button>Search fixture</button>";'});});
   await context.route('https://yandex.by/map-widget/**',route=>{mapLoads++;return route.fulfill({contentType:'text/html',body:'Map lifecycle fixture'});});
@@ -165,7 +165,7 @@ const catalogue=JSON.parse(fs.readFileSync(path.join(root,'datatour-bf26-config.
   await page.locator('#dt-final-form input[name=ages]').fill('-1');await page.locator('#dt-final-form button[type=submit]').click();assert.equal(posts.length,0);
   await page.locator('#dt-final-form input[name=ages]').fill('14');
   await page.locator('#dt-final-form button[type=submit]').click();await page.waitForFunction(()=>document.getElementById('dt-final-message').dataset.state==='error');assert.equal(posts.length,1);assert.equal(await page.locator('#dt-final-message').getAttribute('data-state'),'error');passed('Client consent/ages validation and server error never shown as success');
-  rejectMail=false;
+  rejectStorage=false;
   await page.locator('#dt-final-form button[type=submit]').click();await page.waitForFunction(()=>document.getElementById('dt-final-message').dataset.state==='success');assert.equal(posts.length,2);
   await page.locator('#dt-final-form button[type=submit]').click();assert.equal(posts.length,2);passed('Success only after handler acceptance; repeated submit does not send again');
   await page.locator('#dt-quick-form input[name=contact]').fill('test@example.com');await page.locator('#dt-quick-form input[name=consent]').check();
