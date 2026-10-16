@@ -612,3 +612,14 @@
 #dt-bf26 .dt-winter-country-media img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
 #dt-bf26 .dt-winter-country-copy{display:flex;flex:1;flex-direction:column;gap:18px;padding:24px;min-width:0}
 @media(max-width:600px){#dt-bf26 .dt-winter-country-copy{padding:22px;gap:14px}}
+
+/* A distinct accent section between the holiday chooser and the benefits. */
+#dt-bf26 .dt-early-choice{background:#e6efd2;border-top:1px solid #cbd9af;border-bottom:1px solid #cbd9af;padding:64px 0}
+#dt-bf26 .dt-early-choice .dt-eyebrow{color:#45602f}
+#dt-bf26 .dt-early-choice .dt-advance-item{border-color:#c9d7b6;background:#fff}
+#dt-bf26 .dt-faq-benefits{list-style:none;padding:0;margin:0 0 23px;display:grid;gap:14px;max-width:620px;font-size:17px;font-weight:400;line-height:1.7;color:var(--dt-muted)}
+#dt-bf26 .dt-faq-benefits li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:12px;padding:0;margin:0;font:inherit}
+#dt-bf26 .dt-faq-benefits span{font:inherit}
+#dt-bf26 .dt-faq-check{display:flex;align-items:center;justify-content:center;width:24px;height:24px;margin-top:3px;border-radius:7px;background:#e7f0d4;color:#47652c}
+#dt-bf26 .dt-faq-check svg{display:block;width:18px;height:18px}
+@media(max-width:600px){#dt-bf26 .dt-early-choice{padding:48px 0}#dt-bf26 .dt-faq-benefits{font-size:16px;gap:12px}}
