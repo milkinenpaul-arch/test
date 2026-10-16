@@ -21,6 +21,7 @@ function wp_enqueue_style($handle) { $GLOBALS['styles'][] = $handle; }
 function wp_enqueue_script($handle) { $GLOBALS['scripts'][] = $handle; }
 function wp_localize_script() { throw new Exception('Article unexpectedly initialized landing JS.'); }
 function esc_url($value) { return htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); }
+function esc_html($value) { return htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); }
 function esc_attr($value) { return htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); }
 function language_attributes() { echo 'lang="ru"'; }
 function bloginfo() { echo 'UTF-8'; }

@@ -94,6 +94,7 @@ const catalogue=JSON.parse(fs.readFileSync(path.join(root,'datatour-bf26-config.
    assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
    await page.locator('#dt-choice-next').click();await page.waitForFunction(()=>document.querySelector('#dt-choice-track').scrollLeft>100);
    await page.locator('#dt-choice-track').focus();await page.keyboard.press('ArrowRight');
+   await page.waitForFunction(()=>!document.querySelector('#dt-choice-prev').disabled);
    assert.equal(await page.locator('#dt-choice-prev').isEnabled(),true);
    await page.locator('#dt-choice-track').evaluate(el=>el.scrollTo({left:el.scrollWidth,behavior:'instant'}));await page.waitForFunction(()=>document.querySelector('#dt-choice-next').disabled);
    assert.ok((await page.locator('#dt-choice-counter').textContent()).includes('25'));

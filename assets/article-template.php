@@ -30,7 +30,7 @@ $header = str_replace('href="' . esc_url($landing) . '#dt-quick-form"', 'href="'
 <h1><?php the_title(); ?></h1>
 <div class="dt-article-content"><?php the_content(); ?></div>
 <?php endwhile; ?>
-<div class="dt-article-cta"><h2>Подберём отдых под ваши планы</h2><p>Расскажите о датах, составе туристов и пожеланиях. Менеджер подготовит варианты и проверит условия выбранного тура.</p><a class="dt-action" href="<?php echo esc_url($landing . '#dt-request'); ?>">Подобрать тур</a><a class="dt-article-back" href="<?php echo esc_url($landing); ?>">Вернуться на страницу акции →</a></div>
+<div class="dt-article-cta"><h2>Обсудим ваш следующий отпуск</h2><p>Напишите, когда и с кем хотите поехать, что любите на отдыхе. Поможем сузить выбор и рассчитаем варианты, которые подойдут вашим планам.</p><a class="dt-action" href="<?php echo esc_url($landing . '#dt-request'); ?>"><?php echo esc_html(!empty($article['cta']) ? $article['cta'] : 'Подобрать мой отдых'); ?></a><a class="dt-article-back" href="<?php echo esc_url($landing); ?>">Вернуться на страницу акции →</a></div>
 </article></div></main>
 <?php echo $footer; echo $cookies; ?>
 </div>
