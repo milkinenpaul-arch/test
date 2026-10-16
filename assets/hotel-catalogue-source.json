@@ -1,0 +1,452 @@
+{
+  "source_file": "Отели ЧП.xlsx",
+  "source_sha256": "6b7c9b815dae9856b85fab32799bf20362d116657a8b3de61d404f438627a630",
+  "source_sheet": "Лист1",
+  "imported_on": "2026-10-16",
+  "verification": "Exact user-supplied URLs, prices, star categories and offer links. External image decoding and offer destinations not independently verified: current proxy restricts those hosts. Scenarios are editorial assignments, not verified amenity guarantees.",
+  "duplicate_image_urls": [],
+  "records": [
+    {
+      "row": 2,
+      "id": "priority-1",
+      "name": "REGNUM HOTELS",
+      "category": 5,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/123374.jpg",
+      "price_source": "от 8900 BYN 1/2 DBL",
+      "price_amount": 8900,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=c9q70j",
+      "scenarios": [
+        "service",
+        "family",
+        "couple"
+      ]
+    },
+    {
+      "row": 3,
+      "id": "priority-2",
+      "name": "CULLINAN HOTEL",
+      "category": 5,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/78251.jpg",
+      "price_source": "от 11354 BYN 1/2 DBL",
+      "price_amount": 11354,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=36n35l",
+      "scenarios": [
+        "service",
+        "family",
+        "couple"
+      ]
+    },
+    {
+      "row": 4,
+      "id": "priority-3",
+      "name": "ETHNO HOTEL",
+      "category": 5,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/109786.jpg",
+      "price_source": "от 7990 BYN 1/2 DBL",
+      "price_amount": 7990,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=t5r1ae",
+      "scenarios": [
+        "service",
+        "couple",
+        "friends"
+      ]
+    },
+    {
+      "row": 5,
+      "id": "priority-4",
+      "name": "GLORIA HOTELS",
+      "category": 5,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1201.jpg",
+      "price_source": "от 6073 BYN 1/2 DBL",
+      "price_amount": 6073,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=1n4ie8",
+      "scenarios": [
+        "family",
+        "couple",
+        "service"
+      ]
+    },
+    {
+      "row": 6,
+      "id": "priority-5",
+      "name": "ELA EXCELLENCE",
+      "category": 5,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1165.jpg",
+      "price_source": "от 6678 BYN 1/2 DBL",
+      "price_amount": 6678,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=2o08j3",
+      "scenarios": [
+        "family",
+        "service"
+      ]
+    },
+    {
+      "row": 7,
+      "id": "priority-6",
+      "name": "GURAL HOTELS",
+      "category": 5,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1074.jpg",
+      "price_source": "от 5290 BYN 1/2 DBL",
+      "price_amount": 5290,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=qd72k4",
+      "scenarios": [
+        "family",
+        "friends"
+      ]
+    },
+    {
+      "row": 8,
+      "id": "priority-7",
+      "name": "KAYA HOTELS",
+      "category": 5,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/15904.jpg",
+      "price_source": "от 6796 BYN 1/2 DBL",
+      "price_amount": 6796,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=d9mlgw",
+      "scenarios": [
+        "family",
+        "couple",
+        "service"
+      ]
+    },
+    {
+      "row": 9,
+      "id": "priority-8",
+      "name": "CALISTA LUXURY",
+      "category": 5,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1065.jpg",
+      "price_source": "от 7408 BYN 1/2 DBL",
+      "price_amount": 7408,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=brgaa6",
+      "scenarios": [
+        "service",
+        "couple"
+      ]
+    },
+    {
+      "row": 10,
+      "id": "priority-9",
+      "name": "VOYAGE HOTELS",
+      "category": 5,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1582.jpg",
+      "price_source": "от 5969 BYN 1/2 DBL",
+      "price_amount": 5969,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=4op4ms",
+      "scenarios": [
+        "family",
+        "friends",
+        "service"
+      ]
+    },
+    {
+      "row": 11,
+      "id": "priority-10",
+      "name": "MAXX ROYAL",
+      "category": 5,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/3405.jpg",
+      "price_source": "от 9354 BYN 1/2 DBL",
+      "price_amount": 9354,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=db2lfs",
+      "scenarios": [
+        "service",
+        "couple",
+        "family"
+      ]
+    },
+    {
+      "row": 12,
+      "id": "priority-11",
+      "name": "BARUT HOTELS",
+      "category": 5,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1291.jpg",
+      "price_source": "от 4116 BYN 1/2 DBL",
+      "price_amount": 4116,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=yfentz",
+      "scenarios": [
+        "couple",
+        "family",
+        "service"
+      ]
+    },
+    {
+      "row": 13,
+      "id": "priority-12",
+      "name": "AKRA HOTELS",
+      "category": 5,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/15869.jpg",
+      "price_source": "от 4672 BYN 1/2 DBL",
+      "price_amount": 4672,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=om7d7i",
+      "scenarios": [
+        "discover",
+        "couple",
+        "friends"
+      ]
+    },
+    {
+      "row": 14,
+      "id": "priority-13",
+      "name": "NG PHASELIS BAY",
+      "category": 5,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/74503.jpg",
+      "price_source": "от 7465 BYN 1/2 DBL",
+      "price_amount": 7465,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=srb9p1",
+      "scenarios": [
+        "service",
+        "family",
+        "couple"
+      ]
+    },
+    {
+      "row": 15,
+      "id": "priority-14",
+      "name": "RIXOS HOTELS",
+      "category": 5,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1563.jpg",
+      "price_source": "от 4919 BYN 1/2 DBL",
+      "price_amount": 4919,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=csnnli",
+      "scenarios": [
+        "friends",
+        "family",
+        "service"
+      ]
+    },
+    {
+      "row": 16,
+      "id": "priority-15",
+      "name": "SANDY BEACH",
+      "category": 4,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/17614.jpg",
+      "price_source": "цена на просчете",
+      "price_amount": null,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=ca2qu6",
+      "scenarios": [
+        "discover",
+        "couple"
+      ]
+    },
+    {
+      "row": 17,
+      "id": "priority-16",
+      "name": "BOSPHORUS SORGUN",
+      "category": 5,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/52925.jpg",
+      "price_source": "цена на просчете",
+      "price_amount": null,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=cfo367",
+      "scenarios": [
+        "discover",
+        "friends",
+        "couple"
+      ]
+    },
+    {
+      "row": 18,
+      "id": "priority-17",
+      "name": "PINE HOUSE",
+      "category": 4,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1432.jpg",
+      "price_source": "от 2990 BYN 1/2 DBL",
+      "price_amount": 2990,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=14ytbv",
+      "scenarios": [
+        "couple",
+        "discover"
+      ]
+    },
+    {
+      "row": 19,
+      "id": "priority-18",
+      "name": "CAMYUVA BEACH",
+      "category": 4,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1250.jpg",
+      "price_source": "цена на просчете",
+      "price_amount": null,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=wa6rm9",
+      "scenarios": [
+        "discover",
+        "couple"
+      ]
+    },
+    {
+      "row": 20,
+      "id": "priority-19",
+      "name": "SAILORS HOTEL",
+      "category": 5,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1467.jpg",
+      "price_source": "цена на просчете",
+      "price_amount": null,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=z6hq1f",
+      "scenarios": [
+        "friends",
+        "family"
+      ]
+    },
+    {
+      "row": 21,
+      "id": "priority-20",
+      "name": "MY LOME HOTEL",
+      "category": 5,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/70455.jpg",
+      "price_source": "от 4380 BYN 1/2 DBL",
+      "price_amount": 4380,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=liio84",
+      "scenarios": [
+        "friends",
+        "family",
+        "service"
+      ]
+    },
+    {
+      "row": 22,
+      "id": "priority-21",
+      "name": "LONICERA HOTELS",
+      "category": 5,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1344.jpg",
+      "price_source": "от 3330 BYN 1/2 DBL",
+      "price_amount": 3330,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=aa8mc9",
+      "scenarios": [
+        "family",
+        "friends"
+      ]
+    },
+    {
+      "row": 23,
+      "id": "priority-22",
+      "name": "LIU RESORT",
+      "category": 5,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/76588.jpg",
+      "price_source": "от 8990 BYN 1/2 DBL",
+      "price_amount": 8990,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=821w0f",
+      "scenarios": [
+        "couple",
+        "service"
+      ]
+    },
+    {
+      "row": 24,
+      "id": "priority-23",
+      "name": "KILIKYA HOTELS",
+      "category": 5,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1295.jpg",
+      "price_source": "цена на просчете",
+      "price_amount": null,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=feufes",
+      "scenarios": [
+        "family",
+        "couple",
+        "discover"
+      ]
+    },
+    {
+      "row": 25,
+      "id": "priority-24",
+      "name": "CLUB MARCO POLO",
+      "category": 5,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1111.jpg",
+      "price_source": "от 4479 BYN 1/2 DBL",
+      "price_amount": 4479,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=1j8inv",
+      "scenarios": [
+        "friends",
+        "family"
+      ]
+    },
+    {
+      "row": 26,
+      "id": "priority-25",
+      "name": "RAI PREMIUM TEKIROVA",
+      "category": 5,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1439.jpg",
+      "price_source": "цена на просчете",
+      "price_amount": null,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=alrp0b",
+      "scenarios": [
+        "family",
+        "friends",
+        "discover"
+      ]
+    },
+    {
+      "row": 27,
+      "id": "priority-26",
+      "name": "IC HOTELS",
+      "category": 5,
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1260.jpg",
+      "price_source": "цена на просчете",
+      "price_amount": null,
+      "currency": "BYN",
+      "basis": "1/2 DBL",
+      "selection_url": "https://datatour.by/?tvsearch=jtbyuf",
+      "scenarios": [
+        "family",
+        "couple",
+        "service"
+      ]
+    }
+  ],
+  "user_corrections": [
+    {
+      "hotel_id": "priority-12",
+      "field": "image",
+      "original": "https://static.tourvisor.ru/hotel_pics/main400/1291.jpg",
+      "value": "https://static.tourvisor.ru/hotel_pics/main400/15869.jpg",
+      "date": "2026-10-16",
+      "source": "User reply after XLSX import"
+    }
+  ]
+}

@@ -118,7 +118,7 @@
 /* 07 — HOTELS */
 #dt-bf26 .dt-hotels-head{margin-bottom:26px}
 #dt-bf26 .dt-count-label{font-size:13px;color:var(--dt-muted);white-space:nowrap}
-#dt-bf26 .dt-filter-bar{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;padding:20px 0 24px;border-top:1px solid var(--dt-line);border-bottom:1px solid var(--dt-line);margin-bottom:28px}
+#dt-bf26 .dt-filter-bar{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;padding:20px 0 24px;border-top:0;border-bottom:1px solid var(--dt-line);margin-bottom:28px}
 #dt-bf26 .dt-filter-label{display:block;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--dt-muted);margin-bottom:9px}
 #dt-bf26 .dt-budget{display:flex;flex-wrap:wrap;gap:6px}
 #dt-bf26 .dt-budget button{min-height:42px;padding:10px 15px;border:1px solid var(--dt-line);font-size:13px;background:var(--dt-white);color:var(--dt-ink);border-radius:8px}
@@ -568,3 +568,20 @@
 #dt-bf26 .dt-hero{overflow:visible}
 #dt-bf26 .dt-hotel-body .dt-hotel-region{font-size:14px;line-height:1.4;color:#52665b;margin-top:7px}
 #dt-bf26 .dt-hotel-link{font-size:14px;line-height:1.5;text-decoration:underline;text-underline-offset:3px;display:inline-block;margin-top:10px;color:#375d53}
+
+/* Hotel catalogue: values and URLs from the supplied XLSX. */
+#dt-bf26 .dt-hotel-body .dt-hotel-scenario{font-size:13px;line-height:1.4;color:#375d53;background:#edf3e4;padding:6px 9px;border-radius:8px;align-self:flex-start;margin-top:12px}
+#dt-bf26 .dt-hotel-bottom{margin-top:auto;padding-top:18px}
+#dt-bf26 .dt-hotel-price{min-height:56px;font-size:24px;line-height:1.25;letter-spacing:-.02em;color:var(--dt-ink)}
+#dt-bf26 .dt-hotel-price[data-price-status="pending"]{font-size:20px;line-height:1.4}
+#dt-bf26 .dt-hotel-price-basis{display:block;font-size:13px;line-height:1.5;color:var(--dt-muted);margin-top:4px}
+#dt-bf26 .dt-hotel-bottom .dt-action{margin-top:16px}
+#dt-bf26 .dt-hotel-offer-link{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;text-align:center;font-size:15px;line-height:1.5;color:#375d53;text-decoration:underline;text-underline-offset:3px}
+#dt-bf26 .dt-hotel-offer-link svg{width:16px;height:16px;flex:none}
+#dt-bf26 .dt-hotel-price-notes{margin-top:22px;max-width:960px}
+#dt-bf26 .dt-hotel-price-notes p{font-size:15px;line-height:1.65;color:#52635d;margin:8px 0}
+#dt-bf26 .dt-hotel-offer-note{display:grid;grid-template-columns:28px 1fr;gap:18px;margin-top:28px;padding:26px 28px;border-radius:16px;background:#e8f2cc;border:1px solid #cedba7;color:var(--dt-ink)}
+#dt-bf26 .dt-hotel-offer-note .dt-icon{color:#375d53}
+#dt-bf26 .dt-hotel-offer-note h3{font-size:25px;line-height:1.3}
+#dt-bf26 .dt-hotel-offer-note p{font-size:17px;line-height:1.65;margin-top:12px}
+@media(max-width:600px){#dt-bf26 .dt-hotel-offer-note{padding:22px 18px;gap:12px}#dt-bf26 .dt-hotel-offer-note h3{font-size:22px}#dt-bf26 .dt-hotel-offer-note p{font-size:16px}#dt-bf26 .dt-hotel-price-notes p{font-size:14px}}

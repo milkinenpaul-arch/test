@@ -1,5 +1,5 @@
 {
-  "version": "2.0.2",
+  "version": "2.1.0",
   "page_slug": "black-friday-2026",
   "recipient": "datatour78@mail.ru",
   "campaign": {
@@ -18,7 +18,18 @@
       "description": "Премиальный отпуск в Белеке для тех, кто ценит красивую обстановку и внимание к деталям. Выберите Regnum для особенной поездки вдвоём или долгожданного отдыха всей семьёй.",
       "region": "Турция · сеть отелей",
       "image": "https://static.tourvisor.ru/hotel_pics/main400/123374.jpg",
-      "imageAlt": "REGNUM HOTELS — фотография отеля"
+      "imageAlt": "REGNUM HOTELS — фотография отеля",
+      "scenarios": [
+        "service",
+        "family",
+        "couple"
+      ],
+      "priceStatus": "priced",
+      "priceAmount": 8900,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "от 8900 BYN 1/2 DBL",
+      "selectionUrl": "https://datatour.by/?tvsearch=c9q70j"
     },
     {
       "id": "priority-2",
@@ -26,7 +37,20 @@
       "category": 5,
       "group": 1,
       "description": "Современный курорт Белека с выразительным стилем. Для отпуска, в котором хочется сменить привычный ритм, наслаждаться морем и уделять больше времени себе и близким.",
-      "region": "Белек"
+      "region": "Белек",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/78251.jpg",
+      "imageAlt": "CULLINAN HOTEL — фотография отеля",
+      "scenarios": [
+        "service",
+        "family",
+        "couple"
+      ],
+      "priceStatus": "priced",
+      "priceAmount": 11354,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "от 11354 BYN 1/2 DBL",
+      "selectionUrl": "https://datatour.by/?tvsearch=36n35l"
     },
     {
       "id": "priority-3",
@@ -34,7 +58,20 @@
       "category": 5,
       "group": 1,
       "description": "Свежий взгляд на отдых в Белеке: современная эстетика и курортное настроение. Выбор для тех, кому важны впечатления, красивая обстановка и удовольствие от каждой детали.",
-      "region": "Белек"
+      "region": "Белек",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/109786.jpg",
+      "imageAlt": "ETHNO HOTEL — фотография отеля",
+      "scenarios": [
+        "service",
+        "couple",
+        "friends"
+      ],
+      "priceStatus": "priced",
+      "priceAmount": 7990,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "от 7990 BYN 1/2 DBL",
+      "selectionUrl": "https://datatour.by/?tvsearch=t5r1ae"
     },
     {
       "id": "priority-4",
@@ -42,7 +79,20 @@
       "category": 5,
       "group": 1,
       "description": "Классика отдыха в Белеке для поездки с семьёй или вдвоём. Рассмотрите Gloria, если хотите наполнить отпуск морем, прогулками и временем для любимых занятий.",
-      "region": "Белек · сеть отелей"
+      "region": "Белек · сеть отелей",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1201.jpg",
+      "imageAlt": "GLORIA HOTELS — фотография отеля",
+      "scenarios": [
+        "family",
+        "couple",
+        "service"
+      ],
+      "priceStatus": "priced",
+      "priceAmount": 6073,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "от 6073 BYN 1/2 DBL",
+      "selectionUrl": "https://datatour.by/?tvsearch=1n4ie8"
     },
     {
       "id": "priority-5",
@@ -50,7 +100,19 @@
       "category": 5,
       "group": 1,
       "description": "Семейный отпуск в Белеке с премиальным настроением. Для поездки, в которой хочется совместить радость детей, время для себя и долгие дни у моря.",
-      "region": "Белек"
+      "region": "Белек",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1165.jpg",
+      "imageAlt": "ELA EXCELLENCE — фотография отеля",
+      "scenarios": [
+        "family",
+        "service"
+      ],
+      "priceStatus": "priced",
+      "priceAmount": 6678,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "от 6678 BYN 1/2 DBL",
+      "selectionUrl": "https://datatour.by/?tvsearch=2o08j3"
     },
     {
       "id": "priority-6",
@@ -58,7 +120,19 @@
       "category": 5,
       "group": 1,
       "description": "Выразительная архитектура и атмосфера турецкого курорта. Gural — идея для насыщенного семейного отпуска, где хочется чередовать расслабленный отдых и новые впечатления.",
-      "region": "Турция · сеть отелей"
+      "region": "Турция · сеть отелей",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1074.jpg",
+      "imageAlt": "GURAL HOTELS — фотография отеля",
+      "scenarios": [
+        "family",
+        "friends"
+      ],
+      "priceStatus": "priced",
+      "priceAmount": 5290,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "от 5290 BYN 1/2 DBL",
+      "selectionUrl": "https://datatour.by/?tvsearch=qd72k4"
     },
     {
       "id": "priority-7",
@@ -66,7 +140,20 @@
       "category": 5,
       "group": 1,
       "description": "Подберите свой формат отдыха в сети Kaya: от спокойной поездки вдвоём до семейного путешествия. Вариант для тех, кто хочет совместить курортное настроение и привычный комфорт.",
-      "region": "Турция · сеть отелей"
+      "region": "Турция · сеть отелей",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/15904.jpg",
+      "imageAlt": "KAYA HOTELS — фотография отеля",
+      "scenarios": [
+        "family",
+        "couple",
+        "service"
+      ],
+      "priceStatus": "priced",
+      "priceAmount": 6796,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "от 6796 BYN 1/2 DBL",
+      "selectionUrl": "https://datatour.by/?tvsearch=d9mlgw"
     },
     {
       "id": "priority-8",
@@ -74,7 +161,19 @@
       "category": 5,
       "group": 1,
       "description": "Узнаваемая архитектура и атмосфера Белека для красивого отпуска. Calista подойдёт тем, кто хочет добавить поездке ощущение особенного события и провести больше времени вместе.",
-      "region": "Белек"
+      "region": "Белек",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1065.jpg",
+      "imageAlt": "CALISTA LUXURY — фотография отеля",
+      "scenarios": [
+        "service",
+        "couple"
+      ],
+      "priceStatus": "priced",
+      "priceAmount": 7408,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "от 7408 BYN 1/2 DBL",
+      "selectionUrl": "https://datatour.by/?tvsearch=brgaa6"
     },
     {
       "id": "priority-9",
@@ -82,7 +181,20 @@
       "category": 5,
       "group": 1,
       "description": "Отпуск, в котором у каждого свой любимый ритм: море, отдых и время с близкими. В сети Voyage выберем отель под вашу компанию и настроение предстоящей поездки.",
-      "region": "Турция · сеть отелей"
+      "region": "Турция · сеть отелей",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1582.jpg",
+      "imageAlt": "VOYAGE HOTELS — фотография отеля",
+      "scenarios": [
+        "family",
+        "friends",
+        "service"
+      ],
+      "priceStatus": "priced",
+      "priceAmount": 5969,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "от 5969 BYN 1/2 DBL",
+      "selectionUrl": "https://datatour.by/?tvsearch=4op4ms"
     },
     {
       "id": "priority-10",
@@ -90,7 +202,20 @@
       "category": 5,
       "group": 1,
       "description": "Когда хочется превратить долгожданный отпуск в особенное путешествие. Maxx Royal — выбор для тех, кто ставит на первое место премиальный формат и удовольствие от отдыха.",
-      "region": "Турция · сеть отелей"
+      "region": "Турция · сеть отелей",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/3405.jpg",
+      "imageAlt": "MAXX ROYAL — фотография отеля",
+      "scenarios": [
+        "service",
+        "couple",
+        "family"
+      ],
+      "priceStatus": "priced",
+      "priceAmount": 9354,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "от 9354 BYN 1/2 DBL",
+      "selectionUrl": "https://datatour.by/?tvsearch=db2lfs"
     },
     {
       "id": "priority-11",
@@ -98,7 +223,20 @@
       "category": 5,
       "group": 1,
       "description": "Для тех, кто выбирает отпуск со вкусом и вниманием к деталям. Среди отелей Barut подберём подходящую атмосферу для пары, семьи или поездки с друзьями.",
-      "region": "Турция · сеть отелей"
+      "region": "Турция · сеть отелей",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1291.jpg",
+      "imageAlt": "BARUT HOTELS — фотография отеля",
+      "scenarios": [
+        "couple",
+        "family",
+        "service"
+      ],
+      "priceStatus": "priced",
+      "priceAmount": 4116,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "от 4116 BYN 1/2 DBL",
+      "selectionUrl": "https://datatour.by/?tvsearch=yfentz"
     },
     {
       "id": "priority-12",
@@ -106,7 +244,20 @@
       "category": 5,
       "group": 1,
       "description": "Городские впечатления или курортный ритм — у Akra есть разные форматы путешествий. Выберите настроение поездки, а мы поможем найти подходящий отель сети.",
-      "region": "Турция · сеть отелей"
+      "region": "Турция · сеть отелей",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/15869.jpg",
+      "imageAlt": "AKRA HOTELS — фотография отеля",
+      "scenarios": [
+        "discover",
+        "couple",
+        "friends"
+      ],
+      "priceStatus": "priced",
+      "priceAmount": 4672,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "от 4672 BYN 1/2 DBL",
+      "selectionUrl": "https://datatour.by/?tvsearch=om7d7i"
     },
     {
       "id": "priority-13",
@@ -114,7 +265,20 @@
       "category": 5,
       "group": 1,
       "description": "Море и горные пейзажи Кемера задают настроение всей поездке. NG Phaselis Bay — идея для красивого отпуска, где хочется любоваться видами и никуда не спешить.",
-      "region": "Кемер"
+      "region": "Кемер",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/74503.jpg",
+      "imageAlt": "NG PHASELIS BAY — фотография отеля",
+      "scenarios": [
+        "service",
+        "family",
+        "couple"
+      ],
+      "priceStatus": "priced",
+      "priceAmount": 7465,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "от 7465 BYN 1/2 DBL",
+      "selectionUrl": "https://datatour.by/?tvsearch=srb9p1"
     },
     {
       "id": "priority-14",
@@ -122,7 +286,20 @@
       "category": 5,
       "group": 1,
       "description": "Для отпуска, который хочется наполнить событиями и яркими моментами. В сети Rixos выберем вариант под вашу компанию, чтобы поездка запомнилась каждому.",
-      "region": "Турция · сеть отелей"
+      "region": "Турция · сеть отелей",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1563.jpg",
+      "imageAlt": "RIXOS HOTELS — фотография отеля",
+      "scenarios": [
+        "friends",
+        "family",
+        "service"
+      ],
+      "priceStatus": "priced",
+      "priceAmount": 4919,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "от 4919 BYN 1/2 DBL",
+      "selectionUrl": "https://datatour.by/?tvsearch=csnnli"
     },
     {
       "id": "priority-15",
@@ -130,7 +307,19 @@
       "category": 4,
       "group": 2,
       "description": "Пляжные дни и знакомство с Сиде в одной поездке. Sandy Beach — вариант для тех, кто хочет чередовать отдых у моря с прогулками и впечатлениями за пределами отеля.",
-      "region": "Сиде"
+      "region": "Сиде",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/17614.jpg",
+      "imageAlt": "SANDY BEACH — фотография отеля",
+      "scenarios": [
+        "discover",
+        "couple"
+      ],
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "цена на просчете",
+      "selectionUrl": "https://datatour.by/?tvsearch=ca2qu6"
     },
     {
       "id": "priority-16",
@@ -138,7 +327,20 @@
       "category": 5,
       "group": 2,
       "description": "Современная архитектура делает Bosphorus Sorgun узнаваемым с первого взгляда. Для тех, кто ищет отпуск с характером и хочет добавить к морю новые впечатления от Сиде.",
-      "region": "Сиде"
+      "region": "Сиде",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/52925.jpg",
+      "imageAlt": "BOSPHORUS SORGUN — фотография отеля",
+      "scenarios": [
+        "discover",
+        "friends",
+        "couple"
+      ],
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "цена на просчете",
+      "selectionUrl": "https://datatour.by/?tvsearch=cfo367"
     },
     {
       "id": "priority-17",
@@ -146,7 +348,19 @@
       "category": 4,
       "group": 2,
       "description": "Курортное настроение Чамьювы на фоне горных пейзажей Кемера. Pine House — идея для спокойного отпуска, в котором хочется гулять, отдыхать и больше времени проводить вместе.",
-      "region": "Чамьюва, Кемер"
+      "region": "Чамьюва, Кемер",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1432.jpg",
+      "imageAlt": "PINE HOUSE — фотография отеля",
+      "scenarios": [
+        "couple",
+        "discover"
+      ],
+      "priceStatus": "priced",
+      "priceAmount": 2990,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "от 2990 BYN 1/2 DBL",
+      "selectionUrl": "https://datatour.by/?tvsearch=14ytbv"
     },
     {
       "id": "priority-18",
@@ -154,7 +368,19 @@
       "category": 4,
       "group": 2,
       "description": "Море, горные виды и неторопливый ритм Чамьювы. Рассмотрите Camyuva Beach для отпуска, в котором главное — сменить обстановку и наслаждаться простыми летними радостями.",
-      "region": "Чамьюва, Кемер"
+      "region": "Чамьюва, Кемер",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1250.jpg",
+      "imageAlt": "CAMYUVA BEACH — фотография отеля",
+      "scenarios": [
+        "discover",
+        "couple"
+      ],
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "цена на просчете",
+      "selectionUrl": "https://datatour.by/?tvsearch=wa6rm9"
     },
     {
       "id": "priority-19",
@@ -162,7 +388,19 @@
       "category": 5,
       "group": 2,
       "description": "Для отпуска с семьёй или друзьями, который хочется наполнить общими впечатлениями. Рассмотрите Sailors, если любите сочетать пляжное настроение и насыщенные дни.",
-      "region": "Турция"
+      "region": "Турция",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1467.jpg",
+      "imageAlt": "SAILORS HOTEL — фотография отеля",
+      "scenarios": [
+        "friends",
+        "family"
+      ],
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "цена на просчете",
+      "selectionUrl": "https://datatour.by/?tvsearch=z6hq1f"
     },
     {
       "id": "priority-20",
@@ -170,7 +408,20 @@
       "category": 5,
       "group": 2,
       "description": "Современный курортный стиль на побережье Аланьи. Mylome — вариант для тех, кто выбирает красивую обстановку и хочет провести отпуск с ощущением маленького праздника.",
-      "region": "Аланья"
+      "region": "Аланья",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/70455.jpg",
+      "imageAlt": "MY LOME HOTEL — фотография отеля",
+      "scenarios": [
+        "friends",
+        "family",
+        "service"
+      ],
+      "priceStatus": "priced",
+      "priceAmount": 4380,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "от 4380 BYN 1/2 DBL",
+      "selectionUrl": "https://datatour.by/?tvsearch=liio84"
     },
     {
       "id": "priority-21",
@@ -178,11 +429,19 @@
       "category": 5,
       "group": 2,
       "description": "Семейное путешествие на побережье Аланьи, где каждый день можно провести по-своему. В сети Lonicera выберем отель под состав вашей компании и привычный ритм отдыха.",
-      "image": "hotels/lonicera-world-resort.jpg",
-      "imageAlt": "Комплекс Lonicera World Resort: корпуса и бассейны, архив Datatour",
-      "imageLabel": "На фото: Lonicera World Resort · архив Datatour",
-      "hotelUrl": "https://sales.datatour.by/lonicera-world-resort/",
-      "region": "Аланья"
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1344.jpg",
+      "imageAlt": "LONICERA HOTELS — фотография отеля",
+      "region": "Аланья",
+      "scenarios": [
+        "family",
+        "friends"
+      ],
+      "priceStatus": "priced",
+      "priceAmount": 3330,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "от 3330 BYN 1/2 DBL",
+      "selectionUrl": "https://datatour.by/?tvsearch=aa8mc9"
     },
     {
       "id": "priority-22",
@@ -190,7 +449,19 @@
       "category": 5,
       "group": 2,
       "description": "Современная эстетика и расслабленное настроение отдыха в Сиде. LIU Resort — идея для поездки, в которой хочется красивых кадров, морского воздуха и времени для себя.",
-      "region": "Сиде"
+      "region": "Сиде",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/76588.jpg",
+      "imageAlt": "LIU RESORT — фотография отеля",
+      "scenarios": [
+        "couple",
+        "service"
+      ],
+      "priceStatus": "priced",
+      "priceAmount": 8990,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "от 8990 BYN 1/2 DBL",
+      "selectionUrl": "https://datatour.by/?tvsearch=821w0f"
     },
     {
       "id": "priority-23",
@@ -198,7 +469,20 @@
       "category": 5,
       "group": 2,
       "description": "Выберите свой отпуск на побережье Кемера: спокойный вдвоём или насыщенный всей семьёй. Среди отелей Kilikya подберём вариант под ваши ожидания от поездки.",
-      "region": "Кемер · сеть отелей"
+      "region": "Кемер · сеть отелей",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1295.jpg",
+      "imageAlt": "KILIKYA HOTELS — фотография отеля",
+      "scenarios": [
+        "family",
+        "couple",
+        "discover"
+      ],
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "цена на просчете",
+      "selectionUrl": "https://datatour.by/?tvsearch=feufes"
     },
     {
       "id": "priority-24",
@@ -206,7 +490,19 @@
       "category": 5,
       "group": 2,
       "description": "Клубный формат и летние пейзажи Кемера для отпуска в хорошей компании. Club Marco Polo — идея для тех, кто любит чередовать расслабленный отдых и активные впечатления.",
-      "region": "Кемер"
+      "region": "Кемер",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1111.jpg",
+      "imageAlt": "CLUB MARCO POLO — фотография отеля",
+      "scenarios": [
+        "friends",
+        "family"
+      ],
+      "priceStatus": "priced",
+      "priceAmount": 4479,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "от 4479 BYN 1/2 DBL",
+      "selectionUrl": "https://datatour.by/?tvsearch=1j8inv"
     },
     {
       "id": "priority-25",
@@ -214,7 +510,20 @@
       "category": 5,
       "group": 2,
       "description": "Пейзажи Текировы, море и горное окружение для долгожданной перезагрузки. Rai Premium Tekirova — вариант для поездки, которую хочется посвятить себе и близким.",
-      "region": "Текирова, Кемер"
+      "region": "Текирова, Кемер",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1439.jpg",
+      "imageAlt": "RAI PREMIUM TEKIROVA — фотография отеля",
+      "scenarios": [
+        "family",
+        "friends",
+        "discover"
+      ],
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "цена на просчете",
+      "selectionUrl": "https://datatour.by/?tvsearch=alrp0b"
     },
     {
       "id": "priority-26",
@@ -222,7 +531,20 @@
       "category": 5,
       "group": 2,
       "description": "Семейный отпуск или путешествие вдвоём — подберём подходящий вариант IC Hotels. Для тех, кто хочет продумать поездку заранее и выбрать отдых под свой ритм.",
-      "region": "Турция · сеть отелей"
+      "region": "Турция · сеть отелей",
+      "image": "https://static.tourvisor.ru/hotel_pics/main400/1260.jpg",
+      "imageAlt": "IC HOTELS — фотография отеля",
+      "scenarios": [
+        "family",
+        "couple",
+        "service"
+      ],
+      "priceStatus": "pending",
+      "priceAmount": null,
+      "priceCurrency": "BYN",
+      "priceBasis": "1/2 DBL",
+      "priceSourceLabel": "цена на просчете",
+      "selectionUrl": "https://datatour.by/?tvsearch=jtbyuf"
     }
   ],
   "reviews": [
@@ -315,5 +637,13 @@
       "image": "scenarios/resort.jpg",
       "alt": "Вечерняя зона отдыха у бассейна"
     }
-  ]
+  ],
+  "hotel_catalogue": {
+    "source_file": "Отели ЧП.xlsx",
+    "source_sha256": "6b7c9b815dae9856b85fab32799bf20362d116657a8b3de61d404f438627a630",
+    "updated_on": "2026-10-16",
+    "priced_count": 19,
+    "pending_count": 7,
+    "pending_placement": "second-page"
+  }
 }

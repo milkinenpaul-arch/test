@@ -1,6 +1,7 @@
 const fs=require('node:fs'),http=require('node:http'),path=require('node:path');
 const assert=require('node:assert/strict');const {chromium}=require('playwright');
 const root=path.resolve(__dirname,'..');
+const catalogue=JSON.parse(fs.readFileSync(path.join(root,'datatour-bf26-config.json'),'utf8')).priority_hotels;
 (async()=>{
  const server=http.createServer((req,res)=>{
   const target=path.join(root,decodeURIComponent(req.url.split('?')[0]));
@@ -30,6 +31,8 @@ const root=path.resolve(__dirname,'..');
   });
   await context.route(/^https?:\/\/tourvisor\.ru\/module\/init\.js$/,async route=>{tourvisorLoads++;await route.fulfill({contentType:'application/javascript',body:'document.querySelector("#dt-tourvisor-container .tv-search-form").innerHTML="<label>Lifecycle fixture<input type=search></label><button>Search fixture</button>";'});});
   await context.route('https://yandex.by/map-widget/**',route=>{mapLoads++;return route.fulfill({contentType:'text/html',body:'Map lifecycle fixture'});});
+  // Layout fixture only: the executor cannot reach the external photo CDN.
+  await context.route(/^https:\/\/static\.tourvisor\.ru\/hotel_pics\/main400\/\d+\.jpg$/,route=>route.fulfill({contentType:'image/jpeg',body:fs.readFileSync(path.join(root,'assets/hotels/lonicera-world-resort.jpg'))}));
   await page.goto(origin+'/datatour-bf26-preview.html',{waitUntil:'networkidle'});
   await page.locator('#dt-cookie-banner').evaluate(el=>el.hidden=true);
   for(const [width,height] of [[1366,768],[1440,900]]){
@@ -49,14 +52,44 @@ const root=path.resolve(__dirname,'..');
   for(const photo of await page.locator('[data-scenario-set=summer] .dt-scenario-photo img').all()){await photo.scrollIntoViewIfNeeded();await photo.evaluate(el=>el.decode());assert.ok(await photo.evaluate(el=>el.naturalWidth>0));}
   assert.equal(await page.locator('.dt-process-start .dt-step-bottom').count(),0);assert.equal(await page.locator('.dt-process-end .dt-row a').count(),2);
   assert.equal(await page.locator('.dt-post-media img').count(),3);passed('Short hero fits 1366×768 and 1440×900; five restored scenario photographs, four early-choice situations, open list, six arguments and seven FAQ');
-  assert.equal(await page.locator('[data-block]').count(),14);assert.equal(await page.locator('.dt-hotel-card').count(),25);assert.equal(await page.locator('[data-select-priority]').count(),26);passed('14 blocks after footer merge, 25 cards, all 26 priority positions');
+  assert.equal(await page.locator('[data-block]').count(),14);assert.equal(await page.locator('.dt-hotel-card').count(),26);assert.equal(await page.locator('[data-select-priority]').count(),26);passed('14 blocks after footer merge, 26 cards and all 26 priority positions');
   assert.equal(await page.locator('[data-budget],#dt-results').count(),0);assert.equal(await page.locator('#dt-hotel-footer > span').count(),0);
-  const descriptions=await page.locator('.dt-hotel-description').allTextContents();assert.equal(descriptions.length,25);assert.equal(new Set(descriptions).size,25);assert.ok(descriptions.every(text=>text.length>=90&&!text.includes('Цена и наличие')));
-  assert.ok((await page.locator('[data-select-hotel]').allTextContents()).every(text=>text==='Подобрать этот отель'));assert.equal(await page.locator('#dt-hotel-track a').count(),1);assert.equal(await page.locator('#dt-hotel-track a').getAttribute('href'),'https://sales.datatour.by/lonicera-world-resort/');
-  for(const id of ['priority-1','priority-21','priority-25']){await page.locator('[data-select-hotel="'+id+'"]').click();assert.equal(await page.locator('#dt-final-form input[name=hotelId]').inputValue(),id);}
-  const hotelPhoto=page.locator('[data-hotel="priority-21"] img');await hotelPhoto.scrollIntoViewIfNeeded();await hotelPhoto.evaluate(el=>el.decode());assert.ok(await hotelPhoto.evaluate(el=>el.naturalWidth>=1000));
-  assert.ok((await page.locator('[data-hotel="priority-21"] .dt-hotel-photo-label').textContent()).includes('Lonicera World Resort'));assert.equal(await page.locator('.dt-hotel-media img').count(),2);assert.equal(await page.locator('[data-hotel="priority-1"] img').getAttribute('src'),'https://static.tourvisor.ru/hotel_pics/main400/123374.jpg');
-  passed('25 distinct hotel descriptions, hotel selection buttons and parameter transfer, no price disclaimer, budget filter or position captions');
+  const descriptions=await page.locator('.dt-hotel-description').allTextContents();assert.equal(descriptions.length,26);assert.equal(new Set(descriptions).size,26);assert.ok(descriptions.every(text=>text.length>=90&&!text.includes('Цена и наличие')));
+  assert.ok((await page.locator('[data-select-hotel]').allTextContents()).every(text=>text==='Подобрать этот отель'));assert.equal(await page.locator('.dt-hotel-offer-link').count(),26);
+  assert.equal(await page.locator('.dt-hotel-card[data-price-status=priced]').count(),19);assert.equal(await page.locator('.dt-hotel-card[data-price-status=pending]').count(),7);
+  for(const h of catalogue){
+   const card=page.locator('[data-hotel="'+h.id+'"]');
+   assert.equal(await card.locator('img').getAttribute('src'),h.image);assert.equal(await card.locator('.dt-hotel-offer-link').getAttribute('href'),h.selectionUrl);
+   assert.equal(await card.locator('.dt-hotel-category').textContent(),h.category+'*');
+   const text=await card.locator('.dt-hotel-price').textContent();
+   if(h.priceStatus==='priced'){assert.ok(text.replace(/\s/g,'').includes(String(h.priceAmount)+'BYN'));assert.ok(text.includes('1/2 DBL'));}
+   else assert.equal(text,'Цена на просчёте');
+  }
+  assert.equal(await page.locator('[data-hotel="priority-12"] img').getAttribute('src'),'https://static.tourvisor.ru/hotel_pics/main400/15869.jpg');
+  assert.equal(await page.locator('#dt-hotels-title').textContent(),'Рекомендованные отели Турции');
+  assert.equal(await page.locator('#dt-hotels .dt-eyebrow').textContent(),'04 / ТОП отелей для раннего бронирования');
+  assert.equal(await page.locator('.dt-filter-bar').evaluate(el=>getComputedStyle(el).borderTopWidth),'0px');
+  assert.ok((await page.locator('.dt-hotel-price-notes').textContent()).includes('стоимость на 1 взрослого в двуместном номере'));
+  assert.ok((await page.locator('.dt-hotel-offer-note').textContent()).includes('Такие цены бывают один раз в году.'));
+  for(const [width,n] of [[1440,4],[1024,3],[768,2],[390,1]]){
+   await page.setViewportSize({width,height:1000});await page.waitForTimeout(100);
+   const ordered=await page.locator('.dt-hotel-card:not([hidden])').evaluateAll(els=>els.map(el=>({id:el.dataset.hotel,price:Number(el.dataset.price),status:el.dataset.priceStatus})));
+   const priced=ordered.filter(h=>h.status==='priced');assert.deepEqual(priced.map(h=>h.price),priced.map(h=>h.price).sort((a,b)=>a-b));
+   assert.deepEqual(ordered.slice(0,n).map(h=>h.id),priced.slice(0,n).map(h=>h.id));assert.ok(ordered.slice(n,n+7).every(h=>h.status==='pending'));
+   await page.locator('#dt-hotel-next').click();await page.waitForTimeout(650);
+   const first=await page.locator('#dt-hotel-track').evaluate(el=>{const left=el.getBoundingClientRect().left;return Array.from(el.children).find(c=>!c.hidden&&c.getBoundingClientRect().right>left+5)?.dataset.priceStatus;});assert.equal(first,'pending');
+   for(const scenario of ['family','couple','friends','discover','service']){
+    await page.locator('#dt-hotel-scenario').selectOption(scenario);await page.waitForTimeout(100);
+    const ids=await page.locator('.dt-hotel-card:not([hidden])').evaluateAll(els=>els.map(el=>el.dataset.hotel));
+    assert.deepEqual([...ids].sort(),catalogue.filter(h=>h.scenarios.includes(scenario)).map(h=>h.id).sort());
+    assert.ok(await page.locator('#dt-hotel-track').evaluate(el=>el.scrollLeft<=5));
+   }
+   await page.locator('#dt-hotel-scenario').selectOption('all');
+   await page.locator('#dt-hotels').scrollIntoViewIfNeeded();await page.screenshot({path:'/workspace/scratch/bf26-refresh/catalogue-image-fixture-'+width+'.png'});
+  }
+  await page.setViewportSize({width:1440,height:900});
+  for(const id of ['priority-1','priority-21','priority-25','priority-26']){await page.locator('[data-select-hotel="'+id+'"]').click();assert.equal(await page.locator('#dt-final-form input[name=hotelId]').inputValue(),id);}
+  passed('26 XLSX photos/prices/offer links, corrected AKRA photo, all scenario filters, first-page cheapest and second-page pending at four breakpoints (photo layout fixture)');
   assert.equal(await page.locator('#dt-trust').isVisible(),true);assert.equal(await page.locator('#dt-trust-title').textContent(),'Доверие к ДАТА ТУР');
   assert.equal(await page.locator('.dt-review-caption').count(),0);assert.equal(await page.locator('[data-review][aria-label]').count(),4);
   assert.equal((await page.locator('.dt-review-links').textContent()).trim(),'Больше отзывов в Яндекс и Гугл');
@@ -82,7 +115,7 @@ const root=path.resolve(__dirname,'..');
   passed('Centred logo and separate navigation; accessible social icons, geo icon and attached rotating phone chevron');
   assert.equal(await page.locator('.dt-phone-list a[href^="tel:"]').count(),4);passed('Sticky header, telephone links, keyboard/Escape and initially unchecked consent');
   await page.evaluate(()=>{window.recordedEvents=[];document.getElementById('dt-bf26').addEventListener('dtbf26:event',e=>window.recordedEvents.push(e.detail));});
-  await page.locator('#dt-hotel-season').selectOption('winter');assert.equal(await page.locator('#dt-empty').isVisible(),true);await page.locator('#dt-hotel-season').selectOption('summer');
+  await page.locator('#dt-hotel-season').selectOption('winter');assert.equal(await page.locator('.dt-hotel-price-notes').isVisible(),false);assert.equal(await page.locator('.dt-hotel-offer-note').isVisible(),false);assert.equal(await page.locator('#dt-empty').isVisible(),true);await page.locator('#dt-hotel-season').selectOption('summer');
   await page.locator('[data-scenario-set=summer] [data-scenario=family]').click();
   assert.equal(await page.locator('details.dt-priority').count(),0);await page.locator('[data-select-priority=priority-26]').click();
   assert.equal(await page.locator('#dt-final-form input[name=hotelLabel]').inputValue(),'IC HOTELS');assert.equal(await page.locator('#dt-quick-form input[name=hotelId]').inputValue(),'priority-26');
@@ -151,7 +184,7 @@ const root=path.resolve(__dirname,'..');
   await page.evaluate(()=>{Date.now=()=>new Date('2026-11-27T00:00:00+03:00').getTime();});await page.waitForFunction(()=>document.getElementById('dt-campaign-status').textContent==='Акция идёт');
   await page.evaluate(()=>{Date.now=()=>new Date('2026-11-29T23:59:59+03:00').getTime();});await page.waitForTimeout(1100);assert.equal(await page.locator('#dt-campaign-status').textContent(),'Акция идёт');
   await page.evaluate(()=>{Date.now=()=>new Date('2026-11-30T00:00:00+03:00').getTime();});await page.waitForFunction(()=>document.getElementById('dt-campaign-status').textContent==='Акция завершена');
-  assert.equal(await page.locator('[data-goal=booking]').count(),0);assert.equal(await page.locator('[data-active-offers]').isVisible(),false);assert.ok(!(await page.locator('#dt-h1').textContent()).includes('распродажи'));assert.ok(!(await page.locator('#dt-request-title').textContent()).includes('распродаже'));
+  assert.equal(await page.locator('[data-goal=booking]').count(),0);assert.ok((await page.locator('[data-active-offers],[data-campaign-copy]').evaluateAll(els=>els.every(el=>el.hidden))));assert.ok(!(await page.locator('#dt-h1').textContent()).includes('распродажи'));assert.ok(!(await page.locator('#dt-request-title').textContent()).includes('распродаже'));
   assert.ok((await page.locator('[data-time]').allTextContents()).every(v=>v==='00'));passed('Confirmed Minsk boundaries, automatic ending, no negative timer or expired booking CTA');
   assert.deepEqual(errors,[]);passed('No JavaScript errors in the component');
   const render=await context.newPage();await render.goto(origin+'/datatour-bf26-preview.html',{waitUntil:'networkidle'});await render.locator('[data-cookie-choice=necessary]').evaluate(el=>el.click());

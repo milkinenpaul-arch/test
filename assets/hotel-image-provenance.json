@@ -1,6 +1,193 @@
 {
-  "retrieved_on": "2026-10-15",
+  "updated_on": "2026-10-16",
+  "catalogue_source": "hotel-catalogue-source.json",
+  "verification": "Exact user-provided references; external CDN decoding not independently verified because the executor receives proxy CONNECT403.",
   "photos": [
+    {
+      "hotel_id": "priority-1",
+      "card_name": "REGNUM HOTELS",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/123374.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-2",
+      "card_name": "CULLINAN HOTEL",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/78251.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-3",
+      "card_name": "ETHNO HOTEL",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/109786.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-4",
+      "card_name": "GLORIA HOTELS",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/1201.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-5",
+      "card_name": "ELA EXCELLENCE",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/1165.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-6",
+      "card_name": "GURAL HOTELS",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/1074.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-7",
+      "card_name": "KAYA HOTELS",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/15904.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-8",
+      "card_name": "CALISTA LUXURY",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/1065.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-9",
+      "card_name": "VOYAGE HOTELS",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/1582.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-10",
+      "card_name": "MAXX ROYAL",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/3405.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-11",
+      "card_name": "BARUT HOTELS",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/1291.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-12",
+      "card_name": "AKRA HOTELS",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/15869.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-13",
+      "card_name": "NG PHASELIS BAY",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/74503.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-14",
+      "card_name": "RIXOS HOTELS",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/1563.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-15",
+      "card_name": "SANDY BEACH",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/17614.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-16",
+      "card_name": "BOSPHORUS SORGUN",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/52925.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-17",
+      "card_name": "PINE HOUSE",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/1432.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-18",
+      "card_name": "CAMYUVA BEACH",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/1250.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-19",
+      "card_name": "SAILORS HOTEL",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/1467.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-20",
+      "card_name": "MY LOME HOTEL",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/70455.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-21",
+      "card_name": "LONICERA HOTELS",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/1344.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-22",
+      "card_name": "LIU RESORT",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/76588.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-23",
+      "card_name": "KILIKYA HOTELS",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/1295.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-24",
+      "card_name": "CLUB MARCO POLO",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/1111.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-25",
+      "card_name": "RAI PREMIUM TEKIROVA",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/1439.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    },
+    {
+      "hotel_id": "priority-26",
+      "card_name": "IC HOTELS",
+      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/1260.jpg",
+      "source": "User XLSX; AKRA overridden by explicit user reply",
+      "delivery": "Direct external URL, unchanged"
+    }
+  ],
+  "pending_card_ids": [],
+  "legacy_unused_assets": [
     {
       "hotel_id": "priority-21",
       "card_name": "LONICERA HOTELS",
@@ -16,40 +203,6 @@
       "width": 1024,
       "height": 678,
       "verification": "Existing public Datatour attachment title identifies the complex; the building visibly bears the LONICERA name. Archive image, not claimed to depict all hotels in the network or current room/service details."
-    },
-    {
-      "hotel_id": "priority-1",
-      "card_name": "REGNUM HOTELS",
-      "image_url": "https://static.tourvisor.ru/hotel_pics/main400/123374.jpg",
-      "source": "Exact image URL provided by the user on 2026-10-15",
-      "delivery": "Direct external image URL in the card; no local copy",
-      "verification": "Hotel association supplied by the user. Source fetch and image decoding could not be checked in this executor: proxy CONNECT403. No image modification or invented replacement."
     }
-  ],
-  "pending_card_ids": [
-    "priority-2",
-    "priority-3",
-    "priority-4",
-    "priority-5",
-    "priority-6",
-    "priority-7",
-    "priority-8",
-    "priority-9",
-    "priority-10",
-    "priority-11",
-    "priority-12",
-    "priority-13",
-    "priority-14",
-    "priority-15",
-    "priority-16",
-    "priority-17",
-    "priority-18",
-    "priority-19",
-    "priority-20",
-    "priority-22",
-    "priority-23",
-    "priority-24",
-    "priority-25"
-  ],
-  "network_status": "Hotel domains are present in the published environment configuration, but the current executor still receives proxy CONNECT 403. Both standard and approved elevated execution were checked. No proxy bypass was used."
+  ]
 }
